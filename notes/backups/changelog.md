@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.3] Context Lock — Core system implemented (2025-10-16)
+**Описание:** Внедрён механизм фиксации и проверки контекста проекта.
+- Добавлен шаблон commit-сообщений.
+- Настроен pre-commit hook для валидации notes.
+- Реализован скрипт lock_version.sh для создания версий Context Lock.
+- Проверена работоспособность freeze/unfreeze.
+
+## [v1.3-test2] Context Lock — 2025-10-16
+**Описание:** Автоматическая фиксация состояния проекта.
+
 ## 2025-10-16
 ### [update] Notes System setup complete
 - Настроена система документации проекта.
@@ -12,6 +22,3 @@
 - initialized frontend and backend environments
 - created .env.example, .gitignore, LICENSE
 - verified directory structure
-## [v1.3-test] Context Lock — 2025-10-15
-**Описание:** Автоматическая фиксация состояния проекта.
-
