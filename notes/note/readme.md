@@ -31,3 +31,4 @@
   2. Выполни изменения → commit → push.
   3. Открой Pull Request → `dev` → `main`.
 - Каждый commit проходит автоматическую проверку (husky + lint-staged).
+
