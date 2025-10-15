@@ -22,6 +22,3 @@
 - initialized frontend and backend environments
 - created .env.example, .gitignore, LICENSE
 - verified directory structure
-## [v1.4-test] Context Lock — 2025-10-16
-**Описание:** Автоматическая фиксация состояния проекта.
-
