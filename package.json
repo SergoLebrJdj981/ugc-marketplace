@@ -1,0 +1,35 @@
+{
+  "name": "ugc_mp",
+  "version": "1.0.0",
+  "description": "UGC Marketplace — платформа, которая соединяет бренды с креаторами, UGC-создателями и амбассадорами. Проект нацелен на автоматизацию взаимодействия: бренды публикуют кампании, креаторы откликаются, создают контент, а система управляет оплатами, рейтингами и аналитикой.",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint --max-warnings=0 .",
+    "format": "prettier --check .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SergoLebrJdj981/ugc-marketplace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SergoLebrJdj981/ugc-marketplace/issues"
+  },
+  "homepage": "https://github.com/SergoLebrJdj981/ugc-marketplace#readme",
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^9.37.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.4",
+    "prettier": "^3.6.2"
+  }
+}

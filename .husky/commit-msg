@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+grep -E "^(feat|fix|chore|docs|refactor|test|version): .+" "$1" >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+  echo "❌ Commit message does not follow convention"
+  exit 1
+fi

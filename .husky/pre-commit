@@ -1,0 +1,16 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+./scripts/check_structure.sh || exit 1
+
+echo "🔍 Проверка целостности notes..."
+REQUIRED_FILES="project_plan.md tasks.md changelog.md readme.md"
+for file in $REQUIRED_FILES; do
+  if [ ! -s "notes/note/$file" ]; then
+    echo "❌ Ошибка: отсутствует или пустой файл $file."
+    exit 1
+  fi
+done
+echo "✅ Все notes-файлы проверены, продолжаем commit."
+
+npx lint-staged
