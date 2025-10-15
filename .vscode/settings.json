@@ -1,0 +1,10 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 500,
+  "files.watcherExclude": {
+    "**/notes/backups/**": true
+  },
+  "[markdown]": {
+    "editor.formatOnSave": true
+  }
+}
