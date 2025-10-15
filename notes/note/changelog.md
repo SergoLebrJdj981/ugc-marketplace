@@ -22,3 +22,9 @@
 - initialized frontend and backend environments
 - created .env.example, .gitignore, LICENSE
 - verified directory structure
+## [v1.4-testzip] Context Lock — archived (2025-10-16)
+**Описание:** Контекст проекта заархивирован в notes/backups/contextlock_v1.4-testzip_2025-10-16.zip
+
+## [v1.4-testzip] Context Lock — archived (2025-10-16)
+**Описание:** Контекст проекта заархивирован в notes/backups/contextlock_v1.4-testzip_2025-10-16.zip
+

@@ -4,22 +4,35 @@ DATE=$(date +%Y-%m-%d)
 BACKUP_DIR="notes/backups"
 
 if [ -z "$VERSION" ]; then
-    echo "❌ Укажите номер версии, например: ./scripts/lock_version.sh v1.3"
+    echo "❌ Укажите номер версии, например: ./scripts/lock_version.sh v1.4"
     exit 1
 fi
 
 echo "📦 Создание Context Lock $VERSION..."
 
 mkdir -p "$BACKUP_DIR"
-cp notes/note/*.md "$BACKUP_DIR"/
-echo "✅ Резервные копии notes созданы."
 
-echo "## [$VERSION] Context Lock — $(date +%Y-%m-%d)" >> notes/note/changelog.md
-echo "**Описание:** Автоматическая фиксация состояния проекта." >> notes/note/changelog.md
+# создаём zip-архив со всеми md-файлами
+ZIP_FILE="$BACKUP_DIR/contextlock_${VERSION}_${DATE}.zip"
+zip -r "$ZIP_FILE" notes/note/*.md > /dev/null
+
+if [ $? -eq 0 ]; then
+    echo "✅ Архив создан: $ZIP_FILE"
+else
+    echo "❌ Ошибка при создании архива."
+    exit 1
+fi
+
+# удаляем старые одиночные копии (старый формат)
+find "$BACKUP_DIR" -type f -name "*_2025-*.md" -delete
+
+# добавляем запись в changelog
+echo "## [$VERSION] Context Lock — archived ($DATE)" >> notes/note/changelog.md
+echo "**Описание:** Контекст проекта заархивирован в $ZIP_FILE" >> notes/note/changelog.md
 echo "" >> notes/note/changelog.md
 
 git add .
-git commit -m "[version] Context Lock $VERSION — Auto backup and verification"
+git commit -m "[version] Context Lock $VERSION — archived zip backup"
 git push origin main
 
-echo "🎯 Context Lock $VERSION успешно создан и зафиксирован."
+echo "🎯 Context Lock $VERSION успешно заархивирован и зафиксирован."
