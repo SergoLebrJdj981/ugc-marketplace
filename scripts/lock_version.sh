@@ -14,9 +14,7 @@ mkdir -p "$BACKUP_DIR"
 
 # создаём zip-архив со всеми md-файлами
 ZIP_FILE="$BACKUP_DIR/contextlock_${VERSION}_${DATE}.zip"
-zip -r "$ZIP_FILE" notes/note/*.md > /dev/null
-
-if [ $? -eq 0 ]; then
+if zip -r "$ZIP_FILE" notes/note/*.md > /dev/null; then
     echo "✅ Архив создан: $ZIP_FILE"
 else
     echo "❌ Ошибка при создании архива."
@@ -24,7 +22,7 @@ else
 fi
 
 # удаляем старые одиночные копии (старый формат)
-find "$BACKUP_DIR" -type f -name "*_2025-*.md" -delete
+find "$BACKUP_DIR" -type f \( -name "*_2025-*.md" -o -name "*.md" \) -delete
 
 # добавляем запись в changelog
 echo "## [$VERSION] Context Lock — archived ($DATE)" >> notes/note/changelog.md

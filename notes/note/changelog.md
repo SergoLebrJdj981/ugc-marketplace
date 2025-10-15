@@ -1,5 +1,20 @@
 # Changelog
 
+## [v1.4] Context Lock — Zip archive optimization (2025-10-16)
+**Описание:** Механизм Context Lock оптимизирован. Теперь каждая версия хранится в одном архиве (.zip).
+
+### Выполнено
+- Обновлён скрипт lock_version.sh.
+- Удалён механизм множественного копирования файлов.
+- Создание zip-архива для каждой версии.
+- Changelog автоматически фиксирует заархивированные версии.
+
+**Результат:**  
+Context Lock стал компактнее и безопаснее. Архивы версий хранятся в /notes/backups/.
+
+## [v1.4-testzip] Context Lock — archived (2025-10-16)
+**Описание:** Контекст проекта заархивирован в notes/backups/contextlock_v1.4-testzip_2025-10-16.zip.
+
 ## [v1.3] Context Lock — Core system implemented (2025-10-16)
 **Описание:** Внедрён механизм фиксации и проверки контекста проекта.
 - Добавлен шаблон commit-сообщений.
@@ -22,9 +37,3 @@
 - initialized frontend and backend environments
 - created .env.example, .gitignore, LICENSE
 - verified directory structure
-## [v1.4-testzip] Context Lock — archived (2025-10-16)
-**Описание:** Контекст проекта заархивирован в notes/backups/contextlock_v1.4-testzip_2025-10-16.zip
-
-## [v1.4-testzip] Context Lock — archived (2025-10-16)
-**Описание:** Контекст проекта заархивирован в notes/backups/contextlock_v1.4-testzip_2025-10-16.zip
-
