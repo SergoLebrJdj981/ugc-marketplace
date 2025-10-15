@@ -1,8 +1,10 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+cd -- "$(dirname "$0")/.." || exit 1
 
-grep -E "^(feat|fix|chore|docs|refactor|test|version): .+" "$1" >/dev/null 2>&1
-if [ $? -ne 0 ]; then
-  echo "❌ Commit message does not follow convention"
-  exit 1
-fi
+message=$(cat "$1")
+
+echo "$message" | grep -E "^\[version\] .+" >/dev/null 2>&1 && exit 0
+echo "$message" | grep -E "^(feat|fix|chore|docs|refactor|test|version): .+" >/dev/null 2>&1 && exit 0
+
+echo "❌ Commit message does not follow convention"
+exit 1

@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.6] Git Workflow and Dev Environment setup (2025-10-17)
+**Описание:** Настроена система ветвления и commit-конвенций, интегрирована среда Git с VS Code и Codex.
+- Добавлены ветки main / dev / feature.
+- Настроены husky и lint-staged.
+- Обновлён readme.md с разделом Git Workflow.
+- Обновлены changelog и tasks.
+
+**Результат:**  
+Context Lock v1.6 установлен. Система Git полностью интегрирована и стандартизирована.
+
 ## [v1.5] Project Structure Control implemented (2025-10-16)
 **Описание:** Настроен скрипт проверки и восстановления структуры директорий.
 - Добавлен скрипт check_structure.sh.

@@ -1,5 +1,5 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+cd -- "$(dirname "$0")/.." || exit 1
 
 ./scripts/check_structure.sh || exit 1
 

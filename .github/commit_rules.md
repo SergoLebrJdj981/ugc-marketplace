@@ -3,6 +3,8 @@
 ## Формат сообщения:
 <type>: <описание>
 
+> Для Context Lock допускается альтернативный формат: `[version] Описание изменений`.
+
 ### Основные типы:
 - feat: добавление новой функции
 - fix: исправление ошибки
@@ -12,5 +14,6 @@
 - test: тесты и отладка
 - version: обновления Context Lock
 
-**Пример:**
-feat: add database migration for Campaign entity
+**Примеры:**
+- `feat: add database migration for Campaign entity`
+- `[version] Context Lock v1.6 — Git workflow established`

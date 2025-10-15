@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "299482807d132d7c",
+        "id": "c04363311cf3d805",
         "type": "tabs",
         "children": [
           {
-            "id": "8e427c7a8342619b",
+            "id": "459212fa063963b7",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -169,18 +169,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "8e427c7a8342619b",
+  "active": "459212fa063963b7",
   "lastOpenFiles": [
+    "note/tasks_2025-10-16.md",
+    "note/tasks.md",
+    "note/readme_2025-10-16.md",
     "note/project_structure.txt",
     "backups/zi6zDTyj",
     "backups/contextlock_v1.4-testzip_2025-10-16.zip",
-    "note/tasks_2025-10-16.md",
-    "note/readme_2025-10-16.md",
     "note/project_plan_2025-10-16.md",
     "note/changelog_2025-10-16.md",
     "note/changelog.md",
     "note/ui_guide.md",
-    "note/tasks.md",
     "backups/ui_guide.md",
     "backups/tasks.md",
     "backups/readme.md",
