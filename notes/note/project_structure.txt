@@ -1,0 +1,109 @@
+.
+├── assets
+├── backend
+│   └── app
+│       └── __pycache__
+├── frontend
+│   ├── node_modules
+│   │   ├── @eslint
+│   │   ├── @eslint-community
+│   │   ├── @humanwhocodes
+│   │   ├── @nodelib
+│   │   ├── @ungap
+│   │   ├── acorn
+│   │   ├── acorn-jsx
+│   │   ├── ajv
+│   │   ├── ansi-regex
+│   │   ├── ansi-styles
+│   │   ├── argparse
+│   │   ├── balanced-match
+│   │   ├── brace-expansion
+│   │   ├── callsites
+│   │   ├── chalk
+│   │   ├── color-convert
+│   │   ├── color-name
+│   │   ├── concat-map
+│   │   ├── cross-spawn
+│   │   ├── debug
+│   │   ├── deep-is
+│   │   ├── doctrine
+│   │   ├── dotenv
+│   │   ├── escape-string-regexp
+│   │   ├── eslint
+│   │   ├── eslint-scope
+│   │   ├── eslint-visitor-keys
+│   │   ├── espree
+│   │   ├── esquery
+│   │   ├── esrecurse
+│   │   ├── estraverse
+│   │   ├── esutils
+│   │   ├── fast-deep-equal
+│   │   ├── fast-json-stable-stringify
+│   │   ├── fast-levenshtein
+│   │   ├── fastq
+│   │   ├── file-entry-cache
+│   │   ├── find-up
+│   │   ├── flat-cache
+│   │   ├── flatted
+│   │   ├── fs.realpath
+│   │   ├── glob
+│   │   ├── glob-parent
+│   │   ├── globals
+│   │   ├── graphemer
+│   │   ├── has-flag
+│   │   ├── ignore
+│   │   ├── import-fresh
+│   │   ├── imurmurhash
+│   │   ├── inflight
+│   │   ├── inherits
+│   │   ├── is-extglob
+│   │   ├── is-glob
+│   │   ├── is-path-inside
+│   │   ├── isexe
+│   │   ├── js-yaml
+│   │   ├── json-buffer
+│   │   ├── json-schema-traverse
+│   │   ├── json-stable-stringify-without-jsonify
+│   │   ├── keyv
+│   │   ├── levn
+│   │   ├── locate-path
+│   │   ├── lodash.merge
+│   │   ├── minimatch
+│   │   ├── ms
+│   │   ├── natural-compare
+│   │   ├── once
+│   │   ├── optionator
+│   │   ├── p-limit
+│   │   ├── p-locate
+│   │   ├── parent-module
+│   │   ├── path-exists
+│   │   ├── path-is-absolute
+│   │   ├── path-key
+│   │   ├── prelude-ls
+│   │   ├── prettier
+│   │   ├── punycode
+│   │   ├── queue-microtask
+│   │   ├── resolve-from
+│   │   ├── reusify
+│   │   ├── rimraf
+│   │   ├── run-parallel
+│   │   ├── shebang-command
+│   │   ├── shebang-regex
+│   │   ├── strip-ansi
+│   │   ├── strip-json-comments
+│   │   ├── supports-color
+│   │   ├── text-table
+│   │   ├── type-check
+│   │   ├── type-fest
+│   │   ├── uri-js
+│   │   ├── which
+│   │   ├── word-wrap
+│   │   ├── wrappy
+│   │   └── yocto-queue
+│   └── src
+├── notes
+│   ├── backups
+│   └── note
+└── scripts
+
+107 directories
