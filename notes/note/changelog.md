@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.7] Context Lock — System Documentation and Revisions (2025-10-17)
+**Описание:** Настроена система автоматической ревизии notes, создан шаблон протокола и скрипты проверки целостности.
+
+### Выполнено
+- Добавлены скрипты `revision_check.sh` и `sync_notes.py`.
+- Создан шаблон `revision_protocol.md`.
+- Настроена автоматическая сверка consistency файлов notes.
+- Обновлены changelog и tasks.
+
+**Результат:**  
+Context Lock v1.7 установлен. Система ревизий готова к работе.
+
 ## [v1.6] Git Workflow and Dev Environment setup (2025-10-17)
 **Описание:** Настроена система ветвления и commit-конвенций, интегрирована среда Git с VS Code и Codex.
 - Добавлены ветки main / dev / feature.
