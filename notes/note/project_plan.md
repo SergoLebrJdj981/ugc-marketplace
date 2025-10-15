@@ -203,8 +203,45 @@
 - `Application 1—1 Order`
 - `Order 1—* Video`
 - `Order 1—* Payment`
-- `User 1—* Notification`
 - `User 1—* Rating`
+- `User 1—* Report`
+
+### 1.3 Структура БД (Context Lock v2.1)
+- `users`
+  - `id UUID PK`, `email UNIQUE`, `hashed_password`, `full_name`, `role user_role`, `is_active`, `created_at`, `updated_at`
+  - Индексы: `ix_users_email`
+- `campaigns`
+  - `id UUID PK`, `brand_id FK -> users.id`, `title`, `description`, `brief`, `budget NUMERIC(12,2)`, `currency`, `status campaign_status`, `start_date`, `end_date`, `created_at`, `updated_at`
+  - Индексы/ограничения: `campaign_budget_positive`, `ix_campaigns_brand_id`
+- `applications`
+  - `id UUID PK`, `campaign_id FK`, `creator_id FK`, `status application_status`, `pitch`, `proposed_budget`, `message`, `created_at`, `updated_at`
+  - Уникальность: одно заявление на кампанию от конкретного креатора (`uq_application_campaign_creator`)
+- `orders`
+  - `id UUID PK`, `application_id FK`, `campaign_id FK`, `creator_id FK`, `brand_id FK`, `status order_status`, `agreed_budget`, `deliverables`, `delivery_due`, `created_at`, `updated_at`
+  - Уникальность: `application_id` встречается только один раз (`uq_order_application`)
+- `videos`
+  - `id UUID PK`, `order_id FK`, `storage_url`, `thumbnail_url`, `status video_status`, `notes`, `submitted_at`, `approved_at`
+- `payments`
+  - `id UUID PK`, `order_id FK`, `payment_type`, `status payment_status`, `amount`, `currency`, `reference UNIQUE`, `processed_at`, `created_at`
+- `ratings`
+  - `id UUID PK`, `user_id FK`, `score NUMERIC(3,2)`, `source`, `comment`, `created_at`
+  - Уникальность: один источник → одна оценка (`uq_rating_user_source`)
+- `reports`
+  - `id UUID PK`, `author_id FK`, `campaign_id FK`, `order_id FK`, `report_type`, `content`, `created_at`
+
+```
+users (1) ──< campaigns
+users (1) ──< applications
+users (1) ──< orders (creator_id)
+users (1) ──< orders (brand_id)
+applications (1) ──1 orders
+orders (1) ──< videos
+orders (1) ──< payments
+users (1) ──< ratings
+users (1) ──< reports
+campaigns (1) ──< applications ──1 orders
+campaigns (1) ──< reports
+```
 
 ## 2. API-структура (REST + JSON)
 

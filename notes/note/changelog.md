@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.1] Database & ORM (2025-10-17)
+**Описание:** Реализована архитектура базы данных и ORM-моделей.
+
+### Выполнено
+- Созданы модели: User, Campaign, Application, Order, Video, Payment, Rating, Report.
+- Настроены миграции и проверено создание таблиц (Alembic + PostgreSQL).
+- Добавлен дамп схемы в `backend/app/schema_dump.sql`.
+- Обновлены project_plan.md, changelog и tasks.
+
+**Результат:**  
+Context Lock v2.1 — база данных успешно создана и готова к интеграции с API.
+
 ## [v1.7] Context Lock — System Documentation and Revisions (2025-10-17)
 **Описание:** Настроена система автоматической ревизии notes, создан шаблон протокола и скрипты проверки целостности.
 

@@ -32,3 +32,14 @@
   3. Открой Pull Request → `dev` → `main`.
 - Каждый commit проходит автоматическую проверку (husky + lint-staged).
 
+## Database Structure (Context Lock v2.1)
+- ORM реализована на SQLAlchemy 2.0 + Alembic.
+- Основные таблицы:
+  - `users`: список всех ролей, уникальный email, статусы активности.
+  - `campaigns`: кампании брендов, связь `brand_id -> users.id`, бюджет с ограничением `budget >= 0`.
+  - `applications`: отклики креаторов, уникальность `campaign_id + creator_id`, статусы в `application_status`.
+  - `orders`: утверждённые сделки, связь с `applications`, хранит `creator_id` и `brand_id`.
+  - `videos` / `payments`: материалы и финансовые операции по заказу.
+  - `ratings`: качественные оценки пользователей с уникальным `source`.
+  - `reports`: аналитические и операционные отчёты (agent/factory).
+- Все перечисления (`user_role`, `campaign_status`, `order_status` и др.) зафиксированы в БД; дамп схемы доступен в `backend/app/schema_dump.sql`.
