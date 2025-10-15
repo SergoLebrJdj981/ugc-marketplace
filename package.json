@@ -20,7 +20,7 @@
     "url": "https://github.com/SergoLebrJdj981/ugc-marketplace/issues"
   },
   "homepage": "https://github.com/SergoLebrJdj981/ugc-marketplace#readme",
-  "lint-staged": {
+  "lint-staged" :{
     "*.{js,ts,jsx,tsx}": [
       "eslint --fix",
       "prettier --write"
