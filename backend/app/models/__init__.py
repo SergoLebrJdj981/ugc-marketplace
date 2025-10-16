@@ -12,6 +12,7 @@ from app.models.enums import (
     UserRole,
     VideoStatus,
 )
+from app.models.notification import Notification
 from app.models.order import Order
 from app.models.payment import Payment
 from app.models.rating import Rating
@@ -26,6 +27,7 @@ __all__ = [
     "CampaignStatus",
     "Order",
     "OrderStatus",
+    "Notification",
     "Payment",
     "PaymentStatus",
     "PaymentType",

@@ -19,6 +19,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from app.models.order import Order
     from app.models.rating import Rating
     from app.models.report import Report
+    from app.models.notification import Notification
 
 
 class User(Base):
@@ -40,3 +41,4 @@ class User(Base):
     orders: Mapped[list["Order"]] = relationship("Order", back_populates="creator", foreign_keys="Order.creator_id")
     authored_reports: Mapped[list["Report"]] = relationship("Report", back_populates="author")
     ratings: Mapped[list["Rating"]] = relationship("Rating", back_populates="user")
+    notifications: Mapped[list["Notification"]] = relationship("Notification", back_populates="user", cascade="all, delete-orphan")

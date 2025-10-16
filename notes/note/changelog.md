@@ -1,5 +1,19 @@
 # Changelog
 
+# Changelog
+
+## [v2.2] REST API implemented (2025-10-18)
+**Описание:** Реализованы маршруты Auth, Campaigns, Applications, Orders, Payments, Notifications.
+
+### Выполнено
+- Добавлен REST API на FastAPI с централизованным error handler и Swagger (/docs).
+- Реализованы маршруты: регистрация/логин, управление кампаниями, отклики, заказы, платежи, уведомления.
+- Написаны unit-тесты для Auth, Campaigns и Payments.
+- Обновлены project_plan.md (REST API Specification), readme.md (API Usage Guide), changelog и tasks.
+
+**Результат:**  
+Context Lock v2.2 — REST API готов к интеграции с frontend.
+
 ## [v2.1] Database & ORM (2025-10-17)
 **Описание:** Реализована архитектура базы данных и ORM-моделей.
 

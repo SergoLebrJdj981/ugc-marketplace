@@ -243,42 +243,216 @@ campaigns (1) ──< applications ──1 orders
 campaigns (1) ──< reports
 ```
 
-## 2. API-структура (REST + JSON)
+## REST API Specification
 
-### 2.1 Auth
-- `POST /api/auth/register` — регистрация пользователя.
-- `POST /api/auth/login` — авторизация, выдача токена.
-- `GET /api/users/me` — получение данных профиля.
+### Общие положения
+- Базовый URL: `/api`.
+- Формат данных: JSON, ключи в `snake_case`.
+- Аутентификация: Bearer JWT (на этапе V2.2 используется mock-верификация).
+- Коды ответов: `200 OK`, `201 Created`, `400 Bad Request`, `401 Unauthorized`, `404 Not Found`, `500 Internal Server Error`.
+- Стандартная ошибка:
+  ```json
+  {
+    "detail": "human readable message",
+    "code": "error_identifier"
+  }
+  ```
 
-### 2.2 Campaigns
-- `GET /api/campaigns` — список кампаний.
-- `POST /api/campaigns` — создание новой кампании.
-- `PATCH /api/campaigns/:id` — обновление статуса и параметров кампании.
+### Auth
+- `POST /api/auth/register`
+  - Request:
+    ```json
+    {
+      "email": "brand@example.com",
+      "password": "Secret123!",
+      "full_name": "Brand Manager",
+      "role": "brand"
+    }
+    ```
+  - Response `201`:
+    ```json
+    {
+      "id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+      "email": "brand@example.com",
+      "full_name": "Brand Manager",
+      "role": "brand",
+      "created_at": "2025-10-18T09:00:00Z"
+    }
+    ```
+- `POST /api/auth/login`
+  - Request:
+    ```json
+    {
+      "email": "brand@example.com",
+      "password": "Secret123!"
+    }
+    ```
+  - Response `200`:
+    ```json
+    {
+      "access_token": "mock.jwt.token",
+      "token_type": "bearer",
+      "user": {
+        "id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+        "email": "brand@example.com",
+        "role": "brand"
+      }
+    }
+    ```
 
-### 2.3 Applications и Orders
-- `POST /api/applications` — отклик креатора на кампанию.
-- `PATCH /api/applications/:id` — принятие или отклонение отклика.
-- `GET /api/orders` — получение списка заказов.
-- `PATCH /api/orders/:id` — изменение статуса заказа.
+### Campaigns
+- `GET /api/campaigns` — фильтры `status`, `brand_id`.
+  - Response `200`:
+    ```json
+    {
+      "items": [
+        {
+          "id": "f7d2ec3f-671e-43f9-bc7f-9af7b6f145a0",
+          "title": "Reels Autumn Launch",
+          "status": "active",
+          "budget": "150000.00",
+          "currency": "RUB",
+          "brand_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+          "created_at": "2025-10-10T15:30:00Z"
+        }
+      ],
+      "total": 1
+    }
+    ```
+- `POST /api/campaigns`
+  - Request:
+    ```json
+    {
+      "title": "Winter Promo",
+      "description": "UGC drive for New Year",
+      "budget": "200000.00",
+      "currency": "RUB",
+      "brand_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9"
+    }
+    ```
+  - Response `201`:
+    ```json
+    {
+      "id": "41a4ad8d-a0c0-4ff7-9d1d-2ae4994a6f4c",
+      "title": "Winter Promo",
+      "status": "draft",
+      "budget": "200000.00",
+      "currency": "RUB",
+      "brand_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+      "created_at": "2025-10-18T10:00:00Z"
+    }
+    ```
 
-### 2.4 Видео (через ссылки)
-- `POST /api/videos` — прикрепление ссылки на видео (Google Drive, YouTube и др.).
-- `PATCH /api/videos/:id` — изменение статуса (approved / rejected / rework).
+### Applications
+- `POST /api/applications`
+  - Request:
+    ```json
+    {
+      "campaign_id": "f7d2ec3f-671e-43f9-bc7f-9af7b6f145a0",
+      "creator_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
+      "pitch": "I can deliver 3 UGC videos in 7 days",
+      "proposed_budget": "45000.00"
+    }
+    ```
+  - Response `201`:
+    ```json
+    {
+      "id": "a37f227a-e463-4964-9c88-97f33042b6c4",
+      "status": "pending",
+      "campaign_id": "f7d2ec3f-671e-43f9-bc7f-9af7b6f145a0",
+      "creator_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
+      "created_at": "2025-10-18T10:05:00Z"
+    }
+    ```
 
-### 2.5 Финансы
-- `POST /api/payments` — заморозка средств при создании кампании.
-- `POST /api/payouts` — выплата креатору после утверждения видео.
-- `GET /api/payments?user_id=` — история транзакций.
+### Orders
+- `GET /api/orders`
+  - Response `200`:
+    ```json
+    {
+      "items": [
+        {
+          "id": "19bc1f23-08c8-4a26-b7a9-9f52ef9d8a12",
+          "status": "in_progress",
+          "campaign_id": "f7d2ec3f-671e-43f9-bc7f-9af7b6f145a0",
+          "creator_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
+          "brand_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+          "agreed_budget": "45000.00"
+        }
+      ],
+      "total": 1
+    }
+    ```
+- `PATCH /api/orders/{order_id}`
+  - Request:
+    ```json
+    {
+      "status": "approved"
+    }
+    ```
+  - Response `200`:
+    ```json
+    {
+      "id": "19bc1f23-08c8-4a26-b7a9-9f52ef9d8a12",
+      "status": "approved",
+      "updated_at": "2025-10-18T11:00:00Z"
+    }
+    ```
 
-### 2.6 Коммуникации
-- `POST /api/chat/send` — отправка сообщения.
-- `GET /api/chat/:id` — получение истории переписки.
-- `GET /api/notifications` — получение уведомлений.
+### Payments
+- `POST /api/payments` — создание операции hold.
+  - Request:
+    ```json
+    {
+      "order_id": "19bc1f23-08c8-4a26-b7a9-9f52ef9d8a12",
+      "payment_type": "hold",
+      "amount": "45000.00",
+      "currency": "RUB"
+    }
+    ```
+  - Response `201`:
+    ```json
+    {
+      "id": "4f8dcb60-9fbb-4e54-9a2f-fd6f8a376281",
+      "order_id": "19bc1f23-08c8-4a26-b7a9-9f52ef9d8a12",
+      "payment_type": "hold",
+      "status": "pending",
+      "amount": "45000.00",
+      "currency": "RUB",
+      "created_at": "2025-10-18T11:05:00Z"
+    }
+    ```
 
-### 2.7 Админ-панель
-- `GET /api/admin/users` — список пользователей.
-- `PATCH /api/admin/users/:id` — изменение статуса, блокировка.
-- `GET /api/admin/statistics` — аналитика платформы.
+### Notifications
+- `GET /api/notifications` — поддерживает фильтры `user_id`, `is_read`.
+  - Response `200`:
+    ```json
+    {
+      "items": [
+        {
+          "id": "c82b2bfa-6da2-4df2-8311-2c24fe6125b1",
+          "user_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
+          "type": "campaign_update",
+          "message": "Your application was approved",
+          "is_read": false,
+          "created_at": "2025-10-18T11:10:00Z"
+        }
+      ],
+      "total": 1
+    }
+    ```
+
+### Ошибки
+- `400 Bad Request` — ошибки валидации/бизнес-правил:
+  ```json
+  {
+    "detail": "budget must be positive",
+    "code": "validation_error"
+  }
+  ```
+- `401 Unauthorized` — ошибки авторизации.
+- `404 Not Found` — ресурс не найден.
+- `500 Internal Server Error` — необработанные исключения, логируются middleware.
 
 ## 3. ORM-модели (Prisma-style)
 

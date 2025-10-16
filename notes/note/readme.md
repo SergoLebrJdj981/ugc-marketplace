@@ -43,3 +43,11 @@
   - `ratings`: качественные оценки пользователей с уникальным `source`.
   - `reports`: аналитические и операционные отчёты (agent/factory).
 - Все перечисления (`user_role`, `campaign_status`, `order_status` и др.) зафиксированы в БД; дамп схемы доступен в `backend/app/schema_dump.sql`.
+
+## API Usage Guide
+- Запуск dev-сервера: `uvicorn app.main:app --reload --app-dir backend/app`.
+- Swagger-документация: `http://localhost:8000/docs`.
+- Примеры запросов:
+  - Регистрация: `POST /api/auth/register` с телом `{"email": "...", "password": "Secret123!", "role": "brand"}`.
+  - Создание кампании: `POST /api/campaigns` с `{"title": "Launch", "budget": "50000.00", "currency": "RUB", "brand_id": "<uuid>"}`.
+  - Заморозка средств: `POST /api/payments` с `{"order_id": "<uuid>", "payment_type": "hold", "amount": "45000.00", "currency": "RUB"}`.
