@@ -8,11 +8,12 @@ from uuid import UUID
 from sqlalchemy import Select, select
 from sqlalchemy.orm import Session
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, status
 
 from app.api.deps import get_db
 from app.models import Order, OrderStatus
 from app.schemas import OrderListResponse, OrderRead, OrderStatusUpdate
+from app.services.notifications import schedule_batch_notifications
 
 router = APIRouter(prefix="/orders")
 
@@ -45,7 +46,13 @@ def list_orders(
 
 
 @router.patch("/{order_id}", response_model=OrderRead)
-def update_order_status(*, db: SessionDep, order_id: UUID, payload: OrderStatusUpdate) -> OrderRead:
+def update_order_status(
+    *,
+    db: SessionDep,
+    order_id: UUID,
+    payload: OrderStatusUpdate,
+    background_tasks: BackgroundTasks,
+) -> OrderRead:
     """Update order status."""
 
     order = db.get(Order, order_id)
@@ -56,4 +63,12 @@ def update_order_status(*, db: SessionDep, order_id: UUID, payload: OrderStatusU
     db.add(order)
     db.commit()
     db.refresh(order)
+    message = f"Order {order.id} status updated to {payload.status.value}"
+    schedule_batch_notifications(
+        background_tasks,
+        [
+            (order.brand_id, "order.status", message),
+            (order.creator_id, "order.status", message),
+        ],
+    )
     return OrderRead.model_validate(order)

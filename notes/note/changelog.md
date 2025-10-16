@@ -1,6 +1,59 @@
 # Changelog
 
-# Changelog
+## [v2.4] Context Lock — Security & Middleware implemented (2025-10-18)
+**Описание:** Добавлены JWT-аутентификация, CORS, rate limiter, валидация данных и централизованное логирование.
+
+### Выполнено
+- Реализованы access/refresh токены, refresh-ротация, logout с blacklist.
+- Подключены middleware: CORS, rate limiter (60 req/min), request logger Loguru.
+- Настроена унифицированная обработка ошибок и обновлены схемы аутентификации.
+- Протестированы сценарии login/refresh/logout, rate limit и CORS.
+- Обновлены project_plan.md, readme.md, changelog и tasks.
+
+**Результат:**
+Context Lock v2.4 — Security & Middleware активированы.
+
+## [fix] Database connection verified (2025-10-18)
+**Описание:** Исправлено подключение SQLite, добавлено авто-создание базы при отсутствии.
+
+**Результат:**
+Context Lock v2.4 database connection verified.
+
+## [v2.5] Context Lock — Admin API Layer implemented (2025-10-19)
+**Описание:** Реализован административный уровень API с ролевой системой и отчётами.
+
+### Выполнено
+- Добавлены маршруты `/api/admin/users`, `/api/admin/campaigns`, `/api/admin/statistics` и экспорт CSV.
+- Внедрена система ролей `admin_level_1–3`, middleware логирования и таблица `admin_logs`.
+- Настроены отчёты и сервис `reports` для метрик.
+- Написаны тесты доступа, отчётов и ограничений.
+
+**Результат:**
+Context Lock v2.5 — Admin API готов к интеграции с фронтендом.
+
+## [v2.3] Notifications & Webhooks implemented (2025-10-18)
+**Описание:** Реализована система уведомлений и webhook-интеграций.
+
+### Выполнено
+- Добавлены модели Notification и WebhookEvent.
+- Настроены маршруты `/api/notifications`, `/api/notifications/mark-read`, `/api/webhooks/payment`, `/api/webhooks/order`.
+- События обрабатываются через фоновые задачи (BackgroundTasks), ведётся аудит webhook-запросов.
+- Обновлены project_plan.md, readme.md, changelog и tasks.
+
+**Результат:**  
+Context Lock v2.3 — Notifications & Webhooks функционируют корректно.
+
+## [fix] Database migration reset (2025-10-18)
+**Описание:** Alembic полностью пересоздан, база данных восстановлена.
+
+### Выполнено
+- Удалены устаревшие миграции, сгенерирована новая ревизия `reset database`.
+- Созданы таблицы: users, campaigns, applications, orders, payments, notifications, webhook_events, reports, ratings, videos.
+- Миграции применены к SQLite (`backend/app.db`), структура проверена через SQLAlchemy inspector.
+- API протестирован: получение уведомлений на пустой базе, создание кампании, автоматическое уведомление бренда.
+
+**Результат:**  
+Context Lock v2.3 database reset successful.
 
 ## [v2.2] REST API implemented (2025-10-18)
 **Описание:** Реализованы маршруты Auth, Campaigns, Applications, Orders, Payments, Notifications.

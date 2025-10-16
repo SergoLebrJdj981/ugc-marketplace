@@ -2,15 +2,24 @@
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from app.api.deps import get_db
+from app.core.middleware import reset_rate_limiter_sync
 from app.db.base import Base
 from app.main import app
+from app.services import notifications as notification_service
 
 SQLALCHEMY_DATABASE_URL = "sqlite+pysqlite:///:memory:"
 
@@ -20,6 +29,8 @@ engine = create_engine(
     poolclass=StaticPool,
 )
 TestingSessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, expire_on_commit=False)
+
+notification_service.SessionFactory = TestingSessionLocal
 
 
 def override_get_db():
@@ -34,6 +45,7 @@ app.dependency_overrides[get_db] = override_get_db
 def prepare_database() -> None:
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
+    reset_rate_limiter_sync()
 
 
 @pytest.fixture

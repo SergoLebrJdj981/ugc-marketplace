@@ -6,12 +6,29 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 
 from app.api.deps import get_db
-from app.core.security import create_access_token, hash_password, verify_password
+from app.core.security import (
+    TokenError,
+    create_access_token,
+    create_refresh_token,
+    get_subject,
+    hash_password,
+    revoke_refresh_token,
+    verify_password,
+    verify_token,
+)
 from app.models import User, UserRole
-from app.schemas import LoginRequest, TokenResponse, UserCreate, UserRead
+from app.models.enums import AdminLevel
+from app.schemas import (
+    LoginRequest,
+    LogoutRequest,
+    RefreshRequest,
+    TokenResponse,
+    UserCreate,
+    UserRead,
+)
 
 router = APIRouter(prefix="/auth")
 
@@ -33,6 +50,8 @@ def register_user(payload: UserCreate, db: Session = Depends(get_db)) -> UserRea
         hashed_password=hashed,
         full_name=payload.full_name,
         role=payload.role if isinstance(payload.role, UserRole) else UserRole(payload.role),
+        admin_level=payload.admin_level if isinstance(payload.admin_level, AdminLevel) else AdminLevel(payload.admin_level),
+        permissions=payload.permissions or {},
     )
     db.add(user)
     try:
@@ -55,5 +74,52 @@ def login_user(payload: LoginRequest, db: Session = Depends(get_db)) -> TokenRes
             detail="Invalid email or password",
         )
 
-    token = create_access_token(subject=str(user.id))
-    return TokenResponse(access_token=token, user=UserRead.model_validate(user))
+    claims = {"sub": str(user.id), "role": user.role.value}
+    access_token = create_access_token(claims)
+    refresh_token = create_refresh_token(claims)
+    return TokenResponse(
+        access_token=access_token,
+        refresh_token=refresh_token,
+        user=UserRead.model_validate(user),
+    )
+
+
+@router.post("/refresh", response_model=TokenResponse)
+def refresh_tokens(payload: RefreshRequest, db: Session = Depends(get_db)) -> TokenResponse:
+    """Issue new access/refresh tokens using a valid refresh token."""
+
+    try:
+        refresh_payload = verify_token(payload.refresh_token, expected_type="refresh")
+    except TokenError as exc:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)) from exc
+
+    user_id = get_subject(refresh_payload)
+    user = db.get(User, user_id)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
+
+    # Rotate refresh token: revoke old and issue new pair
+    revoke_refresh_token(payload.refresh_token, refresh_payload)
+
+    claims = {"sub": str(user.id), "role": user.role.value}
+    access_token = create_access_token(claims)
+    refresh_token = create_refresh_token(claims)
+    return TokenResponse(
+        access_token=access_token,
+        refresh_token=refresh_token,
+        user=UserRead.model_validate(user),
+    )
+
+
+@router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
+def logout(payload: LogoutRequest) -> Response:
+    """Revoke a refresh token so it can no longer be used."""
+
+    try:
+        refresh_payload = verify_token(payload.refresh_token, expected_type="refresh")
+    except TokenError:
+        # Treat invalid tokens as already logged out to avoid leaking information
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+    revoke_refresh_token(payload.refresh_token, refresh_payload)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

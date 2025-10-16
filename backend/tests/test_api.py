@@ -11,6 +11,13 @@ from sqlalchemy.orm import Session
 from app.models import Order, OrderStatus
 
 
+def _auth_headers(client: TestClient, email: str, password: str) -> dict[str, str]:
+    login_response = client.post("/api/auth/login", json={"email": email, "password": password})
+    assert login_response.status_code == 200
+    token = login_response.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
+
+
 def test_register_and_login_flow(client: TestClient) -> None:
     register_payload = {
         "email": "brand@example.com",
@@ -33,7 +40,47 @@ def test_register_and_login_flow(client: TestClient) -> None:
     token_data = login_response.json()
     assert token_data["token_type"] == "bearer"
     assert token_data["user"]["email"] == register_payload["email"]
+    assert "refresh_token" in token_data
 
+
+def test_refresh_and_logout_flow(client: TestClient) -> None:
+    client.post(
+        "/api/auth/register",
+        json={
+            "email": "refresher@example.com",
+            "password": "Secret123!",
+            "full_name": "Refresher",
+            "role": "brand",
+        },
+    )
+
+    login_response = client.post(
+        "/api/auth/login",
+        json={"email": "refresher@example.com", "password": "Secret123!"},
+    )
+    assert login_response.status_code == 200
+    tokens = login_response.json()
+
+    refresh_response = client.post(
+        "/api/auth/refresh",
+        json={"refresh_token": tokens["refresh_token"]},
+    )
+    assert refresh_response.status_code == 200
+    refreshed = refresh_response.json()
+    assert refreshed["access_token"] != tokens["access_token"]
+    assert refreshed["refresh_token"] != tokens["refresh_token"]
+
+    logout_response = client.post(
+        "/api/auth/logout",
+        json={"refresh_token": refreshed["refresh_token"]},
+    )
+    assert logout_response.status_code == 204
+
+    invalid_refresh = client.post(
+        "/api/auth/refresh",
+        json={"refresh_token": refreshed["refresh_token"]},
+    )
+    assert invalid_refresh.status_code == 401
 
 def test_campaign_creation_and_listing(client: TestClient) -> None:
     brand_resp = client.post(
@@ -45,7 +92,8 @@ def test_campaign_creation_and_listing(client: TestClient) -> None:
             "role": "brand",
         },
     )
-    brand_id = brand_resp.json()["id"]
+    assert brand_resp.status_code == 201
+    headers = _auth_headers(client, "brand2@example.com", "Secret123!")
 
     create_resp = client.post(
         "/api/campaigns",
@@ -54,8 +102,8 @@ def test_campaign_creation_and_listing(client: TestClient) -> None:
             "description": "UGC drive for New Year",
             "budget": "200000.00",
             "currency": "RUB",
-            "brand_id": brand_id,
         },
+        headers=headers,
     )
     assert create_resp.status_code == 201
     campaign_data = create_resp.json()
@@ -80,6 +128,7 @@ def test_payment_flow(client: TestClient, db_session: Session) -> None:
         },
     )
     brand_id = uuid.UUID(brand_resp.json()["id"])
+    brand_headers = _auth_headers(client, "brand3@example.com", "Secret123!")
 
     creator_resp = client.post(
         "/api/auth/register",
@@ -99,8 +148,8 @@ def test_payment_flow(client: TestClient, db_session: Session) -> None:
             "description": "Launch campaign",
             "budget": "100000.00",
             "currency": "RUB",
-            "brand_id": str(brand_id),
         },
+        headers=brand_headers,
     )
     campaign_id = uuid.UUID(campaign_resp.json()["id"])
 

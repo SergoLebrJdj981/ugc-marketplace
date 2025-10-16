@@ -326,8 +326,7 @@ campaigns (1) ──< reports
       "title": "Winter Promo",
       "description": "UGC drive for New Year",
       "budget": "200000.00",
-      "currency": "RUB",
-      "brand_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9"
+      "currency": "RUB"
     }
     ```
   - Response `201`:
@@ -340,6 +339,26 @@ campaigns (1) ──< reports
       "currency": "RUB",
       "brand_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
       "created_at": "2025-10-18T10:00:00Z"
+    }
+    ```
+  - Примечание: `brand_id` автоматически подставляется из токена бренда; администраторы могут передать его явно.
+
+### Brands
+- `POST /api/brands` — создание бренд-профиля для авторизованного бренда.
+  - Request:
+    ```json
+    {
+      "name": "Acme Corp",
+      "description": "Consumer electronics"
+    }
+    ```
+  - Response `201`:
+    ```json
+    {
+      "id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+      "name": "Acme Corp",
+      "description": "Consumer electronics",
+      "created_at": "2025-10-18T10:02:00Z"
     }
     ```
 
@@ -453,6 +472,76 @@ campaigns (1) ──< reports
 - `401 Unauthorized` — ошибки авторизации.
 - `404 Not Found` — ресурс не найден.
 - `500 Internal Server Error` — необработанные исключения, логируются middleware.
+
+## Notifications & Webhooks System
+
+### 1. Таблицы
+- **Notification**
+  - Поля: `id UUID PK`, `user_id FK -> users.id`, `type VARCHAR(64)`, `message TEXT`, `is_read BOOLEAN DEFAULT false`, `created_at TIMESTAMP`.
+  - Индексы: `ix_notifications_user_id`, использование каскадного удаления к пользователю.
+- **WebhookEvent**
+  - Поля: `id UUID PK`, `event_type VARCHAR(80)`, `payload JSONB`, `signature VARCHAR(255)`, `created_at TIMESTAMP`.
+  - Назначение: аудит входящих webhook'ов и диагностика интеграций.
+
+### 2. Потоки уведомлений
+- Создание кампании — уведомляет бренд (`campaign.created`).
+- Заморозка и подтверждение платежа — уведомляют бренд и креатора (`payment.hold`, `payment.completed`).
+- Обновление статуса заказа — уведомляет обе стороны (`order.status`).
+- Отправка выполняется через `BackgroundTasks`, чтобы не блокировать HTTP-ответ.
+
+### 3. Webhook payloads
+- `POST /api/webhooks/payment`
+  ```json
+  {
+    "payment_id": "4f8dcb60-9fbb-4e54-9a2f-fd6f8a376281",
+    "status": "completed",
+    "signature": "hmac-sha256",
+    "metadata": {
+      "provider": "bank-mock",
+      "reference": "TX-20251018-001"
+    }
+  }
+  ```
+  - Логика: обновить `payments.status`, зафиксировать событие в `webhook_events`, разослать уведомления.
+- `POST /api/webhooks/order`
+  ```json
+  {
+    "order_id": "19bc1f23-08c8-4a26-b7a9-9f52ef9d8a12",
+    "status": "delivered",
+    "message": "Factory marked as delivered",
+    "signature": "hmac-sha256"
+  }
+  ```
+  - Логика: обновить `orders.status`, сохранить событие, уведомить бренд и креатора.
+
+### 4. Обработка уведомлений
+1. REST-эндпоинт инициирует событие (создание кампании, изменение статуса).
+2. Через `schedule_batch_notifications` формируется очередь фоновых задач.
+3. Фоновая задача открывает транзакцию, записывает `Notification`.
+4. Клиент получает уведомления через `GET /api/notifications` и может отметить их прочитанными `POST /api/notifications/mark-read`.
+
+## Архитектура безопасности API
+- JWT-аутентификация: access-токен (15 мин) + refresh-токен (7 дней) с алгоритмом HS256. Refresh ротуируется при обновлении и попадает в blacklist после `/api/auth/logout`.
+- Валидация токенов: `verify_token` проверяет подпись, тип и срок действия; `get_current_user` строится на access-токене.
+- Middleware:
+  - CORS пропускает только origin'ы из `ALLOWED_ORIGINS`.
+  - Rate limiter ограничивает до 60 запросов/минуту на IP, возвращая 429 и заголовок `Retry-After`.
+  - Request logger (Loguru) пишет логи в `logs/app.log` в формате `[YYYY-MM-DD HH:mm:ss] LEVEL — сообщение`.
+- Централизованные обработчики ошибок — унифицированные ответы `{"status":"error","code":...}` для `HTTPException`, `ValidationError`, `TokenError`, `IntegrityError` и неожиданных ошибок.
+- Обновление токенов: `/api/auth/refresh` выдает новую пару access/refresh с немедленной ревокацией старого refresh.
+
+## Admin API Layer
+- Уровни доступа:
+  - `admin_level_1` (Moderator) — просмотр пользователей, кампаний, заморозка статусов, работа с жалобами.
+  - `admin_level_2` (Finance) — доступ к статистике и финансовым отчётам, выгрузка CSV.
+  - `admin_level_3` (Superuser) — полный доступ, изменение ролей, удаление пользователей и кампаний.
+- Dependencies: `require_admin(level)` проверяет `user.admin_level` через JWT.
+- Маршруты:
+  - `/api/admin/users` — список, изменение роли, удаление.
+  - `/api/admin/campaigns` — обзор, изменение статуса, удаление.
+  - `/api/admin/statistics` + `/export` — агрегированные метрики и отчёты.
+- Отчётность: сервис `reports` рассчитывает роли, топ-бренды/креаторов, суммы платежей, экспорт в CSV.
+- Логи: действия записываются в таблицу `admin_logs` и файл `logs/admin_actions.log` через middleware.
 
 ## 3. ORM-модели (Prisma-style)
 

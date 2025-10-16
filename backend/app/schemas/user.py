@@ -7,7 +7,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
-from app.models.enums import UserRole
+from app.models.enums import AdminLevel, UserRole
 
 
 class UserCreate(BaseModel):
@@ -15,6 +15,8 @@ class UserCreate(BaseModel):
     password: str = Field(min_length=8)
     full_name: str | None = None
     role: UserRole = UserRole.BRAND
+    admin_level: AdminLevel = AdminLevel.NONE
+    permissions: dict | None = None
 
 
 class UserRead(BaseModel):
@@ -25,6 +27,8 @@ class UserRead(BaseModel):
     full_name: str | None = None
     role: UserRole
     created_at: datetime
+    admin_level: AdminLevel
+    permissions: dict | None = None
 
 
 class LoginRequest(BaseModel):
@@ -36,3 +40,12 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserRead
+    refresh_token: str
+
+
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
+
+class LogoutRequest(BaseModel):
+    refresh_token: str

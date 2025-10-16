@@ -6,12 +6,12 @@ import uuid
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Enum, String, func
+from sqlalchemy import Enum, String, func, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
-from app.models.enums import UserRole
+from app.models.enums import AdminLevel, UserRole
 
 if TYPE_CHECKING:  # pragma: no cover
     from app.models.application import Application
@@ -29,7 +29,9 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
     full_name: Mapped[str | None] = mapped_column(String(255))
-    role: Mapped[UserRole] = mapped_column(Enum(UserRole, name="user_role"), nullable=False, default=UserRole.CREATOR)
+    role: Mapped[UserRole] = mapped_column(Enum(UserRole, name="user_role", values_callable=lambda enum: [e.value for e in UserRole]), nullable=False, default=UserRole.CREATOR)
+    admin_level: Mapped[AdminLevel] = mapped_column(Enum(AdminLevel, name="admin_level", values_callable=lambda enum: [e.value for e in AdminLevel]), nullable=False, default=AdminLevel.NONE)
+    permissions: Mapped[dict | None] = mapped_column(JSON, default=dict)
     bio: Mapped[str | None] = mapped_column(String(1000))
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
     created_at: Mapped[datetime] = mapped_column(default=func.now(), nullable=False)

@@ -5,3 +5,7 @@ SQLAlchemy==2.0.31
 alembic==1.13.2
 psycopg[binary]==3.2.1
 pytest==8.3.2
+httpx==0.27.0
+email-validator==2.1.1
+PyJWT==2.9.0
+loguru==0.7.2

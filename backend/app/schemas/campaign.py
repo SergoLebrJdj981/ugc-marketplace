@@ -16,7 +16,7 @@ class CampaignCreate(BaseModel):
     description: str | None = None
     budget: Decimal = Field(gt=0)
     currency: str = Field(min_length=3, max_length=8, default="RUB")
-    brand_id: UUID
+    brand_id: UUID | None = None
 
 
 class CampaignRead(BaseModel):

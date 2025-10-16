@@ -22,3 +22,11 @@ class NotificationRead(BaseModel):
 class NotificationListResponse(BaseModel):
     items: list[NotificationRead]
     total: int
+
+
+class NotificationMarkReadRequest(BaseModel):
+    notification_ids: list[UUID]
+
+
+class NotificationMarkReadResponse(BaseModel):
+    updated: int

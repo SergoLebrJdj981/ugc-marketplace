@@ -12,3 +12,6 @@ from app.models.payment import Payment  # noqa: F401
 from app.models.rating import Rating  # noqa: F401
 from app.models.report import Report  # noqa: F401
 from app.models.notification import Notification  # noqa: F401
+from app.models.brand import Brand  # noqa: F401
+from app.models.webhook_event import WebhookEvent  # noqa: F401
+from app.models.admin_log import AdminLog  # noqa: F401

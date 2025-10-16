@@ -14,6 +14,13 @@ class UserRole(enum.Enum):
     VIEWER = "viewer"
 
 
+class AdminLevel(enum.Enum):
+    NONE = "none"
+    ADMIN_LEVEL_1 = "admin_level_1"
+    ADMIN_LEVEL_2 = "admin_level_2"
+    ADMIN_LEVEL_3 = "admin_level_3"
+
+
 class CampaignStatus(enum.Enum):
     DRAFT = "draft"
     ACTIVE = "active"

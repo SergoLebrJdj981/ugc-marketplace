@@ -49,5 +49,28 @@
 - Swagger-документация: `http://localhost:8000/docs`.
 - Примеры запросов:
   - Регистрация: `POST /api/auth/register` с телом `{"email": "...", "password": "Secret123!", "role": "brand"}`.
-  - Создание кампании: `POST /api/campaigns` с `{"title": "Launch", "budget": "50000.00", "currency": "RUB", "brand_id": "<uuid>"}`.
+  - Создание кампании: `POST /api/campaigns` (Bearer токен бренда, `brand_id` заполняется автоматически).
   - Заморозка средств: `POST /api/payments` с `{"order_id": "<uuid>", "payment_type": "hold", "amount": "45000.00", "currency": "RUB"}`.
+  - Профиль бренда: `POST /api/brands` (Bearer токен бренда, параметры `name`, `description`).
+
+## Notifications & Webhooks
+- `/api/notifications` — получение уведомлений и фильтрация по `user_id`.
+- `/api/notifications/mark-read` — отметить список уведомлений как прочитанные.
+- `/api/webhooks/payment` — пример webhook-запроса платёжной системы (`{"payment_id": "...", "status": "completed"}`).
+- `/api/webhooks/order` — обновление статуса заказа (`{"order_id": "...", "status": "delivered"}`).
+
+## Security & Middleware
+- JWT: access (15 мин) + refresh (7 дней), алгоритм HS256, обновление через `/api/auth/refresh`, logout ревокирует refresh.
+- CORS: разрешённые origin'ы берутся из `ALLOWED_ORIGINS` (по умолчанию `http://localhost:3000`).
+- Rate limiter: 60 запросов/минуту на IP, превышение → HTTP 429.
+- Централизованная обработка ошибок: единый JSON-формат ответа с полями `status`, `code`, `message`, `details`.
+- Логи: Loguru пишет запросы и ошибки в `logs/app.log`.
+
+## Admin API
+- `/api/admin/users` — управление пользователями, изменение ролей, удаление.
+- `/api/admin/campaigns` — обзор кампаний, заморозка, удаление (для superuser).
+- `/api/admin/statistics` — агрегированные метрики + `/export` для CSV.
+- Роли:
+  - `admin_level_1` — Moderator (просмотр, блокировка).
+  - `admin_level_2` — Finance (статистика и финансы).
+  - `admin_level_3` — Superuser (полный доступ, изменение ролей, удаление).

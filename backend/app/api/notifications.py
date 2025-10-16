@@ -12,7 +12,12 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 
 from app.api.deps import get_db
 from app.models import Notification, User
-from app.schemas import NotificationListResponse, NotificationRead
+from app.schemas import (
+    NotificationListResponse,
+    NotificationMarkReadRequest,
+    NotificationMarkReadResponse,
+    NotificationRead,
+)
 
 router = APIRouter(prefix="/notifications")
 
@@ -39,3 +44,24 @@ def list_notifications(
 
     items = list(db.scalars(stmt).all())
     return NotificationListResponse(items=[NotificationRead.model_validate(item) for item in items], total=len(items))
+
+
+@router.post("/mark-read", response_model=NotificationMarkReadResponse)
+def mark_notifications_read(
+    *,
+    db: SessionDep,
+    payload: NotificationMarkReadRequest,
+) -> NotificationMarkReadResponse:
+    """Mark notifications as read."""
+
+    if not payload.notification_ids:
+        return NotificationMarkReadResponse(updated=0)
+
+    stmt = select(Notification).where(Notification.id.in_(payload.notification_ids))
+    notifications = list(db.scalars(stmt).all())
+    for notification in notifications:
+        notification.is_read = True
+        db.add(notification)
+
+    db.commit()
+    return NotificationMarkReadResponse(updated=len(notifications))
