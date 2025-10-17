@@ -1,10 +1,23 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
 
 import { Header } from './Header';
-import { RoleHeader } from './RoleHeader';
-import { Sidebar, type SidebarLink } from './Sidebar';
+import type { SidebarLink } from './Sidebar';
+
+const Sidebar = dynamic(() => import('./Sidebar'), {
+  ssr: false,
+  loading: () => <div className="hidden w-64 border-r border-slate-200 bg-white/80 px-4 py-6 sm:block" />
+});
+const RoleHeader = dynamic(() => import('./RoleHeader'), {
+  ssr: false,
+  loading: () => (
+    <div className="border-b border-slate-200 bg-white/70 px-6 py-4 backdrop-blur">
+      <div className="h-6 w-48 animate-pulse rounded bg-slate-200" />
+    </div>
+  )
+});
 
 interface LayoutShellProps {
   title: string;
