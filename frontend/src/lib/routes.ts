@@ -1,7 +1,8 @@
 export const DASHBOARD_ROUTES: Record<string, string> = {
   creator: '/creator',
   brand: '/brand',
-  admin: '/admin'
+  admin: '/admin',
+  agent: '/agent'
 };
 
 export function resolveDashboardRoute(role?: string): string {

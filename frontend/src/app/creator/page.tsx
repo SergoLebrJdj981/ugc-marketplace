@@ -2,12 +2,12 @@
 
 import { useEffect } from 'react';
 
+import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
+import { LayoutShell } from '@/components/layout/LayoutShell';
 import { Button, EmptyState, Table } from '@/components/ui';
-import { useAuth } from '@/context';
 import { useCampaignStore, useOrderStore } from '@/store';
 
 export default function CreatorDashboard() {
-  const { user } = useAuth();
   const { orders, setOrders } = useOrderStore();
   const { campaigns, setCampaigns } = useCampaignStore();
 
@@ -22,12 +22,16 @@ export default function CreatorDashboard() {
   }, [setCampaigns, setOrders]);
 
   return (
-    <main className="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-12">
-      <header className="flex flex-col gap-2">
-        <h1 className="text-3xl font-semibold text-slate-900">Привет, {user?.full_name ?? user?.email}</h1>
-        <p className="text-sm text-slate-600">Следите за заказами, балансом и рейтингом качества.</p>
-      </header>
-
+    <ProtectedRoute allowedRoles={['creator']}>
+      <LayoutShell
+        title="Панель креатора"
+        description="Следите за заказами, балансом и рейтингом качества."
+        sidebarLinks={[
+          { href: '/creator', label: 'Обзор', exact: true },
+          { href: '/creator/orders', label: 'Заказы' },
+          { href: '/creator/balance', label: 'Баланс' }
+        ]}
+      >
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-slate-900">Активные заказы</h2>
@@ -45,7 +49,6 @@ export default function CreatorDashboard() {
           />
         )}
       </section>
-
       <section className="space-y-4">
         <h2 className="text-xl font-semibold text-slate-900">Избранные кампании</h2>
         {campaigns.length ? (
@@ -60,6 +63,7 @@ export default function CreatorDashboard() {
           />
         )}
       </section>
-    </main>
+      </LayoutShell>
+    </ProtectedRoute>
   );
 }
