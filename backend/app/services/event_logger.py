@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime
 from pathlib import Path
 
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from app.db.session import SessionLocal
 from app.models.event_log import EventLog
@@ -13,6 +15,7 @@ from app.core.config import PROJECT_ROOT
 
 LOG_FILE = PROJECT_ROOT.parent / "logs" / "events.log"
 LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+STATS_FILE = LOG_FILE.parent / "event_stats.json"
 
 
 def log_event(event_type: str, payload: dict, status: str = "ok", session: Session | None = None) -> EventLog:
@@ -42,4 +45,27 @@ def log_event(event_type: str, payload: dict, status: str = "ok", session: Sessi
             + "\n"
         )
 
+    if owns_session:
+        _update_statistics()
+
     return entry
+
+
+def _update_statistics() -> None:
+    session = SessionLocal()
+    try:
+        total = session.query(func.count(EventLog.id)).scalar() or 0
+        by_type = {
+            event_type: count
+            for event_type, count in session.query(EventLog.event_type, func.count(EventLog.id)).group_by(EventLog.event_type)
+        }
+    finally:
+        session.close()
+
+    data = {
+        "updated_at": datetime.utcnow().isoformat() + "Z",
+        "total_events": int(total),
+        "events_by_type": {key: int(value) for key, value in by_type.items()},
+    }
+    STATS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    STATS_FILE.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")

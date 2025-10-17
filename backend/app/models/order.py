@@ -43,6 +43,6 @@ class Order(Base):
     application: Mapped["Application"] = relationship("Application", back_populates="order")
     campaign: Mapped["Campaign"] = relationship("Campaign", back_populates="orders")
     creator: Mapped["User"] = relationship("User", back_populates="orders", foreign_keys=[creator_id])
-    brand: Mapped["User"] = relationship("User", foreign_keys=[brand_id])
+    brand: Mapped["User"] = relationship("User", back_populates="orders_as_brand", foreign_keys=[brand_id])
     videos: Mapped[list["Video"]] = relationship("Video", back_populates="order", cascade="all, delete-orphan")
     payments: Mapped[list["Payment"]] = relationship("Payment", back_populates="order", cascade="all, delete-orphan")
