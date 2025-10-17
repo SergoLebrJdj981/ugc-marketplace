@@ -6,6 +6,12 @@
 **Результат:**
 Context Lock v3.9-stable подтверждён вручную. Проект зафиксирован в стабильном состоянии и готов к переходу в модуль IV “Коммуникации и интеграции”.
 
+## [v3.1.1] Context Lock — Frontend Initialization reverified (2025-10-17)
+**Описание:** Обновлена ревизия подмодуля 3.1. Подтверждено соответствие текущей архитектуры фронтенда требованиям Next.js + TypeScript + TailwindCSS + ESLint/Prettier.
+
+**Результат:**
+Структура `/src` (app/components/context/lib/store/styles/tests/types), конфигурации Tailwind, ESLint, Prettier и `.env.local` проверены. Стартовая страница отображается корректно.
+
 ## [v2.7] Context Lock — Testing & Monitoring verified (2025-10-21)
 **Описание:** Проведена ревизия системы тестирования, логирования и мониторинга backend под архитектуру v2.6+.
 
