@@ -8,3 +8,4 @@ export { ErrorState } from './ErrorState';
 export { Card } from './Card';
 export { Badge } from './Badge';
 export { ThemeSwitcher } from './ThemeSwitcher';
+export { Progress } from './Progress';

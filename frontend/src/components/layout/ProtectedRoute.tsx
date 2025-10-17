@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { Loader } from '@/components/ui';
 import { useAuth } from '@/context';
 
 interface ProtectedRouteProps {
@@ -29,7 +30,11 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
   }, [allowedRoles, loading, router, user]);
 
   if (!canRender) {
-    return null;
+    return (
+      <div className="flex min-h-[200px] items-center justify-center">
+        <Loader />
+      </div>
+    );
   }
 
   return <>{children}</>;
