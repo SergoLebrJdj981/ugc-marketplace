@@ -1,0 +1,29 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json"],
+    "tsconfigRootDir": ".",
+    "sourceType": "module",
+    "ecmaVersion": 2020
+  },
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
+  "plugins": ["@typescript-eslint", "testing-library"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.{ts,tsx}", "**/__tests__/**/*.{ts,tsx}"],
+      "extends": ["plugin:testing-library/react"],
+      "env": { "jest": true }
+    },
+    {
+      "files": ["src/tests/e2e/**/*"],
+      "env": { "cypress/globals": true },
+      "plugins": ["cypress"],
+      "rules": {}
+    }
+  ]
+}
