@@ -963,6 +963,10 @@ Context Lock v3.5 подтверждён. Все кабинеты пользов
 
 ## [fix] Auth Integration — login and redirect restored (2025-10-17)
 **Описание:** Исправлена авторизация пользователей. Вход, токены и переходы по ролям работают корректно.
+
+## [fix] Auth Schemas — Pydantic models restored (2025-10-18)
+**Описание:** Исправлены Pydantic схемы и сериализация Auth API. 
+**Результат:** Запросы /api/auth/login и /api/auth/register работают корректно, возвращают TokenResponse.
 ---
 
 ## Подмодуль 3.6 — Контексты и глобальное состояние

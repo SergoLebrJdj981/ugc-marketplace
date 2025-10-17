@@ -1,34 +1,10 @@
-"""Pydantic schemas for user operations."""
+"""Pydantic schemas for user and auth endpoints."""
 
 from __future__ import annotations
 
-from datetime import datetime
-from uuid import UUID
+from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
-
-from app.models.enums import AdminLevel, UserRole
-
-
-class UserCreate(BaseModel):
-    email: EmailStr
-    password: str = Field(min_length=8)
-    full_name: str | None = None
-    role: UserRole = UserRole.BRAND
-    admin_level: AdminLevel = AdminLevel.NONE
-    permissions: dict | None = None
-
-
-class UserRead(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-    id: UUID
-    email: EmailStr
-    full_name: str | None = None
-    role: UserRole
-    created_at: datetime
-    admin_level: AdminLevel
-    permissions: dict | None = None
+from pydantic import BaseModel, EmailStr
 
 
 class LoginRequest(BaseModel):
@@ -36,16 +12,20 @@ class LoginRequest(BaseModel):
     password: str
 
 
+class RegisterRequest(BaseModel):
+    email: EmailStr
+    password: str
+    full_name: Optional[str] = None
+    role: str = "creator"
+
+
 class TokenResponse(BaseModel):
     access_token: str
-    token_type: str = "bearer"
-    user: UserRead
     refresh_token: str
+    token_type: str = "bearer"
+    user_role: str
+    user: Optional[dict] = None
 
 
 class RefreshRequest(BaseModel):
-    refresh_token: str
-
-
-class LogoutRequest(BaseModel):
     refresh_token: str

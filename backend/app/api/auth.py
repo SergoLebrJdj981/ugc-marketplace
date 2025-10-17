@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 
 from app.core.security import (
@@ -16,24 +15,9 @@ from app.core.security import (
 )
 from app.db.session import get_session
 from app.models import User
+from app.schemas.user import LoginRequest, RefreshRequest, RegisterRequest, TokenResponse
 
 router = APIRouter(prefix="/auth")
-
-
-class LoginRequest(BaseModel):
-    email: EmailStr
-    password: str
-
-
-class RefreshRequest(BaseModel):
-    refresh_token: str
-
-
-class RegisterRequest(BaseModel):
-    email: EmailStr
-    password: str
-    full_name: str | None = None
-    role: str = "creator"
 
 
 def _user_to_dict(user: User) -> dict:
@@ -47,7 +31,7 @@ def _user_to_dict(user: User) -> dict:
     }
 
 
-@router.post("/login", status_code=status.HTTP_200_OK)
+@router.post("/login", status_code=status.HTTP_200_OK, response_model=TokenResponse)
 def login(payload: LoginRequest, db: Session = Depends(get_session)):
     user = db.query(User).filter(User.email == payload.email).one_or_none()
     if not user or not verify_password(payload.password, user.password):
@@ -65,7 +49,7 @@ def login(payload: LoginRequest, db: Session = Depends(get_session)):
     }
 
 
-@router.post("/refresh", status_code=status.HTTP_200_OK)
+@router.post("/refresh", status_code=status.HTTP_200_OK, response_model=TokenResponse)
 def refresh(payload: RefreshRequest):
     try:
         data = verify_token(payload.refresh_token, expected_type="refresh")
@@ -74,7 +58,12 @@ def refresh(payload: RefreshRequest):
     claims = {key: data[key] for key in ("sub", "role") if key in data}
     access = create_access_token(claims)
     refresh_token = create_refresh_token(claims)
-    return {"access_token": access, "refresh_token": refresh_token, "token_type": "bearer", "user_role": claims.get("role")}
+    return {
+        "access_token": access,
+        "refresh_token": refresh_token,
+        "token_type": "bearer",
+        "user_role": claims.get("role", ""),
+    }
 
 
 @router.post("/logout", status_code=status.HTTP_200_OK)
@@ -82,7 +71,7 @@ def logout():
     return {"status": "ok"}
 
 
-@router.post("/register", status_code=status.HTTP_201_CREATED)
+@router.post("/register", status_code=status.HTTP_201_CREATED, response_model=TokenResponse)
 def register_user(data: RegisterRequest, db: Session = Depends(get_session)):
     existing = db.query(User).filter(User.email == data.email).first()
     if existing:

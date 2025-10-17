@@ -23,7 +23,7 @@ from app.schemas.webhook import (
     WebhookAckResponse,
     WebhookEventRead,
 )
-from app.schemas.user import LogoutRequest, LoginRequest, RefreshRequest, TokenResponse, UserCreate, UserRead
+from app.schemas.user import LoginRequest, RefreshRequest, RegisterRequest, TokenResponse
 
 __all__ = [
     "AdminCampaignStatusUpdate",
@@ -38,7 +38,6 @@ __all__ = [
     "CampaignListResponse",
     "CampaignRead",
     "LoginRequest",
-    "LogoutRequest",
     "NotificationListResponse",
     "NotificationMarkReadRequest",
     "NotificationMarkReadResponse",
@@ -53,7 +52,6 @@ __all__ = [
     "WebhookAckResponse",
     "WebhookEventRead",
     "TokenResponse",
-    "UserCreate",
-    "UserRead",
     "RefreshRequest",
+    "RegisterRequest",
 ]
