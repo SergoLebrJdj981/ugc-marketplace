@@ -11,7 +11,8 @@
     "test:watch": "jest --watch",
     "test:e2e": "cypress run",
     "test:e2e:open": "cypress open",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:api": "jest frontend/tests/api-integration.test.ts --detectOpenHandles"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",

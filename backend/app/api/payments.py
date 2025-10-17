@@ -18,6 +18,24 @@ router = APIRouter(prefix="/payments")
 SessionDep = Annotated[Session, Depends(get_db)]
 
 
+@router.get("", status_code=status.HTTP_200_OK)
+def list_payments() -> dict:
+    """Return a mock list of payments for integration testing."""
+
+    return {
+        "total": 1,
+        "items": [
+            {
+                "id": "pay-1",
+                "order_id": "order-1",
+                "amount": 10000,
+                "currency": "RUB",
+                "status": PaymentStatus.PENDING.value if hasattr(PaymentStatus, "PENDING") else "pending",
+            }
+        ],
+    }
+
+
 @router.post("", response_model=PaymentRead, status_code=status.HTTP_201_CREATED)
 def create_payment(
     *,

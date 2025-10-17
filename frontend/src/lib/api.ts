@@ -4,6 +4,8 @@ import { notify } from '@/lib/toast';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://127.0.0.1:8002';
 const ACCESS_TOKEN_KEY = 'ugc_access_token';
+const REFRESH_TOKEN_KEY = 'ugc_refresh_token';
+const USER_KEY = 'ugc_user';
 
 export interface ApiError {
   message: string;
@@ -37,6 +39,13 @@ export const client = axios.create({
 function getStoredAccessToken(): string | null {
   if (typeof window === 'undefined') return null;
   return window.localStorage.getItem(ACCESS_TOKEN_KEY);
+}
+
+function clearStoredAuth() {
+  if (typeof window === 'undefined') return;
+  window.localStorage.removeItem(ACCESS_TOKEN_KEY);
+  window.localStorage.removeItem(REFRESH_TOKEN_KEY);
+  window.localStorage.removeItem(USER_KEY);
 }
 
 export async function apiRequest<T>(endpoint: string, options: ApiRequestOptions = {}): Promise<ApiResponse<T>> {
@@ -83,10 +92,14 @@ export async function apiRequest<T>(endpoint: string, options: ApiRequestOptions
       unauthorized: axiosError.response?.status === 401
     };
 
-    if (apiError.unauthorized && onUnauthorized) {
-      onUnauthorized();
+    if (apiError.unauthorized) {
+      clearStoredAuth();
+      if (onUnauthorized) {
+        onUnauthorized();
+      } else if (typeof window !== 'undefined') {
+        window.location.href = '/';
+      }
     }
-
     if (showErrorToast && message) {
       notify.error(message);
     }
