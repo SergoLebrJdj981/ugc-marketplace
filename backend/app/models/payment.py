@@ -11,7 +11,7 @@ from sqlalchemy import Enum, ForeignKey, Numeric, String, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.db.session import Base
+from app.db.base import Base
 from app.models.enums import PaymentStatus, PaymentType
 
 if TYPE_CHECKING:  # pragma: no cover

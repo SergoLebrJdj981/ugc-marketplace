@@ -32,19 +32,31 @@ class TokenError(Exception):
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-def hash_password(password: str) -> str:
-    """Hash a plain password using bcrypt."""
+def hash_password(password: str | None) -> str:
+    """Hash a plain password using bcrypt (safe up to 72 bytes, UTF-8 aware)."""
+    if not password:
+        raise ValueError("Password cannot be empty")
 
-    return pwd_context.hash(password)
+    # Преобразуем в bytes для подсчёта длины в байтах
+    if isinstance(password, str):
+        password_bytes = password.encode("utf-8", errors="ignore")
+    else:
+        password_bytes = password
+
+    # bcrypt принимает максимум 72 байта
+    safe_password = password_bytes[:72].decode("utf-8", errors="ignore")
+    return pwd_context.hash(safe_password)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verify a password against a hash, allowing legacy plain-text values."""
-
+    """Verify a password against a hash (UTF-8 safe, legacy compatible)."""
+    if not plain_password or not hashed_password:
+        return False
     try:
-        return pwd_context.verify(plain_password, hashed_password)
-    except (ValueError, TypeError):  # pragma: no cover - compatibility path
-        return hmac.compare_digest(plain_password, hashed_password)
+        password_bytes = plain_password.encode("utf-8", errors="ignore")
+        return pwd_context.verify(password_bytes[:72].decode("utf-8", errors="ignore"), hashed_password)
+    except Exception:
+        return hmac.compare_digest(plain_password[:72], hashed_password)
 
 
 def _build_token(

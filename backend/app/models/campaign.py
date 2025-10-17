@@ -11,7 +11,7 @@ from sqlalchemy import CheckConstraint, Enum, ForeignKey, Numeric, String, Text,
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.db.session import Base
+from app.db.base import Base
 from app.models.enums import CampaignStatus
 
 if TYPE_CHECKING:  # pragma: no cover
