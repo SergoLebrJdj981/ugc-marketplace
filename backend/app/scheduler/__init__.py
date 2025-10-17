@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from contextlib import suppress
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -13,6 +14,9 @@ scheduler: AsyncIOScheduler | None = None
 
 def start_scheduler() -> None:
     """Start the global AsyncIO scheduler if it is not already running."""
+
+    if os.getenv("DISABLE_SCHEDULER") == "1":
+        return
 
     global scheduler
     if scheduler is None:

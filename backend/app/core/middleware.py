@@ -3,42 +3,21 @@
 from __future__ import annotations
 
 import asyncio
-import logging
 import time
 from collections import defaultdict
-from pathlib import Path
 
 from fastapi import FastAPI
+from loguru import logger
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 
-from app.core.config import PROJECT_ROOT, settings
+from app.core.config import settings
+from app.core.metrics import record_error, record_request
 from app.core.security import TokenError, get_subject, verify_token
 
-LOG_DIR = PROJECT_ROOT.parent / "logs"
-REQUEST_LOG = LOG_DIR / "requests.log"
-ERROR_LOG = LOG_DIR / "errors.log"
-LOG_DIR.mkdir(parents=True, exist_ok=True)
-
-request_logger = logging.getLogger("requests")
-error_logger = logging.getLogger("errors")
-
-
-def _configure_logger(logger: logging.Logger, log_file: Path, level: int) -> None:
-    """Attach a file handler once per process."""
-    logger.setLevel(level)
-    logger.propagate = False
-    if any(isinstance(handler, logging.FileHandler) and handler.baseFilename == str(log_file) for handler in logger.handlers):
-        return
-    handler = logging.FileHandler(log_file)
-    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-
-
-_configure_logger(request_logger, REQUEST_LOG, logging.INFO)
-_configure_logger(error_logger, ERROR_LOG, logging.INFO)
+request_logger = logger.bind(channel="request")
+error_logger = logger.bind(channel="error")
 
 
 class RequestLoggingMiddleware(BaseHTTPMiddleware):
@@ -46,11 +25,15 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
 
     async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         start = time.time()
+        record_request()
         try:
             response = await call_next(request)
         except Exception as exc:  # pragma: no cover
             duration = (time.time() - start) * 1000
-            error_logger.error("%s %s -> ERROR (%0.2f ms): %s", request.method, request.url.path, duration, exc)
+            record_error()
+            error_logger.opt(exception=True).error(
+                "%s %s -> ERROR (%0.2f ms): %s", request.method, request.url.path, duration, exc
+            )
             raise
         duration = (time.time() - start) * 1000
         request_logger.info("%s %s -> %s (%0.2f ms)", request.method, request.url.path, response.status_code, duration)

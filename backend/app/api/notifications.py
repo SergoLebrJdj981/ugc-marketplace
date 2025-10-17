@@ -71,6 +71,6 @@ def mark_read(
             updated += 1
 
     if updated:
-        db.flush()
+        db.commit()
 
     return {"updated": updated}

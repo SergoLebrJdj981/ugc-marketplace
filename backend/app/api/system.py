@@ -8,6 +8,7 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
+from app.core.metrics import snapshot
 from app.db.session import get_session
 from app.models import EventLog
 
@@ -41,7 +42,9 @@ def metrics(db: Annotated[Session, Depends(get_session)]):
         }
         for entry in latest
     ]
+    metrics_base = snapshot()
     return {
+        **metrics_base,
         "total_events": int(total_events),
         "events_by_type": per_type,
         "recent_events": recent,
