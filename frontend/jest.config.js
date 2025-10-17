@@ -1,12 +1,10 @@
 const nextJest = require('next/jest');
 
-const createJestConfig = nextJest({
-  dir: './'
-});
+const createJestConfig = nextJest({ dir: './' });
 
 const customJestConfig = {
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less|scss|sass)$': '<rootDir>/tests/styleMock.js'

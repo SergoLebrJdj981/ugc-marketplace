@@ -974,9 +974,7 @@ Context Lock v3.5 подтверждён. Все кабинеты пользов
 ## [fix] Theme Visuals — Dark Mode Tailwind Integration (2025-10-18)
 **Описание:** Добавлены классы dark: для body, layout и UI-компонентов. Тёмная тема отображается корректно, цвета и фон переключаются синхронно с ThemeContext.
 
-## [v3.7-r2] Context Lock — API Integration Testing reverified (2025-10-18)
-**Описание:** Повторная ревизия интеграции фронтенда и backend API. Auth, Campaigns, Payments, Notifications, Admin запросы протестированы автоматическими тестами.
----
+
 
 ## Подмодуль 3.6 — Контексты и глобальное состояние
 **Описание:**  
@@ -1073,6 +1071,9 @@ Context Lock v3.6 подтверждён. Контексты и глобальн
 **Результат:**  
 Context Lock v3.7 подтверждён. Интеграция фронтенда и backend API полностью протестирована и функционирует корректно.  
 Платформа готова к переходу в подмодуль 3.8 “Тестирование интерфейса и UX”.
+
+###### [v3.7-r2] Context Lock — API Integration Testing reverified (2025-10-18)
+###### **Описание:** Повторная ревизия интеграции фронтенда и backend API. Auth, Campaigns, Payments, Notifications, Admin запросы протестированы автоматическими тестами.
 
 ---
 
