@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger';
   children: ReactNode;
   loading?: boolean;
 }
@@ -13,7 +13,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const variantStyles: Record<NonNullable<ButtonProps['variant']>, string> = {
   primary: 'bg-brand text-white hover:bg-brand-dark focus-visible:ring-brand',
   secondary: 'bg-white text-brand border border-brand hover:bg-brand-light/10 focus-visible:ring-brand',
-  ghost: 'bg-transparent text-brand hover:bg-brand-light/20 focus-visible:ring-brand'
+  ghost: 'bg-transparent text-brand hover:bg-brand-light/20 focus-visible:ring-brand',
+  outline: 'bg-transparent border border-slate-300 text-slate-700 hover:bg-slate-100 focus-visible:ring-slate-300',
+  danger: 'bg-rose-600 text-white hover:bg-rose-700 focus-visible:ring-rose-500'
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(

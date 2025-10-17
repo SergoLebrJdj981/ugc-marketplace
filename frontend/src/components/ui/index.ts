@@ -5,3 +5,6 @@ export { Table } from './Table';
 export { Loader } from './Loader';
 export { EmptyState } from './EmptyState';
 export { ErrorState } from './ErrorState';
+export { Card } from './Card';
+export { Badge } from './Badge';
+export { ThemeSwitcher } from './ThemeSwitcher';
