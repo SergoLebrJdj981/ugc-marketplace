@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -8,6 +10,8 @@ from app.core.logging import setup_logging
 from app.core.middleware import setup_middleware
 from app.db.init_db import init_db
 from app.scheduler import shutdown_scheduler, start_scheduler
+
+logger = logging.getLogger(__name__)
 
 setup_logging()
 
@@ -30,6 +34,7 @@ app.include_router(api_router)
 async def _on_startup() -> None:
     init_db()
     start_scheduler()
+    logger.info("Application startup complete")
 
 
 @app.on_event("shutdown")

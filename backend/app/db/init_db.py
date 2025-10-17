@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import logging
 from contextlib import contextmanager
+from pathlib import Path
 from typing import Iterator
 
-from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session
 
 from app.core.security import hash_password, verify_password
@@ -35,6 +36,9 @@ DEFAULT_USERS: tuple[dict[str, str], ...] = (
 )
 
 
+logger = logging.getLogger(__name__)
+
+
 @contextmanager
 def _session_scope() -> Iterator[Session]:
     session = SessionLocal()
@@ -50,10 +54,18 @@ def _session_scope() -> Iterator[Session]:
 
 def init_db() -> None:
     """Create missing tables and ensure demo accounts exist."""
-    try:
-        Base.metadata.create_all(bind=engine)
-    except OperationalError as exc:  # pragma: no cover - captured in logs
-        raise RuntimeError("Failed to initialise database") from exc
+
+    db_path: Path | None = None
+    existed = False
+    if engine.url.drivername.startswith("sqlite") and engine.url.database:
+        db_path = Path(engine.url.database).resolve()
+        existed = db_path.exists()
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+
+    Base.metadata.create_all(bind=engine)
+    if db_path and db_path.exists():
+        message = "Database already initialised" if existed else "Database created"
+        logger.info("%s at %s", message, db_path)
 
     with _session_scope() as session:
         for seed in DEFAULT_USERS:

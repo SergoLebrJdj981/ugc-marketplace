@@ -6,14 +6,14 @@ import { ToastProvider } from '@/components/feedback/ToastProvider';
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <NotificationProvider>
-          <ChatProvider>
+    <AuthProvider>
+      <NotificationProvider>
+        <ChatProvider>
+          <ThemeProvider>
             <ToastProvider>{children}</ToastProvider>
-          </ChatProvider>
-        </NotificationProvider>
-      </AuthProvider>
-    </ThemeProvider>
+          </ThemeProvider>
+        </ChatProvider>
+      </NotificationProvider>
+    </AuthProvider>
   );
 }

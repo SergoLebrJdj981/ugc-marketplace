@@ -967,6 +967,9 @@ Context Lock v3.5 подтверждён. Все кабинеты пользов
 ## [fix] Auth Schemas — Pydantic models restored (2025-10-18)
 **Описание:** Исправлены Pydantic схемы и сериализация Auth API. 
 **Результат:** Запросы /api/auth/login и /api/auth/register работают корректно, возвращают TokenResponse.
+
+## [v3.6-r2] Context Lock — Global Contexts and State Management reverified (2025-10-18)
+**Описание:** Проведена повторная ревизия контекстов и глобального состояния. Исправлена работа ThemeContext, сохранение темы и синхронизация Auth/Notification/Chat контекстов с API.
 ---
 
 ## Подмодуль 3.6 — Контексты и глобальное состояние

@@ -26,7 +26,13 @@ class Settings:
     log_path: Path
 
     def __init__(self) -> None:
-        self.database_url = os.getenv("DATABASE_URL", "sqlite:///backend/app.db")
+        database_url = os.getenv("DATABASE_URL", "sqlite:///backend/app.db")
+        if database_url.startswith("sqlite:///"):
+            relative_path = database_url.replace("sqlite:///", "", 1)
+            absolute_path = (PROJECT_ROOT.parent / relative_path).resolve()
+            absolute_path.parent.mkdir(parents=True, exist_ok=True)
+            database_url = f"sqlite:///{absolute_path}"
+        self.database_url = database_url
         secret = os.getenv("SECRET_KEY", "dev-secret")
         refresh_secret = os.getenv("REFRESH_SECRET_KEY", secret)
         self.secret_key = secret

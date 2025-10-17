@@ -7,6 +7,7 @@ import {
   useEffect,
   useMemo,
   useState,
+  useRef,
   type ReactNode
 } from 'react';
 import { useRouter } from 'next/navigation';
@@ -23,6 +24,7 @@ import {
 import { notify } from '@/lib/toast';
 import { resolveDashboardRoute } from '@/lib/routes';
 import type { UserProfile } from '@/types/auth';
+import { useCampaignStore, useOrderStore, useUserStore } from '@/store';
 
 interface AuthContextValue {
   user: UserProfile | null;
@@ -80,6 +82,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [{ accessToken, refreshToken, user }, setAuthState] = useState(() => loadPersistedAuth());
   const [loading, setLoading] = useState(false);
+  const previousRoleRef = useRef<string | null>(user?.role ?? null);
 
   useEffect(() => {
     if (!accessToken || !refreshToken || !user) return;
@@ -151,6 +154,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       persistAuth(null);
       setAuthState({ accessToken: null, refreshToken: null, user: null });
+      useUserStore.setState({ profile: null });
+      useCampaignStore.setState({ campaigns: [] });
+      useOrderStore.setState({ orders: [] });
       router.push('/');
     }
   }, [refreshToken, router]);
@@ -173,6 +179,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setAuthState({ accessToken: storedAccess, refreshToken: storedRefresh, user: storedUser });
     }
   }, []);
+  useEffect(() => {
+    useUserStore.setState({ profile: user });
+    const currentRole = user?.role ?? null;
+    if (currentRole === null || currentRole !== previousRoleRef.current) {
+      useCampaignStore.setState({ campaigns: [] });
+      useOrderStore.setState({ orders: [] });
+    }
+    previousRoleRef.current = currentRole;
+  }, [user]);
 
   const value = useMemo<AuthContextValue>(
     () => ({
