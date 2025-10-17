@@ -42,10 +42,10 @@ export function useDashboardData<T>(endpoint: string, options: UseDashboardOptio
   const { accessToken, logout } = useAuth();
   const shouldFetch = Boolean(accessToken);
 
-  const swr = useSWR<T>(shouldFetch ? [endpoint, accessToken] : null, {
-    fetcher: async ([url, token]) => {
+  const swr = useSWR<T, Error>(shouldFetch ? [endpoint, accessToken ?? null] : null, {
+    fetcher: async ([url, token]: [string, string | null]) => {
       try {
-        return await fetchDashboardData<T>(url, token ?? null, options.fallbackData);
+        return await fetchDashboardData<T>(url, token, options.fallbackData);
       } catch (error) {
         const err = error as Error & { status?: number };
         if (err.status === 401) {

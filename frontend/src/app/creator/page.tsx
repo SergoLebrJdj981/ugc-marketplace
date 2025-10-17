@@ -163,14 +163,14 @@ function statusLabel(status: string) {
   }
 }
 
-function statusToVariant(status: string): 'default' | 'success' | 'warning' | 'danger' {
+function statusToVariant(status: string): 'neutral' | 'success' | 'warning' | 'danger' {
   switch (status) {
     case 'completed':
       return 'success';
     case 'awaiting_review':
       return 'warning';
     default:
-      return 'default';
+      return 'neutral';
   }
 }
 

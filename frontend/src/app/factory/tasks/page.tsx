@@ -109,14 +109,14 @@ function statusLabel(status: FactoryTask['status']) {
   }
 }
 
-function badgeVariant(status: FactoryTask['status']): 'default' | 'success' | 'warning' {
+function badgeVariant(status: FactoryTask['status']): 'neutral' | 'success' | 'warning' {
   switch (status) {
     case 'completed':
       return 'success';
     case 'scheduled':
       return 'warning';
     default:
-      return 'default';
+      return 'neutral';
   }
 }
 

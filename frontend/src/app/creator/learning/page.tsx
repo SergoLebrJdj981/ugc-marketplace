@@ -52,7 +52,7 @@ export default function CreatorLearningPage() {
             columns={['Название', 'Уровень', 'Статус', 'Длительность']}
             data={data.tracks.map((track) => [
               track.title,
-              <Badge key={`${track.id}-level`} variant={track.level === 'pro_plus' ? 'success' : 'default'}>
+              <Badge key={`${track.id}-level`} variant={track.level === 'pro_plus' ? 'success' : 'neutral'}>
                 {levelLabel(track.level)}
               </Badge>,
               statusLabel(track.status),

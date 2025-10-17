@@ -13,7 +13,6 @@ const nextConfig = {
     domains: ['localhost', '127.0.0.1']
   },
   experimental: {
-    appDir: true,
     optimizeCss: true,
     scrollRestoration: true
   }
