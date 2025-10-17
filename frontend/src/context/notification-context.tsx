@@ -34,7 +34,7 @@ interface NotificationContextValue {
 const NotificationContext = createContext<NotificationContextValue | undefined>(undefined);
 
 export function NotificationProvider({ children }: { children: ReactNode }) {
-  const { accessToken } = useAuth();
+  const { accessToken, logout } = useAuth();
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -42,27 +42,41 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     if (!accessToken) return;
     setLoading(true);
     try {
-      const data = await apiRequest<{ total: number; items: NotificationItem[] }>('/api/notifications', {
+      const response = await apiRequest<{ total: number; items: NotificationItem[] }>('/api/notifications', {
         method: 'GET',
-        token: accessToken
+        token: accessToken,
+        onUnauthorized: logout,
+        showErrorToast: false
       });
-      setNotifications(data.items ?? []);
-    } catch (error) {
-      notify.error((error as Error).message || 'Не удалось загрузить уведомления');
+      if (response.error) {
+        if (!response.error.unauthorized) {
+          notify.error(response.message || 'Не удалось загрузить уведомления');
+        }
+        return;
+      }
+      setNotifications(response.data?.items ?? []);
     } finally {
       setLoading(false);
     }
-  }, [accessToken]);
+  }, [accessToken, logout]);
 
   const markAsRead = useCallback(
     async (ids: string[]) => {
       if (!accessToken || ids.length === 0) return;
       try {
-        await apiRequest('/api/notifications/mark-read', {
+        const response = await apiRequest('/api/notifications/mark-read', {
           method: 'POST',
           token: accessToken,
-          data: { notification_ids: ids }
+          data: { notification_ids: ids },
+          onUnauthorized: logout,
+          showErrorToast: false
         });
+        if (response.error) {
+          if (!response.error.unauthorized) {
+            notify.error(response.message || 'Не удалось обновить уведомления');
+          }
+          return;
+        }
         setNotifications((prev) =>
           prev.map((item) => (ids.includes(item.id) ? { ...item, is_read: true } : item))
         );
@@ -70,7 +84,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
         notify.error((error as Error).message || 'Не удалось обновить уведомления');
       }
     },
-    [accessToken]
+    [accessToken, logout]
   );
 
   useEffect(() => {

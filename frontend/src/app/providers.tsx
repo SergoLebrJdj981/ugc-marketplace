@@ -1,10 +1,8 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import { AuthProvider, ChatProvider, NotificationProvider, ThemeProvider } from '@/context';
+import { ToastProvider } from '@/components/feedback/ToastProvider';
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
@@ -12,8 +10,7 @@ export function Providers({ children }: { children: ReactNode }) {
       <AuthProvider>
         <NotificationProvider>
           <ChatProvider>
-            {children}
-            <ToastContainer newestOnTop pauseOnFocusLoss={false} />
+            <ToastProvider>{children}</ToastProvider>
           </ChatProvider>
         </NotificationProvider>
       </AuthProvider>

@@ -24,29 +24,45 @@ export interface AuthResponse {
 }
 
 export async function login(payload: LoginPayload): Promise<AuthResponse> {
-  return apiRequest<AuthResponse>('/api/auth/login', {
+  const response = await apiRequest<AuthResponse>('/api/auth/login', {
     method: 'POST',
     data: payload
   });
+  if (!response.data || response.error) {
+    throw new Error(response.message || 'Не удалось выполнить вход');
+  }
+  return response.data;
 }
 
 export async function refresh(refresh_token: string): Promise<AuthResponse> {
-  return apiRequest<AuthResponse>('/api/auth/refresh', {
+  const response = await apiRequest<AuthResponse>('/api/auth/refresh', {
     method: 'POST',
     data: { refresh_token }
   });
+  if (!response.data || response.error) {
+    throw new Error(response.message || 'Не удалось обновить токен');
+  }
+  return response.data;
 }
 
 export async function logout(refresh_token?: string): Promise<void> {
-  await apiRequest('/api/auth/logout', {
+  const response = await apiRequest('/api/auth/logout', {
     method: 'POST',
-    data: refresh_token ? { refresh_token } : undefined
+    data: refresh_token ? { refresh_token } : undefined,
+    showErrorToast: false
   });
+  if (response.error) {
+    throw new Error(response.message || 'Не удалось выйти из системы');
+  }
 }
 
 export async function register(payload: RegisterPayload): Promise<AuthResponse> {
-  return apiRequest<AuthResponse>('/api/auth/register', {
+  const response = await apiRequest<AuthResponse>('/api/auth/register', {
     method: 'POST',
     data: payload
   });
+  if (!response.data || response.error) {
+    throw new Error(response.message || 'Не удалось выполнить регистрацию');
+  }
+  return response.data;
 }

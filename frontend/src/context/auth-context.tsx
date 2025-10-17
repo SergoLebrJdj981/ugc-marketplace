@@ -121,7 +121,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setLoading(false);
       }
     },
-    [handleAuthSuccess, login]
+    [handleAuthSuccess]
   );
 
   const register = useCallback(
@@ -129,11 +129,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(true);
       try {
         const response = await registerRequest(payload);
-        if (!response?.access_token) {
-          await login({ email: payload.email, password: payload.password });
-          notify.success('Регистрация прошла успешно!');
-          return;
-        }
         handleAuthSuccess(response);
         notify.success('Регистрация прошла успешно!');
       } catch (error) {
