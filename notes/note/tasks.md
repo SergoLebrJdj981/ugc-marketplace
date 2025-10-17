@@ -970,6 +970,9 @@ Context Lock v3.5 подтверждён. Все кабинеты пользов
 
 ## [v3.6-r2] Context Lock — Global Contexts and State Management reverified (2025-10-18)
 **Описание:** Проведена повторная ревизия контекстов и глобального состояния. Исправлена работа ThemeContext, сохранение темы и синхронизация Auth/Notification/Chat контекстов с API.
+
+## [fix] Theme Visuals — Dark Mode Tailwind Integration (2025-10-18)
+**Описание:** Добавлены классы dark: для body, layout и UI-компонентов. Тёмная тема отображается корректно, цвета и фон переключаются синхронно с ThemeContext.
 ---
 
 ## Подмодуль 3.6 — Контексты и глобальное состояние

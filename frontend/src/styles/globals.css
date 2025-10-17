@@ -2,23 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
-}
-
-html,
 body {
-  height: 100%;
-}
-
-body {
-  @apply bg-slate-50 text-slate-900 antialiased;
-}
-
-a {
-  @apply text-brand underline-offset-2 hover:underline;
+  @apply bg-white text-gray-900 transition-colors duration-300 antialiased;
 }
 
 .dark body {
-  @apply bg-slate-900 text-slate-100;
+  @apply bg-gray-900 text-gray-100 transition-colors duration-300;
+}
+
+.card {
+  @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg shadow-sm p-4;
+}
+
+button {
+  @apply transition-colors duration-200;
 }
