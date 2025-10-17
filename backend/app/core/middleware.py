@@ -1,47 +1,68 @@
-"""Custom middleware stack for security and observability."""
+"""Custom middleware stack for logging and request safeguards."""
 
 from __future__ import annotations
 
 import asyncio
+import logging
 import time
 from collections import defaultdict
+from pathlib import Path
 
 from fastapi import FastAPI
-from loguru import logger
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
-from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 
-from app.core.config import settings
+from app.core.config import PROJECT_ROOT, settings
 from app.core.security import TokenError, get_subject, verify_token
 
+LOG_DIR = PROJECT_ROOT.parent / "logs"
+REQUEST_LOG = LOG_DIR / "requests.log"
+ERROR_LOG = LOG_DIR / "errors.log"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 
-class RequestLoggerMiddleware(BaseHTTPMiddleware):
-    """Log basic request/response information."""
+request_logger = logging.getLogger("requests")
+error_logger = logging.getLogger("errors")
+
+
+def _configure_logger(logger: logging.Logger, log_file: Path, level: int) -> None:
+    """Attach a file handler once per process."""
+    logger.setLevel(level)
+    logger.propagate = False
+    if any(isinstance(handler, logging.FileHandler) and handler.baseFilename == str(log_file) for handler in logger.handlers):
+        return
+    handler = logging.FileHandler(log_file)
+    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+
+_configure_logger(request_logger, REQUEST_LOG, logging.INFO)
+_configure_logger(error_logger, ERROR_LOG, logging.INFO)
+
+
+class RequestLoggingMiddleware(BaseHTTPMiddleware):
+    """Persist request/response data to log files."""
 
     async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         start = time.time()
-        response = await call_next(request)
+        try:
+            response = await call_next(request)
+        except Exception as exc:  # pragma: no cover
+            duration = (time.time() - start) * 1000
+            error_logger.error("%s %s -> ERROR (%0.2f ms): %s", request.method, request.url.path, duration, exc)
+            raise
         duration = (time.time() - start) * 1000
-        client_ip = request.client.host if request.client else "unknown"
-        logger.info(
-            "[REQUEST] {method} {path} from {ip} -> {status} ({duration:.2f} ms)",
-            method=request.method,
-            path=request.url.path,
-            ip=client_ip,
-            status=response.status_code,
-            duration=duration,
-        )
+        request_logger.info("%s %s -> %s (%0.2f ms)", request.method, request.url.path, response.status_code, duration)
         return response
 
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
-    """Simple in-memory rate limiter keyed by client IP."""
+    """Simple in-memory IP based rate limiter used for local development."""
 
     def __init__(self, app: FastAPI, limit: int, window_seconds: int = 60) -> None:
         super().__init__(app)
-        self.limit = limit
+        self.limit = max(limit, 1)
         self.window_seconds = window_seconds
         self._reservoir: dict[str, tuple[int, float]] = defaultdict(lambda: (0, 0.0))
         self._lock = asyncio.Lock()
@@ -59,18 +80,12 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
             self._reservoir[client_ip] = (count, reset_ts)
             if count > self.limit:
                 retry_after = max(int(reset_ts - now), 1)
-                logger.warning("Rate limit exceeded for %s", client_ip)
-                return JSONResponse(  # type: ignore[return-value]
+                error_logger.warning("Rate limit exceeded for %s", client_ip)
+                return JSONResponse(
                     status_code=429,
                     headers={"Retry-After": str(retry_after)},
-                    content={
-                        "status": "error",
-                        "code": 429,
-                        "message": "Too many requests",
-                        "details": [],
-                    },
+                    content={"detail": "Too many requests"},
                 )
-
         return await call_next(request)
 
     async def reset(self) -> None:
@@ -81,7 +96,6 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         self._reservoir.clear()
 
 
-# Expose a singleton middleware instance store for tests to reset
 _rate_limiter_instance: RateLimitMiddleware | None = None
 
 
@@ -96,7 +110,7 @@ def reset_rate_limiter_sync() -> None:
 
 
 class AdminActionMiddleware(BaseHTTPMiddleware):
-    """Write admin requests to a dedicated log."""
+    """Log admin API interactions to help with auditing."""
 
     async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         response = await call_next(request)
@@ -108,51 +122,23 @@ class AdminActionMiddleware(BaseHTTPMiddleware):
                 try:
                     payload = verify_token(token, expected_type="access")
                     admin_id = str(get_subject(payload))
-                except TokenError:  # pragma: no cover - logging best effort
+                except TokenError:
                     admin_id = "invalid-token"
-
-            logger.bind(admin_action=True).info(
-                "admin_action method={method} path={path} status={status} admin_id={admin}",
-                method=request.method,
-                path=request.url.path,
-                status=response.status_code,
-                admin=admin_id,
+            request_logger.info(
+                "admin_action %s %s -> %s (admin_id=%s)",
+                request.method,
+                request.url.path,
+                response.status_code,
+                admin_id,
             )
         return response
 
 
+def _resolve_rate_limit() -> int:
+    return getattr(settings, "rate_limit_per_minute", 60)
+
+
 def setup_middleware(app: FastAPI) -> None:
-    """Configure middleware stack on the FastAPI application."""
-
-    log_path = settings.log_path
-    log_path.parent.mkdir(parents=True, exist_ok=True)
-    logger.add(
-        log_path,
-        rotation="10 MB",
-        retention="14 days",
-        format="[{time:YYYY-MM-DD HH:mm:ss}] {level} — {message}",
-        enqueue=True,
-    )
-
-    admin_log_path = settings.log_path.parent / "admin_actions.log"
-    admin_log_path.parent.mkdir(parents=True, exist_ok=True)
-    logger.add(
-        admin_log_path,
-        rotation="5 MB",
-        retention="30 days",
-        format="[{time:YYYY-MM-DD HH:mm:ss}] {level} — {message}",
-        enqueue=True,
-        filter=lambda record: record["extra"].get("admin_action") is True,
-    )
-
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=settings.allowed_origins,
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-
-    app.add_middleware(RateLimitMiddleware, limit=settings.rate_limit_per_minute)
-    app.add_middleware(RequestLoggerMiddleware)
+    app.add_middleware(RateLimitMiddleware, limit=_resolve_rate_limit())
+    app.add_middleware(RequestLoggingMiddleware)
     app.add_middleware(AdminActionMiddleware)
