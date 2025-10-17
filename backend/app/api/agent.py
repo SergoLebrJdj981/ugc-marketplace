@@ -1,1 +1,53 @@
-"\"\"\"Agent dashboard endpoints.\"\"\"\n+\n+from __future__ import annotations\n+\n+from fastapi import APIRouter, status\n+\n+router = APIRouter(prefix=\"/agent\", tags=[\"Agent\"])\n+\n+\n+@router.get(\"/creators\", status_code=status.HTTP_200_OK)\n+def creators():\n+    \"\"\"Return creators supervised by the agent.\"\"\"\n+\n+    return {\n+        \"items\": [\n+            {\n+                \"id\": \"creator-301\",\n+                \"name\": \"Анна Ким\",\n+                \"campaigns\": 4,\n+                \"avg_rating\": 4.9,\n+                \"last_activity\": \"2025-10-25\",\n+            },\n+            {\n+                \"id\": \"creator-302\",\n+                \"name\": \"Дмитрий Орлов\",\n+                \"campaigns\": 2,\n+                \"avg_rating\": 4.6,\n+                \"last_activity\": \"2025-10-22\",\n+            },\n+        ]\n+    }\n+\n+\n+@router.get(\"/reports\", status_code=status.HTTP_200_OK)\n+def reports():\n+    \"\"\"Return agent reports overview.\"\"\"\n+\n+    return {\n+        \"items\": [\n+            {\n+                \"id\": \"report-71\",\n+                \"title\": \"Месячный отчёт: октябрь\",\n+                \"status\": \"draft\",\n+                \"updated_at\": \"2025-10-25\",\n+            },\n+            {\n+                \"id\": \"report-72\",\n+                \"title\": \"Финальный отчёт по Holiday drop\",\n+                \"status\": \"submitted\",\n+                \"updated_at\": \"2025-10-20\",\n+            },\n+        ]\n+    }\n*** End Patch
+"""Agent dashboard endpoints."""
+
+from __future__ import annotations
+
+from fastapi import APIRouter, status
+
+router = APIRouter(prefix="/agent", tags=["Agent"])
+
+
+@router.get("/creators", status_code=status.HTTP_200_OK)
+def creators():
+    """Return creators supervised by the agent."""
+
+    return {
+        "items": [
+            {
+                "id": "creator-301",
+                "name": "Анна Ким",
+                "campaigns": 4,
+                "avg_rating": 4.9,
+                "last_activity": "2025-10-25",
+            },
+            {
+                "id": "creator-302",
+                "name": "Дмитрий Орлов",
+                "campaigns": 2,
+                "avg_rating": 4.6,
+                "last_activity": "2025-10-22",
+            },
+        ]
+    }
+
+
+@router.get("/reports", status_code=status.HTTP_200_OK)
+def reports():
+    """Return agent reports overview."""
+
+    return {
+        "items": [
+            {
+                "id": "report-71",
+                "title": "Месячный отчёт: октябрь",
+                "status": "draft",
+                "updated_at": "2025-10-25",
+            },
+            {
+                "id": "report-72",
+                "title": "Финальный отчёт по Holiday drop",
+                "status": "submitted",
+                "updated_at": "2025-10-20",
+            },
+        ]
+    }

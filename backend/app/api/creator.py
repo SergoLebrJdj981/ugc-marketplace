@@ -1,1 +1,141 @@
-"\"\"\"Creator dashboard endpoints.\"\"\"\n+\n+from __future__ import annotations\n+\n+from datetime import datetime, timedelta\n+\n+from fastapi import APIRouter, status\n+\n+router = APIRouter(prefix=\"/creator\", tags=[\"Creator\"])\n+\n+\n+@router.get(\"/feed\", status_code=status.HTTP_200_OK)\n+def feed():\n+    \"\"\"Return recommended campaigns for the creator feed.\"\"\"\n+\n+    now = datetime.utcnow()\n+    return {\n+        \"items\": [\n+            {\n+                \"id\": \"cmp-401\",\n+                \"title\": \"Запуск осенней коллекции\",\n+                \"brand\": \"VogueLine\",\n+                \"reward\": 28000,\n+                \"deadline\": (now + timedelta(days=5)).isoformat(),\n+                \"format\": \"UGC-video\",\n+            },\n+            {\n+                \"id\": \"cmp-402\",\n+                \"title\": \"Обзор гаджетов Q4\",\n+                \"brand\": \"TechLab\",\n+                \"reward\": 32000,\n+                \"deadline\": (now + timedelta(days=2)).isoformat(),\n+                \"format\": \"Shorts\",\n+            },\n+        ]\n+    }\n+\n+\n+@router.get(\"/orders\", status_code=status.HTTP_200_OK)\n+def orders():\n+    \"\"\"Return creator orders grouped by status.\"\"\"\n+\n+    return {\n+        \"summary\": {\n+            \"in_progress\": 3,\n+            \"awaiting_review\": 1,\n+            \"completed\": 9,\n+        },\n+        \"items\": [\n+            {\n+                \"id\": \"order-584\",\n+                \"campaign\": \"Осенний lookbook\",\n+                \"status\": \"in_progress\",\n+                \"deadline\": \"2025-11-02\",\n+                \"payout\": 26000,\n+            },\n+            {\n+                \"id\": \"order-585\",\n+                \"campaign\": \"Видео-отзыв для TechLab\",\n+                \"status\": \"awaiting_review\",\n+                \"deadline\": \"2025-10-30\",\n+                \"payout\": 18000,\n+            },\n+        ],\n+    }\n+\n+\n+@router.get(\"/balance\", status_code=status.HTTP_200_OK)\n+def balance():\n+    \"\"\"Return financial snapshot for the creator.\"\"\"\n+\n+    return {\n+        \"available\": 74500,\n+        \"pending\": 21000,\n+        \"total_earned\": 412000,\n+        \"last_payout\": {\n+            \"amount\": 38000,\n+            \"date\": \"2025-10-18\",\n+            \"method\": \"bank_transfer\",\n+        },\n+        \"transactions\": [\n+            {\n+                \"id\": \"txn-901\",\n+                \"type\": \"payout\",\n+                \"amount\": 38000,\n+                \"date\": \"2025-10-18\",\n+                \"status\": \"completed\",\n+            },\n+            {\n+                \"id\": \"txn-902\",\n+                \"type\": \"escrow\",\n+                \"amount\": 21000,\n+                \"date\": \"2025-10-22\",\n+                \"status\": \"pending\",\n+            },\n+        ],\n+    }\n+\n+\n+@router.get(\"/rating\", status_code=status.HTTP_200_OK)\n+def rating():\n+    \"\"\"Return rating metrics for the creator profile.\"\"\"\n+\n+    return {\n+        \"score\": 4.7,\n+        \"position\": 28,\n+        \"total_creators\": 520,\n+        \"metrics\": {\n+            \"completion_rate\": 0.96,\n+            \"avg_review_time\": 18,\n+            \"dispute_rate\": 0.02,\n+        },\n+        \"achievements\": [\n+            {\"id\": \"badge-1\", \"title\": \"PRO+ автор\", \"earned_at\": \"2025-08-12\"},\n+            {\"id\": \"badge-2\", \"title\": \"100 кампаний\", \"earned_at\": \"2025-09-25\"},\n+        ],\n+    }\n+\n+\n+@router.get(\"/learning\", status_code=status.HTTP_200_OK)\n+def learning():\n+    \"\"\"Return learning catalog for the creator.\"\"\"\n+\n+    return {\n+        \"tracks\": [\n+            {\n+                \"id\": \"lrn-105\",\n+                \"title\": \"Advanced TikTok Storytelling\",\n+                \"duration\": 180,\n+                \"level\": \"pro\",\n+                \"status\": \"in_progress\",\n+            },\n+            {\n+                \"id\": \"lrn-106\",\n+                \"title\": \"Монетизация UGC-контента\",\n+                \"duration\": 95,\n+                \"level\": \"pro_plus\",\n+                \"status\": \"available\",\n+            },\n+        ]\n+    }\n*** End Patch
+"""Creator dashboard endpoints."""
+
+from __future__ import annotations
+
+from datetime import datetime, timedelta
+
+from fastapi import APIRouter, status
+
+router = APIRouter(prefix="/creator", tags=["Creator"])
+
+
+@router.get("/feed", status_code=status.HTTP_200_OK)
+def feed():
+    """Return recommended campaigns for the creator feed."""
+
+    now = datetime.utcnow()
+    return {
+        "items": [
+            {
+                "id": "cmp-401",
+                "title": "Запуск осенней коллекции",
+                "brand": "VogueLine",
+                "reward": 28000,
+                "deadline": (now + timedelta(days=5)).isoformat(),
+                "format": "UGC-video",
+            },
+            {
+                "id": "cmp-402",
+                "title": "Обзор гаджетов Q4",
+                "brand": "TechLab",
+                "reward": 32000,
+                "deadline": (now + timedelta(days=2)).isoformat(),
+                "format": "Shorts",
+            },
+        ]
+    }
+
+
+@router.get("/orders", status_code=status.HTTP_200_OK)
+def orders():
+    """Return creator orders grouped by status."""
+
+    return {
+        "summary": {
+            "in_progress": 3,
+            "awaiting_review": 1,
+            "completed": 9,
+        },
+        "items": [
+            {
+                "id": "order-584",
+                "campaign": "Осенний lookbook",
+                "status": "in_progress",
+                "deadline": "2025-11-02",
+                "payout": 26000,
+            },
+            {
+                "id": "order-585",
+                "campaign": "Видео-отзыв для TechLab",
+                "status": "awaiting_review",
+                "deadline": "2025-10-30",
+                "payout": 18000,
+            },
+        ],
+    }
+
+
+@router.get("/balance", status_code=status.HTTP_200_OK)
+def balance():
+    """Return financial snapshot for the creator."""
+
+    return {
+        "available": 74500,
+        "pending": 21000,
+        "total_earned": 412000,
+        "last_payout": {
+            "amount": 38000,
+            "date": "2025-10-18",
+            "method": "bank_transfer",
+        },
+        "transactions": [
+            {
+                "id": "txn-901",
+                "type": "payout",
+                "amount": 38000,
+                "date": "2025-10-18",
+                "status": "completed",
+            },
+            {
+                "id": "txn-902",
+                "type": "escrow",
+                "amount": 21000,
+                "date": "2025-10-22",
+                "status": "pending",
+            },
+        ],
+    }
+
+
+@router.get("/rating", status_code=status.HTTP_200_OK)
+def rating():
+    """Return rating metrics for the creator profile."""
+
+    return {
+        "score": 4.7,
+        "position": 28,
+        "total_creators": 520,
+        "metrics": {
+            "completion_rate": 0.96,
+            "avg_review_time": 18,
+            "dispute_rate": 0.02,
+        },
+        "achievements": [
+            {"id": "badge-1", "title": "PRO+ автор", "earned_at": "2025-08-12"},
+            {"id": "badge-2", "title": "100 кампаний", "earned_at": "2025-09-25"},
+        ],
+    }
+
+
+@router.get("/learning", status_code=status.HTTP_200_OK)
+def learning():
+    """Return learning catalog for the creator."""
+
+    return {
+        "tracks": [
+            {
+                "id": "lrn-105",
+                "title": "Advanced TikTok Storytelling",
+                "duration": 180,
+                "level": "pro",
+                "status": "in_progress",
+            },
+            {
+                "id": "lrn-106",
+                "title": "Монетизация UGC-контента",
+                "duration": 95,
+                "level": "pro_plus",
+                "status": "available",
+            },
+        ]
+    }

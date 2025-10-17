@@ -6,6 +6,7 @@ from app.core.config import settings
 from app.core.error_handlers import register_exception_handlers
 from app.core.logging import setup_logging
 from app.core.middleware import setup_middleware
+from app.db.init_db import init_db
 from app.scheduler import shutdown_scheduler, start_scheduler
 
 setup_logging()
@@ -26,7 +27,8 @@ app.include_router(api_router)
 
 
 @app.on_event("startup")
-async def _start_scheduler() -> None:
+async def _on_startup() -> None:
+    init_db()
     start_scheduler()
 
 
