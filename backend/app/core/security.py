@@ -2,17 +2,49 @@
 
 from __future__ import annotations
 
+import hmac
 from datetime import datetime, timedelta, timezone
 from typing import Any
 from uuid import UUID
 
 import jwt
+from passlib.context import CryptContext
+
+try:  # pragma: no cover - environment compatibility shim
+    import bcrypt as _bcrypt
+
+    if not hasattr(_bcrypt, "__about__"):
+        class _About:
+            __version__ = getattr(_bcrypt, "__version__", "")
+
+
+        _bcrypt.__about__ = _About()  # type: ignore[attr-defined]
+except ImportError:  # pragma: no cover
+    _bcrypt = None
 
 from app.core.config import settings
 
 
 class TokenError(Exception):
     """Raised when token validation fails."""
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def hash_password(password: str) -> str:
+    """Hash a plain password using bcrypt."""
+
+    return pwd_context.hash(password)
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify a password against a hash, allowing legacy plain-text values."""
+
+    try:
+        return pwd_context.verify(plain_password, hashed_password)
+    except (ValueError, TypeError):  # pragma: no cover - compatibility path
+        return hmac.compare_digest(plain_password, hashed_password)
 
 
 def _build_token(

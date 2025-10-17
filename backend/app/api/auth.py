@@ -6,7 +6,14 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 
-from app.core.security import TokenError, create_access_token, create_refresh_token, verify_token
+from app.core.security import (
+    TokenError,
+    create_access_token,
+    create_refresh_token,
+    hash_password,
+    verify_password,
+    verify_token,
+)
 from app.db.session import get_session
 from app.models import User
 
@@ -20,6 +27,13 @@ class LoginRequest(BaseModel):
 
 class RefreshRequest(BaseModel):
     refresh_token: str
+
+
+class RegisterRequest(BaseModel):
+    email: EmailStr
+    password: str
+    full_name: str | None = None
+    role: str = "creator"
 
 
 def _user_to_dict(user: User) -> dict:
@@ -36,7 +50,7 @@ def _user_to_dict(user: User) -> dict:
 @router.post("/login", status_code=status.HTTP_200_OK)
 def login(payload: LoginRequest, db: Session = Depends(get_session)):
     user = db.query(User).filter(User.email == payload.email).one_or_none()
-    if not user or user.password != payload.password:
+    if not user or not verify_password(payload.password, user.password):
         raise HTTPException(status_code=401, detail="Invalid email or password")
 
     claims = {"sub": str(user.id), "role": user.role}
@@ -66,3 +80,36 @@ def refresh(payload: RefreshRequest):
 @router.post("/logout", status_code=status.HTTP_200_OK)
 def logout():
     return {"status": "ok"}
+
+
+@router.post("/register", status_code=status.HTTP_201_CREATED)
+def register_user(data: RegisterRequest, db: Session = Depends(get_session)):
+    existing = db.query(User).filter(User.email == data.email).first()
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Пользователь с таким email уже существует",
+        )
+
+    user = User(
+        email=data.email,
+        password=hash_password(data.password),
+        full_name=data.full_name,
+        role=data.role,
+        is_active=True,
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+
+    claims = {"sub": str(user.id), "role": user.role}
+    access_token = create_access_token(claims)
+    refresh_token = create_refresh_token(claims)
+
+    return {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "token_type": "bearer",
+        "user_role": user.role,
+        "user": _user_to_dict(user),
+    }
