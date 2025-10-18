@@ -7,7 +7,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-from sqlalchemy import CheckConstraint, Enum, ForeignKey, Numeric, String, Text, func
+from sqlalchemy import Boolean, CheckConstraint, Enum, ForeignKey, Numeric, String, Text, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -35,6 +35,7 @@ class Campaign(Base):
     budget: Mapped[Decimal] = mapped_column(Numeric(12, 2), nullable=False)
     currency: Mapped[str] = mapped_column(String(8), nullable=False, default="RUB")
     status: Mapped[CampaignStatus] = mapped_column(Enum(CampaignStatus, name="campaign_status"), nullable=False, default=CampaignStatus.DRAFT)
+    is_blocked: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="0")
     start_date: Mapped[date | None] = mapped_column()
     end_date: Mapped[date | None] = mapped_column()
     created_at: Mapped[datetime] = mapped_column(nullable=False, server_default=func.now())

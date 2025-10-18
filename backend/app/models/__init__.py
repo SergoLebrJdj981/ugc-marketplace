@@ -1,5 +1,6 @@
 """SQLAlchemy models export."""
 
+from app.models.admin_action import AdminAction
 from app.models.admin_log import AdminLog
 from app.models.application import Application
 from app.models.campaign import Campaign
@@ -17,6 +18,7 @@ from app.models.user import User
 from app.models.video import Video
 from app.models.webhook_event import WebhookEvent
 from app.models.enums import (
+    AdminActionType,
     AdminLevel,
     ApplicationStatus,
     CampaignStatus,
@@ -30,6 +32,7 @@ from app.models.enums import (
 )
 
 __all__ = [
+    "AdminAction",
     "AdminLog",
     "Application",
     "Campaign",
@@ -46,6 +49,7 @@ __all__ = [
     "User",
     "Video",
     "WebhookEvent",
+    "AdminActionType",
     "AdminLevel",
     "ApplicationStatus",
     "CampaignStatus",

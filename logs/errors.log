@@ -1048,3 +1048,1802 @@ sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: paym
 FROM payments]
 [parameters: (0,)]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:47:58 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: notifications.title
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/notifications.py", line 48, in list_notifications
+    notifications = query.order_by(Notification.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: notifications.title
+[SQL: SELECT notifications.id AS notifications_id, notifications.user_id AS notifications_user_id, notifications.type AS notifications_type, notifications.title AS notifications_title, notifications.content AS notifications_content, notifications.related_id AS notifications_related_id, notifications.is_read AS notifications_is_read, notifications.created_at AS notifications_created_at 
+FROM notifications 
+WHERE notifications.user_id = ? ORDER BY notifications.created_at DESC]
+[parameters: ('ed0e75971d7e4473897759d256f1ab98',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:48:04 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 117, in list_campaigns
+    campaigns = query.order_by(Campaign.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns ORDER BY campaigns.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:48:04 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 117, in list_campaigns
+    campaigns = query.order_by(Campaign.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns ORDER BY campaigns.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:48:09 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 117, in list_campaigns
+    campaigns = query.order_by(Campaign.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns ORDER BY campaigns.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:48:14 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: table notifications has no column named title
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 142, in toggle_user_block
+    action = await block_or_unblock_user(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/services/moderation.py", line 100, in block_or_unblock_user
+    await create_notification(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/services/notifications.py", line 172, in create_notification
+    db.commit()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2017, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1302, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1277, in _prepare_impl
+    self.session.flush()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4341, in flush
+    self._flush(objects)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4476, in _flush
+    with util.safe_reraise():
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4437, in _flush
+    flush_context.execute()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table notifications has no column named title
+[SQL: INSERT INTO notifications (id, user_id, type, title, content, related_id, is_read) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at]
+[parameters: ('f87410936e4e493cb8af51c3a6b474fb', '7953484ec04f4c428424be2db9c08d6f', 'moderation', 'Аккаунт заблокирован', 'лох', None, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:48:20 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 117, in list_campaigns
+    campaigns = query.order_by(Campaign.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns ORDER BY campaigns.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:48:22 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 117, in list_campaigns
+    campaigns = query.order_by(Campaign.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns ORDER BY campaigns.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:48:24 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: payments.fee
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin.py", line 144, in finance_overview
+    fees_collected = db.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: payments.fee
+[SQL: SELECT coalesce(sum(payments.fee), ?) AS coalesce_1 
+FROM payments]
+[parameters: (0,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:48:59 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: payments.fee
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin.py", line 144, in finance_overview
+    fees_collected = db.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: payments.fee
+[SQL: SELECT coalesce(sum(payments.fee), ?) AS coalesce_1 
+FROM payments]
+[parameters: (0,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:49:02 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 117, in list_campaigns
+    campaigns = query.order_by(Campaign.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns ORDER BY campaigns.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:49:02 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 117, in list_campaigns
+    campaigns = query.order_by(Campaign.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns ORDER BY campaigns.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:49:18 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin.py", line 76, in campaigns
+    campaigns = db.query(Campaign).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:49:18 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 117, in list_campaigns
+    campaigns = query.order_by(Campaign.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns ORDER BY campaigns.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:49:18 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: campaigns.is_blocked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin_moderation.py", line 117, in list_campaigns
+    campaigns = query.order_by(Campaign.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: campaigns.is_blocked
+[SQL: SELECT campaigns.id AS campaigns_id, campaigns.brand_id AS campaigns_brand_id, campaigns.title AS campaigns_title, campaigns.description AS campaigns_description, campaigns.brief AS campaigns_brief, campaigns.budget AS campaigns_budget, campaigns.currency AS campaigns_currency, campaigns.status AS campaigns_status, campaigns.is_blocked AS campaigns_is_blocked, campaigns.start_date AS campaigns_start_date, campaigns.end_date AS campaigns_end_date, campaigns.created_at AS campaigns_created_at, campaigns.updated_at AS campaigns_updated_at 
+FROM campaigns ORDER BY campaigns.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 16:49:19 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: payments.fee
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin.py", line 144, in finance_overview
+    fees_collected = db.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: payments.fee
+[SQL: SELECT coalesce(sum(payments.fee), ?) AS coalesce_1 
+FROM payments]
+[parameters: (0,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

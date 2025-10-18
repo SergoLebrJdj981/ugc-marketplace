@@ -45,6 +45,7 @@ const sidebarLinks = [
   { href: '/admin', label: 'Обзор' },
   { href: '/admin/users', label: 'Пользователи' },
   { href: '/admin/campaigns', label: 'Кампании' },
+  { href: '/admin/moderation', label: 'Модерация' },
   { href: '/admin/finance', label: 'Финансы', exact: true },
   { href: '/admin/analytics', label: 'Аналитика' }
 ];

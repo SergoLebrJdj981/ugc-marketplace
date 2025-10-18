@@ -9,6 +9,19 @@ from app.schemas.admin import (
 from app.schemas.application import ApplicationCreate, ApplicationRead
 from app.schemas.brand import BrandCreate, BrandRead
 from app.schemas.campaign import CampaignCreate, CampaignListResponse, CampaignRead
+from app.schemas.moderation import (
+    AdminActionRead,
+    ModerationCampaign,
+    ModerationCampaignActionResponse,
+    ModerationCampaignsResponse,
+    ModerationLogsResponse,
+    ModerationToggleRequest,
+    ModerationUser,
+    ModerationUserActionResponse,
+    ModerationUsersResponse,
+    ModerationWarningRequest,
+    ModerationWarningResponse,
+)
 from app.schemas.notification import (
     NotificationListResponse,
     NotificationMarkReadRequest,
@@ -46,6 +59,17 @@ __all__ = [
     "CampaignCreate",
     "CampaignListResponse",
     "CampaignRead",
+    "AdminActionRead",
+    "ModerationCampaign",
+    "ModerationCampaignActionResponse",
+    "ModerationCampaignsResponse",
+    "ModerationLogsResponse",
+    "ModerationToggleRequest",
+    "ModerationUser",
+    "ModerationUserActionResponse",
+    "ModerationUsersResponse",
+    "ModerationWarningRequest",
+    "ModerationWarningResponse",
     "LoginRequest",
     "MessageListResponse",
     "MessageRead",

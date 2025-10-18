@@ -1,6 +1,18 @@
 # Changelog
 # Changelog
 
+## [v4.5] Context Lock — Admin Moderation Tools implemented (2025-10-18)
+**Описание:** Подмодуль 4.5 завершён. Администраторы получили панель модерации с блокировками, предупреждениями и журналированием действий.
+
+### Выполнено
+- Добавлены модели и миграция `0007_add_admin_actions.py`, сервис `app/services/moderation.py`, файл логов `backend/logs/actions.log`.
+- Реализованы REST-маршруты `/api/admin/moderation/*` (пользователи, кампании, предупреждения, журнал), таблица `admin_actions`, интеграция с `NotificationService`.
+- Создан фронтенд `/admin/moderation` с компонентами `ModerationPanel`, `UsersTable`, `CampaignsTable`, `ActionLogTable`, `WarningModal`; добавлены фильтры и уведомления.
+- Написаны тесты `backend/tests/test_moderation.py`, проходящие блокировку/разблокировку, предупреждения и логирование; обновлены admin sidebar ссылки.
+- Обновлены документы (`tasks.md`, `changelog.md`), создан архив `context_lock_v4.5_admin_moderation_verified.zip`.
+
+**Результат:** Модерация стала управляемой из одной панели, действия логируются и уведомляют пользователей, функциональность подтверждена тестами.
+
 ## [v4.4.1] Context Lock — Dual Platform Fees implemented (2025-10-18)
 **Описание:** Разделены комиссии платформы на депозиты и выплаты, админ-панель получила управление обоими значениями.
 

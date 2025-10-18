@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 from app.api import (
     admin,
+    admin_moderation,
     agent,
     auth,
     chat,
@@ -31,5 +32,6 @@ api_router.include_router(notifications.router, tags=["Notifications"])
 api_router.include_router(payments.router, tags=["Payments"])
 api_router.include_router(payouts.router, tags=["Payouts"])
 api_router.include_router(admin.router, tags=["Admin"])
+api_router.include_router(admin_moderation.router, tags=["Admin Moderation"])
 api_router.include_router(webhooks.router, tags=["Webhooks"])
 api_router.include_router(system.router, tags=["System"])

@@ -92,6 +92,10 @@ def prepare_database() -> None:
             path.write_text("", encoding="utf-8")
         else:
             path.touch()
+    backend_logs_dir = PROJECT_ROOT / "logs"
+    backend_logs_dir.mkdir(parents=True, exist_ok=True)
+    actions_backend_log = backend_logs_dir / "actions.log"
+    actions_backend_log.write_text("", encoding="utf-8")
     chat_connection_manager.reset_sync()
     notification_connection_manager.reset_sync()
 

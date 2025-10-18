@@ -79,3 +79,11 @@ class ReportType(enum.Enum):
     FACTORY_STATUS = "factory_status"
     QUALITY_REVIEW = "quality_review"
     ANALYTICS = "analytics"
+
+
+class AdminActionType(enum.Enum):
+    BLOCK_USER = "block_user"
+    UNBLOCK_USER = "unblock_user"
+    BLOCK_CAMPAIGN = "block_campaign"
+    UNBLOCK_CAMPAIGN = "unblock_campaign"
+    WARNING = "warning"
