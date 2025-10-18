@@ -5,6 +5,7 @@ from app.models.application import Application
 from app.models.campaign import Campaign
 from app.models.event_log import EventLog
 from app.models.notification import Notification
+from app.models.message import Message
 from app.models.order import Order
 from app.models.payment import Payment
 from app.models.report import Report
@@ -29,6 +30,7 @@ __all__ = [
     "Campaign",
     "EventLog",
     "Notification",
+    "Message",
     "Order",
     "Payment",
     "Report",

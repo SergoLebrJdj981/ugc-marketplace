@@ -1,5 +1,28 @@
 # Changelog
 
+## [v4.1] Context Lock — Chat System verified (2025-10-18)
+**Описание:** Завершён подмодуль 4.1. Реализована система внутренних чатов с хранением истории, WebSocket-подключением и интеграцией во фронтенд кабинеты.
+
+### Выполнено
+- Добавлена модель `Message`, Alembic-миграция `0003_add_messages_table` и логирование чатов в `logs/chat.log`.
+- Созданы эндпоинты `/api/chat/send`, `/api/chat/{chat_id}` и WebSocket `/ws/chat/{chat_id}`; покрыто PyTest-сценариями (REST + WebSocket).
+- Расширен `ChatProvider`, добавлены `ChatBox`, `MessageList`, `ChatWidget`, API-слой `lib/chat.ts`; чат встроен в страницы `/brand` и `/creator`.
+- Обновлены project_plan (архитектура и интерфейсы), tasks (подмодуль 4.1) и changelog.
+
+**Результат:**  
+Context Lock v4.1 — чат между брендами, креаторами и агентами работает в режиме реального времени, история сообщений сохраняется.
+
+## [fix] Chat System — error handling and logging improvements (2025-10-18)
+**Описание:** Устранена ошибка `[object Object]` при отправке сообщений, усилено логирование событий чата.
+
+### Выполнено
+- Введена дополнительная валидация `receiver_id`/`content`, унифицирован ответ `/api/chat/send`, добавлено детализированное логирование (`message`, `validation error`, `ws connect/disconnect`).
+- Реализованы вспомогательные форматтеры логов, гарантия создания `logs/chat.log`, обновлены unit-тесты.
+- Починена обработка ошибок на фронтенде (`postChatMessage`, `ChatProvider`, `ChatWidget`) с информативными toast-уведомлениями.
+
+**Результат:**  
+Чат корректно сообщает пользователям о проблемах, а `logs/chat.log` фиксирует все ключевые события для аудита.
+
 ## [v3.9-stable] Context Lock — Full Restore Stable (manual) (2025-10-29)
 **Описание:** Проект полностью восстановлен вручную, все основные функции backend и frontend работают. Тесты не запускались из-за неполных ORM-связей.
 

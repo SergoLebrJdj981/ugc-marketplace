@@ -15,6 +15,7 @@ from app.schemas.notification import (
     NotificationMarkReadResponse,
     NotificationRead,
 )
+from app.schemas.chat import MessageListResponse, MessageRead, MessageSendRequest, MessageSendResponse
 from app.schemas.order import OrderListResponse, OrderRead, OrderStatusUpdate
 from app.schemas.payment import PaymentCreate, PaymentRead
 from app.schemas.webhook import (
@@ -38,6 +39,10 @@ __all__ = [
     "CampaignListResponse",
     "CampaignRead",
     "LoginRequest",
+    "MessageListResponse",
+    "MessageRead",
+    "MessageSendRequest",
+    "MessageSendResponse",
     "NotificationListResponse",
     "NotificationMarkReadRequest",
     "NotificationMarkReadResponse",

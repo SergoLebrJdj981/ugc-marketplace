@@ -1,9 +1,11 @@
 'use client';
 
+import { useMemo } from 'react';
 import Link from 'next/link';
 
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
 import { LayoutShell } from '@/components/layout/LayoutShell';
+import { ChatWidget } from '@/components/chat';
 import { Badge, Button, Card, EmptyState, ErrorState, Loader, Table } from '@/components/ui';
 import { useDashboardData } from '@/lib/useDashboardData';
 
@@ -64,6 +66,15 @@ export default function BrandDashboard() {
 
   const isLoading = campaignsLoading || analyticsLoading;
   const hasError = Boolean(campaignsError || analyticsError);
+  const chatContacts = useMemo(
+    () =>
+      (analyticsData?.top_creators ?? []).map((creator) => ({
+        id: creator.id,
+        name: creator.name,
+        role: 'creator',
+      })),
+    [analyticsData],
+  );
 
   return (
     <ProtectedRoute allowedRoles={['brand']}>
@@ -125,6 +136,16 @@ export default function BrandDashboard() {
             </div>
           </section>
         ) : null}
+
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold text-slate-900">Коммуникация</h2>
+          <ChatWidget
+            title="Чат с креаторами и агентами"
+            contacts={chatContacts}
+            description="Выберите креатора из списка или укажите его ID, чтобы начать переписку по кампании."
+            emptyState="Выберите собеседника и начните диалог, чтобы сообщения появились в истории."
+          />
+        </section>
       </LayoutShell>
     </ProtectedRoute>
   );

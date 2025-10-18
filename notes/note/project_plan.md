@@ -231,6 +231,9 @@
   - Уникальность: один источник → одна оценка (`uq_rating_user_source`)
 - `reports`
   - `id UUID PK`, `author_id FK`, `campaign_id FK`, `order_id FK`, `report_type`, `content`, `created_at`
+- `messages`
+  - `id UUID PK`, `chat_id UUID`, `sender_id FK -> users.id`, `receiver_id FK -> users.id`, `content TEXT`, `is_read BOOLEAN`, `created_at`
+  - Индексы: `ix_messages_chat_id_created_at`
 
 ```
 users (1) ──< campaigns
@@ -461,6 +464,72 @@ campaigns (1) ──< reports
         }
       ],
       "total": 1
+    }
+    ```
+
+### Chat
+- `POST /api/chat/send` — отправка сообщения в указанный чат.
+  - Request `201`:
+    ```json
+    {
+      "chat_id": "41a4ad8d-a0c0-4ff7-9d1d-2ae4994a6f4c",
+      "receiver_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
+      "content": "Привет! Готов обсудить детали кампании."
+    }
+    ```
+  - Response `201`:
+    ```json
+    {
+      "id": "dd2f9cf1-72be-4f5f-849d-6eb97f9d9101",
+      "chat_id": "41a4ad8d-a0c0-4ff7-9d1d-2ae4994a6f4c",
+      "sender_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+      "receiver_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
+      "content": "Привет! Готов обсудить детали кампании.",
+      "is_read": false,
+      "timestamp": "2025-10-18T10:42:00Z"
+    }
+    ```
+- `GET /api/chat/{chat_id}` — история сообщений, параллельно помечает входящие как прочитанные.
+  - Response `200`:
+    ```json
+    {
+      "total": 2,
+      "items": [
+        {
+          "id": "dd2f9cf1-72be-4f5f-849d-6eb97f9d9101",
+          "chat_id": "41a4ad8d-a0c0-4ff7-9d1d-2ae4994a6f4c",
+          "sender_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+          "receiver_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
+          "content": "Привет! Готов обсудить детали кампании.",
+          "is_read": true,
+          "timestamp": "2025-10-18T10:42:00Z"
+        },
+        {
+          "id": "b13c947b-ff27-4d46-9fd0-66ce763637f6",
+          "chat_id": "41a4ad8d-a0c0-4ff7-9d1d-2ae4994a6f4c",
+          "sender_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
+          "receiver_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+          "content": "Отлично, я на связи!",
+          "is_read": false,
+          "timestamp": "2025-10-18T10:44:12Z"
+        }
+      ]
+    }
+    ```
+- WebSocket `GET /ws/chat/{chat_id}` — двустороннее соединение, обязательный query `token`.
+  - Payload уведомления:
+    ```json
+    {
+      "event": "message",
+      "data": {
+        "id": "dd2f9cf1-72be-4f5f-849d-6eb97f9d9101",
+        "chat_id": "41a4ad8d-a0c0-4ff7-9d1d-2ae4994a6f4c",
+        "sender_id": "8d1f38ec-4ff3-4e0c-82ac-1c2acfb4d5b9",
+        "receiver_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
+        "content": "Привет!",
+        "timestamp": "2025-10-18T10:42:00Z",
+        "is_read": false
+      }
     }
     ```
 

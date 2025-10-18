@@ -12,6 +12,7 @@ from app.core.config import PROJECT_ROOT
 LOG_DIR: Final[Path] = PROJECT_ROOT.parent / "logs"
 APP_LOG = LOG_DIR / "app.log"
 ERROR_LOG = LOG_DIR / "errors.log"
+CHAT_LOG = LOG_DIR / "chat.log"
 
 _configured = False
 
@@ -24,12 +25,13 @@ def setup_logging() -> None:
     LOG_DIR.mkdir(parents=True, exist_ok=True)
 
     logger.remove()
+    CHAT_LOG.touch(exist_ok=True)
     logger.add(
         APP_LOG,
         level="INFO",
         rotation="10 MB",
         retention="14 days",
-        enqueue=True,
+        enqueue=False,
         backtrace=False,
         diagnose=False,
         format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}",
@@ -43,5 +45,16 @@ def setup_logging() -> None:
         backtrace=True,
         diagnose=False,
         format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}",
+    )
+    logger.add(
+        CHAT_LOG,
+        level="INFO",
+        rotation="5 MB",
+        retention="14 days",
+        enqueue=True,
+        backtrace=False,
+        diagnose=False,
+        filter=lambda record: record["extra"].get("channel") == "chat",
+        format="{message}",
     )
     _configured = True

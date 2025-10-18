@@ -26,6 +26,7 @@ from app.main import app
 from app.core.metrics import reset_metrics
 from app.scheduler import shutdown_scheduler
 from app.services import event_logger, notifications as notification_service
+from app.services.chat import connection_manager
 
 from app import models as _models  # noqa: F401  # ensure mappers are registered
 
@@ -57,13 +58,20 @@ def prepare_database() -> None:
     Base.metadata.create_all(bind=engine)
     with engine.connect() as conn:
         tables = {row[0] for row in conn.execute(text("SELECT name FROM sqlite_master WHERE type='table'"))}
-    assert {"users", "event_logs"}.issubset(tables)
+    assert {"users", "event_logs", "messages"}.issubset(tables)
     reset_rate_limiter_sync()
     reset_metrics()
     shutdown_scheduler()
     for path in (event_logger.LOG_FILE, event_logger.STATS_FILE):
         if path.exists():
             path.unlink()
+    chat_log = PROJECT_ROOT.parent / "logs" / "chat.log"
+    chat_log.parent.mkdir(parents=True, exist_ok=True)
+    if chat_log.exists():
+        chat_log.write_text("", encoding="utf-8")
+    else:
+        chat_log.touch()
+    connection_manager.reset_sync()
 
 
 @pytest.fixture

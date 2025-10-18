@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
 import { LayoutShell } from '@/components/layout/LayoutShell';
+import { ChatWidget } from '@/components/chat';
 import { Badge, Button, Card, EmptyState, ErrorState, Loader, Table } from '@/components/ui';
 import { useDashboardData } from '@/lib/useDashboardData';
 
@@ -135,6 +136,15 @@ export default function CreatorDashboard() {
               description="Следите за обновлениями ленты — новые кампании появляются ежедневно."
             />
           )}
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold text-slate-900">Общение с брендами</h2>
+          <ChatWidget
+            title="Чат с брендом или агентом"
+            description="Введите ID контакта бренда или агента, чтобы обсудить детали заказа и отправить файлы."
+            emptyState="Выберите собеседника и начните диалог, чтобы следить за перепиской в реальном времени."
+          />
         </section>
       </LayoutShell>
     </ProtectedRoute>

@@ -6,6 +6,7 @@ from app.api import (
     admin,
     agent,
     auth,
+    chat,
     brand_dashboard,
     campaigns,
     creator,
@@ -19,6 +20,7 @@ api_router = APIRouter(prefix="/api")
 
 api_router.include_router(auth.router, tags=["Auth"])
 api_router.include_router(campaigns.router, tags=["Campaigns"])
+api_router.include_router(chat.router)
 api_router.include_router(creator.router)
 api_router.include_router(brand_dashboard.router)
 api_router.include_router(agent.router)

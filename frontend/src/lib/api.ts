@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { notify } from '@/lib/toast';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://127.0.0.1:8002';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://127.0.0.1:8002';
 const ACCESS_TOKEN_KEY = 'ugc_access_token';
 const REFRESH_TOKEN_KEY = 'ugc_refresh_token';
 const USER_KEY = 'ugc_user';
