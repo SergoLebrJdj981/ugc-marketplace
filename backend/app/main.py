@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import api_router
 from app.api.chat import ws_router as chat_ws_router
+from app.services import telegram as _telegram  # noqa: F401 ensure logging initialises
 from app.api.notifications import ws_router as notifications_ws_router
 from app.core.config import settings
 from app.core.error_handlers import register_exception_handlers

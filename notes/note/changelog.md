@@ -2,6 +2,15 @@
 # Changelog
 
 ## [v4.3] Context Lock — Telegram Bot Integration verified (2025-10-18)
+# Changelog
+
+## [fix] Telegram Integration — logging initialization restored (2025-10-18)
+**Описание:** Исправлено отсутствие `logs/telegram.log` при запуске backend.
+
+### Выполнено
+- Инициализация логгера Telegram выполняется при старте приложения, создаётся файл лога и фиксируется статус `ready`.
+- Webhook и команды остаются рабочими, события пишутся в `logs/telegram.log` независимо от наличия токена.
+
 **Описание:** Добавлен телеграм-бот с привязкой пользователей, командами и дублированием уведомлений.
 
 ### Выполнено

@@ -9,11 +9,29 @@ from uuid import UUID
 
 import httpx
 from loguru import logger
-from sqlalchemy import update
 
-from app.core.config import settings
+from app.core.config import settings, PROJECT_ROOT
 from app.db.session import SessionLocal
 from app.models import TelegramLink, User
+
+LOG_DIR = PROJECT_ROOT.parent / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+TELEGRAM_LOG_FILE = LOG_DIR / "telegram.log"
+TELEGRAM_LOG_FILE.touch(exist_ok=True)
+
+if not getattr(logger, "_telegram_sink_configured", False):  # type: ignore[attr-defined]
+    logger.add(
+        TELEGRAM_LOG_FILE,
+        level="INFO",
+        rotation="10 MB",
+        retention="14 days",
+        enqueue=False,
+        backtrace=False,
+        diagnose=False,
+        filter=lambda record: record["extra"].get("channel") == "telegram",
+        format="{message}",
+    )
+    logger._telegram_sink_configured = True  # type: ignore[attr-defined]
 
 telegram_logger = logger.bind(channel="telegram")
 
@@ -249,3 +267,6 @@ def handle_telegram_update_sync(payload: dict[str, Any]) -> dict[str, Any]:
     if loop and loop.is_running():  # pragma: no cover
         return loop.run_until_complete(handle_telegram_update(payload))
     return asyncio.run(handle_telegram_update(payload))
+
+
+log_telegram_event(chat_id="system", message="logging initialized", status="ready")
