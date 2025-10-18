@@ -8,7 +8,6 @@ from datetime import datetime
 from typing import Any, DefaultDict, Iterable, Set
 from uuid import UUID
 
-import httpx
 from fastapi import BackgroundTasks, WebSocket
 from fastapi.encoders import jsonable_encoder
 from loguru import logger
@@ -17,7 +16,8 @@ from starlette.websockets import WebSocketState
 
 from app.core.config import settings
 from app.db.session import SessionLocal
-from app.models import Notification
+from app.models import Notification, TelegramLink
+from app.services.telegram import send_telegram_message
 from app.schemas.notification import (
     NotificationMarkReadRequest,
     NotificationRead,
@@ -101,31 +101,39 @@ SessionFactory = SessionLocal
 
 
 async def _dispatch_telegram(notification: NotificationRead) -> str:
-    if not settings.telegram_webhook_url:
-        return "skipped"
-
-    payload = {
-        "user_id": str(notification.user_id),
-        "title": notification.title,
-        "content": notification.content,
-        "type": notification.type,
-        "created_at": notification.created_at.isoformat(),
-        "related_id": notification.related_id,
-    }
-
+    session = SessionFactory()
     try:
-        async with httpx.AsyncClient(timeout=5) as client:
-            await client.post(settings.telegram_webhook_url, json=payload)
-        return "delivered"
-    except Exception as exc:  # pragma: no cover - network dependent
-        log_notification_event(
-            user_id=notification.user_id,
-            notification_type=notification.type,
-            title=notification.title,
-            status="telegram_error",
-            error=str(exc),
+        links = (
+            session.query(TelegramLink)
+            .filter(TelegramLink.user_id == notification.user_id, TelegramLink.is_active.is_(True))
+            .all()
         )
-        return "failed"
+        if not links:
+            return "no_subscribers"
+
+        if not settings.telegram_bot_token:
+            log_notification_event(
+                user_id=notification.user_id,
+                notification_type=notification.type,
+                title=notification.title,
+                status="skipped",
+                error="bot_disabled",
+            )
+            return "skipped"
+
+        text = f"{notification.title}\n{notification.content}" if notification.content else notification.title
+        statuses = []
+        for link in links:
+            result = await send_telegram_message(link.telegram_id, text)
+            statuses.append(result)
+
+        if all(result == "delivered" for result in statuses):
+            return "delivered"
+        if any(result == "delivered" for result in statuses):
+            return "partial"
+        return statuses[0] if statuses else "skipped"
+    finally:
+        session.close()
 
 
 async def _notify_realtime(notification: NotificationRead, send_telegram: bool) -> None:

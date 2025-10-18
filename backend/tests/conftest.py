@@ -28,6 +28,7 @@ from app.scheduler import shutdown_scheduler
 from app.services import event_logger, notifications as notification_service
 from app.services.chat import connection_manager as chat_connection_manager
 from app.services.notifications import connection_manager as notification_connection_manager
+from app.services import telegram as telegram_service
 
 from app import models as _models  # noqa: F401  # ensure mappers are registered
 
@@ -43,6 +44,7 @@ TestingSessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=Fals
 notification_service.SessionFactory = TestingSessionLocal
 notification_connection_manager = notification_service.connection_manager
 event_logger.SessionFactory = TestingSessionLocal
+telegram_service.SessionLocal = TestingSessionLocal
 
 
 def override_get_db():
@@ -60,7 +62,7 @@ def prepare_database() -> None:
     Base.metadata.create_all(bind=engine)
     with engine.connect() as conn:
         tables = {row[0] for row in conn.execute(text("SELECT name FROM sqlite_master WHERE type='table'"))}
-    assert {"users", "event_logs", "messages"}.issubset(tables)
+    assert {"users", "event_logs", "messages", "telegram_links"}.issubset(tables)
     reset_rate_limiter_sync()
     reset_metrics()
     shutdown_scheduler()

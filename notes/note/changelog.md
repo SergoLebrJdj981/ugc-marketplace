@@ -1,6 +1,18 @@
 # Changelog
 # Changelog
 
+## [v4.3] Context Lock — Telegram Bot Integration verified (2025-10-18)
+**Описание:** Добавлен телеграм-бот с привязкой пользователей, командами и дублированием уведомлений.
+
+### Выполнено
+- Созданы модель `TelegramLink`, миграция `0005_add_telegram_links` и сервис `app/services/telegram.py` с командами `/start`, `/profile`, `/balance`, `/unsubscribe`.
+- Webhook `/api/webhooks/telegram` принимает реальные обновления, логирует события, работает в mock-режиме при отсутствии токена.
+- Уведомления доставляются в Telegram при наличии привязки; NotificationCenter получил кнопку “Подключить Telegram”.
+- Покрытие тестами: PyTest для ссылок, webhook и уведомлений; Jest-проверка контекста уведомлений.
+
+**Результат:**  
+Context Lock v4.3 — Telegram Bot Integration verified.
+
 ## [v4.2] Context Lock — Notifications Center verified (2025-10-18)
 **Описание:** Реализован центр уведомлений с REST API, WebSocket, интеграцией с Telegram и фронтенд-панелью.
 

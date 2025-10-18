@@ -481,8 +481,11 @@ campaigns (1) ──< reports
 `id | user_id | type | title | content | is_read | created_at | related_id`
 
 ### Telegram Webhook
-- `POST /api/webhooks/telegram` — принимает обновления от Telegram и обрабатывает команды `/start`, `/profile`, `/balance`.
-- Логирование в `logs/telegram.log` и ретрансляция сообщений через `sendMessage` (при наличии токена).
+- `POST /api/webhooks/telegram` — принимает обновления от Telegram, поддерживаются команды `/start`, `/profile`, `/balance`, `/unsubscribe`.
+- Ссылки вида `https://t.me/<bot>?start=<user_id>` формируют привязку пользователя к Telegram.
+- Логирование всех событий ведётся в `logs/telegram.log`; при отсутствии `TELEGRAM_BOT_TOKEN` используется mock-режим.
+- Структура `telegram_links`: `id | user_id | telegram_id | username | first_name | last_name | is_active | created_at | updated_at`.
+- При наличии токена уведомления доставляются в Telegram через Bot API, иначе фиксируются как `bot_disabled`.
 
 
 ### Chat

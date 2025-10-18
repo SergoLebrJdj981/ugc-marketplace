@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { useNotifications } from '@/context';
+import { useAuth, useNotifications } from '@/context';
+import { notify } from '@/lib/toast';
 import { NotificationItem } from '@/components/notifications/NotificationItem';
 
 export function NotificationCenter() {
   const { notifications, unreadCount, markAsRead } = useNotifications();
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -29,6 +31,17 @@ export function NotificationCenter() {
   };
 
   const hasNotifications = notifications.length > 0;
+  const botUsername = process.env.NEXT_PUBLIC_TELEGRAM_BOT ?? 'ugc_notify_bot';
+
+  const handleConnectTelegram = () => {
+    if (!user?.id) {
+      notify.info('Войдите в систему, чтобы подключить Telegram');
+      return;
+    }
+    const link = `https://t.me/${botUsername}?start=${user.id}`;
+    window.open(link, '_blank', 'noopener,noreferrer');
+    notify.info('Откройте Telegram и нажмите Start, чтобы завершить привязку');
+  };
 
   return (
     <div className="relative" ref={containerRef}>
@@ -68,6 +81,18 @@ export function NotificationCenter() {
             ) : (
               <p className="text-sm text-slate-500">Новых уведомлений нет.</p>
             )}
+          </div>
+          <div className="mt-3 border-t border-slate-200 pt-3">
+            <button
+              type="button"
+              onClick={handleConnectTelegram}
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+            >
+              Подключить Telegram
+            </button>
+            <p className="mt-1 text-xs text-slate-500">Получайте уведомления через @
+              {botUsername}
+            </p>
           </div>
         </div>
       ) : null}
