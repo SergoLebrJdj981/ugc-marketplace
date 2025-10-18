@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import api_router
 from app.api.chat import ws_router as chat_ws_router
+from app.api.notifications import ws_router as notifications_ws_router
 from app.core.config import settings
 from app.core.error_handlers import register_exception_handlers
 from app.core.logging import setup_logging
@@ -30,6 +31,7 @@ register_exception_handlers(app)
 setup_middleware(app)
 app.include_router(api_router)
 app.include_router(chat_ws_router)
+app.include_router(notifications_ws_router)
 
 
 @app.on_event("startup")

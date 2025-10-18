@@ -14,7 +14,9 @@ class NotificationRead(BaseModel):
     id: UUID
     user_id: UUID
     type: str
-    message: str
+    title: str
+    content: str
+    related_id: str | None = None
     is_read: bool
     created_at: datetime
 
@@ -30,3 +32,15 @@ class NotificationMarkReadRequest(BaseModel):
 
 class NotificationMarkReadResponse(BaseModel):
     updated: int
+
+
+class NotificationSendRequest(BaseModel):
+    user_id: UUID
+    type: str
+    title: str
+    content: str
+    related_id: str | None = None
+
+
+class NotificationSendResponse(BaseModel):
+    notification: NotificationRead

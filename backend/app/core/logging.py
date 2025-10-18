@@ -13,6 +13,8 @@ LOG_DIR: Final[Path] = PROJECT_ROOT.parent / "logs"
 APP_LOG = LOG_DIR / "app.log"
 ERROR_LOG = LOG_DIR / "errors.log"
 CHAT_LOG = LOG_DIR / "chat.log"
+NOTIFICATION_LOG = LOG_DIR / "notifications.log"
+TELEGRAM_LOG = LOG_DIR / "telegram.log"
 
 _configured = False
 
@@ -26,6 +28,8 @@ def setup_logging() -> None:
 
     logger.remove()
     CHAT_LOG.touch(exist_ok=True)
+    NOTIFICATION_LOG.touch(exist_ok=True)
+    TELEGRAM_LOG.touch(exist_ok=True)
     logger.add(
         APP_LOG,
         level="INFO",
@@ -55,6 +59,28 @@ def setup_logging() -> None:
         backtrace=False,
         diagnose=False,
         filter=lambda record: record["extra"].get("channel") == "chat",
+        format="{message}",
+    )
+    logger.add(
+        NOTIFICATION_LOG,
+        level="INFO",
+        rotation="5 MB",
+        retention="14 days",
+        enqueue=True,
+        backtrace=False,
+        diagnose=False,
+        filter=lambda record: record["extra"].get("channel") == "notifications",
+        format="{message}",
+    )
+    logger.add(
+        TELEGRAM_LOG,
+        level="INFO",
+        rotation="5 MB",
+        retention="14 days",
+        enqueue=False,
+        backtrace=False,
+        diagnose=False,
+        filter=lambda record: record["extra"].get("channel") == "telegram",
         format="{message}",
     )
     _configured = True

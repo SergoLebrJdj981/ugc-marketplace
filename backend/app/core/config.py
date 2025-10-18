@@ -24,6 +24,9 @@ class Settings:
     refresh_token_expires_days: int
     allowed_origins: list[str]
     log_path: Path
+    telegram_webhook_url: str | None
+    telegram_bot_token: str | None
+    telegram_api_url: str
 
     def __init__(self) -> None:
         database_url = os.getenv("DATABASE_URL", "sqlite:///backend/app.db")
@@ -44,6 +47,9 @@ class Settings:
         self.allowed_origins = [origin.strip() for origin in allowed.split(",") if origin.strip()]
         log_path = os.getenv("LOG_PATH", str(PROJECT_ROOT / "logs" / "app.log"))
         self.log_path = Path(log_path)
+        self.telegram_webhook_url = os.getenv("TELEGRAM_WEBHOOK_URL")
+        self.telegram_bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+        self.telegram_api_url = os.getenv("TELEGRAM_API_URL", "https://api.telegram.org")
 
 
 @lru_cache

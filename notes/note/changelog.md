@@ -1,4 +1,17 @@
 # Changelog
+# Changelog
+
+## [v4.2] Context Lock — Notifications Center verified (2025-10-18)
+**Описание:** Реализован центр уведомлений с REST API, WebSocket, интеграцией с Telegram и фронтенд-панелью.
+
+### Выполнено
+- Расширена модель `Notification`, добавлена миграция `0004_update_notifications_columns` и лог `logs/notifications.log`.
+- Созданы эндпоинты `/api/notifications`, WebSocket `/ws/notifications/{user_id}`, интеграция с чатом и Telegram Webhook.
+- Разработаны `NotificationProvider`, `NotificationCenter`, `NotificationItem`, toast-индикация и WebSocket-клиент.
+- Написаны PyTest/ Jest тесты для уведомлений и Telegram, добавлен e2e сценарий `telegram.cy.ts`.
+
+**Результат:**  
+Context Lock v4.2 — уведомления работают в реальном времени, события фиксируются в логах и пересылаются в Telegram.
 
 ## [v4.1] Context Lock — Chat System verified (2025-10-18)
 **Описание:** Завершён подмодуль 4.1. Реализована система внутренних чатов с хранением истории, WebSocket-подключением и интеграцией во фронтенд кабинеты.

@@ -26,7 +26,8 @@ from app.main import app
 from app.core.metrics import reset_metrics
 from app.scheduler import shutdown_scheduler
 from app.services import event_logger, notifications as notification_service
-from app.services.chat import connection_manager
+from app.services.chat import connection_manager as chat_connection_manager
+from app.services.notifications import connection_manager as notification_connection_manager
 
 from app import models as _models  # noqa: F401  # ensure mappers are registered
 
@@ -40,6 +41,7 @@ engine = create_engine(
 TestingSessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, expire_on_commit=False)
 
 notification_service.SessionFactory = TestingSessionLocal
+notification_connection_manager = notification_service.connection_manager
 event_logger.SessionFactory = TestingSessionLocal
 
 
@@ -65,13 +67,18 @@ def prepare_database() -> None:
     for path in (event_logger.LOG_FILE, event_logger.STATS_FILE):
         if path.exists():
             path.unlink()
-    chat_log = PROJECT_ROOT.parent / "logs" / "chat.log"
-    chat_log.parent.mkdir(parents=True, exist_ok=True)
-    if chat_log.exists():
-        chat_log.write_text("", encoding="utf-8")
-    else:
-        chat_log.touch()
-    connection_manager.reset_sync()
+    logs_dir = PROJECT_ROOT.parent / "logs"
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    chat_log = logs_dir / "chat.log"
+    notification_log = logs_dir / "notifications.log"
+    telegram_log = logs_dir / "telegram.log"
+    for path in (chat_log, notification_log, telegram_log):
+        if path.exists():
+            path.write_text("", encoding="utf-8")
+        else:
+            path.touch()
+    chat_connection_manager.reset_sync()
+    notification_connection_manager.reset_sync()
 
 
 @pytest.fixture

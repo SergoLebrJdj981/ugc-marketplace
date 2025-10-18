@@ -6,19 +6,23 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode
 } from 'react';
 
 import { apiRequest } from '@/lib/api';
 import { notify } from '@/lib/toast';
+import { buildWsUrl } from '@/lib/ws';
 import { useAuth } from './auth-context';
 
 export interface NotificationItem {
   id: string;
   user_id: string;
   type: string;
-  message: string;
+  title: string;
+  content: string;
+  related_id?: string | null;
   is_read: boolean;
   created_at?: string | null;
 }
@@ -28,15 +32,48 @@ interface NotificationContextValue {
   unreadCount: number;
   refresh: () => Promise<void>;
   markAsRead: (ids: string[]) => Promise<void>;
+  pushNotification: (notification: NotificationItem, options?: { silent?: boolean }) => void;
   loading: boolean;
 }
 
 const NotificationContext = createContext<NotificationContextValue | undefined>(undefined);
 
 export function NotificationProvider({ children }: { children: ReactNode }) {
-  const { accessToken, logout } = useAuth();
+  const { accessToken, logout, user } = useAuth();
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const socketRef = useRef<WebSocket | null>(null);
+  const previousUserIdRef = useRef<string | null>(null);
+
+  const pushNotification = useCallback(
+    (notification: NotificationItem, options?: { silent?: boolean }) => {
+      setNotifications((prev) => {
+        const exists = prev.find((item) => item.id === notification.id);
+        if (exists) {
+          return prev.map((item) => (item.id === notification.id ? notification : item));
+        }
+        return [notification, ...prev];
+      });
+
+      if (options?.silent) return;
+
+      const message = notification.title || 'Новое уведомление';
+      switch (notification.type) {
+        case 'payment_success':
+          notify.success(message);
+          break;
+        case 'admin_notice':
+          notify.info(message);
+          break;
+        case 'chat_message':
+          notify.info(notification.content || 'Новое сообщение');
+          break;
+        default:
+          notify.info(message);
+      }
+    },
+    []
+  );
 
   const fetchNotifications = useCallback(async () => {
     if (!accessToken) return;
@@ -64,19 +101,16 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     async (ids: string[]) => {
       if (!accessToken || ids.length === 0) return;
       try {
-        const response = await apiRequest('/api/notifications/mark-read', {
-          method: 'POST',
-          token: accessToken,
-          data: { notification_ids: ids },
-          onUnauthorized: logout,
-          showErrorToast: false
-        });
-        if (response.error) {
-          if (!response.error.unauthorized) {
-            notify.error(response.message || 'Не удалось обновить уведомления');
-          }
-          return;
-        }
+        await Promise.all(
+          ids.map((id) =>
+            apiRequest(`/api/notifications/${id}/read`, {
+              method: 'PATCH',
+              token: accessToken,
+              onUnauthorized: logout,
+              showErrorToast: false
+            })
+          )
+        );
         setNotifications((prev) =>
           prev.map((item) => (ids.includes(item.id) ? { ...item, is_read: true } : item))
         );
@@ -95,6 +129,54 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     fetchNotifications();
   }, [accessToken, fetchNotifications]);
 
+  useEffect(() => {
+    if (!accessToken || !user?.id) {
+      if (socketRef.current) {
+        socketRef.current.close();
+        socketRef.current = null;
+      }
+      previousUserIdRef.current = null;
+      return;
+    }
+
+    if (previousUserIdRef.current === user.id && socketRef.current) {
+      return;
+    }
+
+    if (socketRef.current) {
+      socketRef.current.close();
+      socketRef.current = null;
+    }
+
+    const url = buildWsUrl(`/ws/notifications/${user.id}`, accessToken);
+    const socket = new WebSocket(url);
+    socketRef.current = socket;
+    previousUserIdRef.current = user.id;
+
+    socket.onmessage = (event) => {
+      try {
+        const parsed = JSON.parse(event.data as string) as { event?: string; data?: NotificationItem };
+        if (parsed.event !== 'notification' || !parsed.data) return;
+        pushNotification(parsed.data);
+      } catch (error) {
+        console.warn('Failed to parse notification event', error);
+      }
+    };
+
+    socket.onerror = () => {
+      notify.error('Соединение уведомлений временно недоступно');
+    };
+
+    socket.onclose = () => {
+      socketRef.current = null;
+    };
+
+    return () => {
+      socket.close();
+      socketRef.current = null;
+    };
+  }, [accessToken, pushNotification, user?.id]);
+
   const value = useMemo<NotificationContextValue>(() => {
     const unreadCount = notifications.filter((item) => !item.is_read).length;
     return {
@@ -102,9 +184,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       unreadCount,
       loading,
       refresh: fetchNotifications,
-      markAsRead
+      markAsRead,
+      pushNotification
     };
-  }, [fetchNotifications, loading, markAsRead, notifications]);
+  }, [fetchNotifications, loading, markAsRead, notifications, pushNotification]);
 
   return <NotificationContext.Provider value={value}>{children}</NotificationContext.Provider>;
 }

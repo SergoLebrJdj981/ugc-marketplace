@@ -458,7 +458,9 @@ campaigns (1) ──< reports
           "id": "c82b2bfa-6da2-4df2-8311-2c24fe6125b1",
           "user_id": "c34d1de2-9b19-4aa5-82fd-a1a0f5ebd2b7",
           "type": "campaign_update",
-          "message": "Your application was approved",
+          "title": "Новая кампания",
+          "content": "Your application was approved",
+          "related_id": "camp-42",
           "is_read": false,
           "created_at": "2025-10-18T11:10:00Z"
         }
@@ -466,6 +468,22 @@ campaigns (1) ──< reports
       "total": 1
     }
     ```
+- `PATCH /api/notifications/{id}/read` — помечает уведомление как прочитанное.
+- `POST /api/notifications/send` — системное уведомление (доступно администраторам).
+
+Типы уведомлений:
+- `chat_message`
+- `new_campaign`
+- `payment_success`
+- `admin_notice`
+
+Структура `notifications`:
+`id | user_id | type | title | content | is_read | created_at | related_id`
+
+### Telegram Webhook
+- `POST /api/webhooks/telegram` — принимает обновления от Telegram и обрабатывает команды `/start`, `/profile`, `/balance`.
+- Логирование в `logs/telegram.log` и ретрансляция сообщений через `sendMessage` (при наличии токена).
+
 
 ### Chat
 - `POST /api/chat/send` — отправка сообщения в указанный чат.
