@@ -1,72 +1,110 @@
-"""Payment endpoints."""
+"""Escrow payment API endpoints."""
 
 from __future__ import annotations
 
+from decimal import Decimal
 from typing import Annotated
+from uuid import UUID
 
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
-
-from app.api.deps import get_db
-from app.models import Order, Payment, PaymentStatus
-from app.schemas import PaymentCreate, PaymentRead
-from app.services.notifications import schedule_batch_notifications
+from app.api.deps import get_current_user, get_db, require_admin
+from app.models import AdminLevel, Campaign, Payment, User
+from app.schemas import DepositRequest, DepositResponse, ReleaseRequest, ReleaseResponse
+from app.services.escrow import (
+    EscrowError,
+    create_deposit as escrow_create_deposit,
+    get_platform_fee_deposit,
+    get_platform_fee_payout,
+    handle_bank_webhook,
+    release_payment,
+)
 
 router = APIRouter(prefix="/payments")
 
 SessionDep = Annotated[Session, Depends(get_db)]
 
 
-@router.get("", status_code=status.HTTP_200_OK)
-def list_payments() -> dict:
-    """Return a mock list of payments for integration testing."""
-
-    return {
-        "total": 1,
-        "items": [
-            {
-                "id": "pay-1",
-                "order_id": "order-1",
-                "amount": 10000,
-                "currency": "RUB",
-                "status": PaymentStatus.PENDING.value if hasattr(PaymentStatus, "PENDING") else "pending",
-            }
-        ],
-    }
-
-
-@router.post("", response_model=PaymentRead, status_code=status.HTTP_201_CREATED)
-def create_payment(
-    *,
+@router.post("/deposit", response_model=DepositResponse, status_code=status.HTTP_201_CREATED)
+def create_deposit(
+    payload: DepositRequest,
     db: SessionDep,
-    payload: PaymentCreate,
-    background_tasks: BackgroundTasks,
-) -> PaymentRead:
-    """Create a payment hold for an order."""
+    current_user: Annotated[User, Depends(get_current_user)],
+) -> DepositResponse:
+    if current_user.role != "brand":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Только бренды могут пополнять баланс")
 
-    order = db.get(Order, payload.order_id)
-    if not order:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Order not found")
+    requested_amount = Decimal(payload.amount)
+    try:
+        payment = escrow_create_deposit(db, current_user, requested_amount)
+    except EscrowError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
-    payment = Payment(
-        order_id=payload.order_id,
-        payment_type=payload.payment_type,
-        status=PaymentStatus.PENDING,
-        amount=payload.amount,
-        currency=payload.currency,
-        reference=payload.reference,
+    handle_bank_webhook(
+        db,
+        event="deposit_confirmed",
+        payload={"payment_id": str(payment.id), "amount": str(requested_amount), "brand_id": str(current_user.id)},
     )
-
-    db.add(payment)
     db.commit()
     db.refresh(payment)
-    message = f"Payment hold created for order {order.id}"
-    schedule_batch_notifications(
-        background_tasks,
-        [
-            (order.brand_id, "payment.hold", message),
-            (order.creator_id, "payment.hold", message),
-        ],
+    deposit_fee_rate = get_platform_fee_deposit(db)
+    payout_fee_rate = get_platform_fee_payout(db)
+    return DepositResponse(
+        id=payment.id,
+        brand_id=payment.brand_id,
+        requested_amount=requested_amount,
+        amount=payment.amount,
+        deposit_fee=payment.deposit_fee,
+        payout_fee_rate=payout_fee_rate,
+        status=payment.status,
+        created_at=payment.created_at,
+        updated_at=payment.updated_at,
     )
-    return PaymentRead.model_validate(payment)
+
+
+@router.patch(
+    "/release",
+    response_model=ReleaseResponse,
+    status_code=status.HTTP_200_OK,
+)
+def release_funds(
+    payload: ReleaseRequest,
+    db: SessionDep,
+    _: Annotated[User, Depends(require_admin(AdminLevel.ADMIN_LEVEL_2))],
+) -> ReleaseResponse:
+    payment = db.get(Payment, payload.payment_id)
+    if not payment:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Платёж не найден")
+
+    creator = db.get(User, payload.creator_id)
+    if not creator or creator.role != "creator":
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Некорректный креатор")
+
+    campaign = db.get(Campaign, payload.campaign_id)
+    if not campaign:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Кампания не найдена")
+
+    try:
+        updated_payment, payout, fee_amount, payout_amount, platform_fee_payout = release_payment(
+            db,
+            payment=payment,
+            creator=creator,
+            campaign_id=campaign.id,
+        )
+    except EscrowError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+
+    db.commit()
+    db.refresh(updated_payment)
+    db.refresh(payout)
+
+    return ReleaseResponse(
+        payment_id=updated_payment.id,
+        payout_id=payout.id,
+        status=updated_payment.status,
+        payout_status=payout.status,
+        fee=fee_amount,
+        payout_amount=payout_amount,
+        platform_fee_payout=platform_fee_payout,
+    )

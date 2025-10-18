@@ -31,6 +31,7 @@ from app.services.notifications import connection_manager as notification_connec
 from app.services import telegram as telegram_service
 
 from app import models as _models  # noqa: F401  # ensure mappers are registered
+from app.models import User
 
 SQLALCHEMY_DATABASE_URL = "sqlite+pysqlite:///:memory:"
 
@@ -59,10 +60,19 @@ app.dependency_overrides[get_session] = override_get_db
 @pytest.fixture(autouse=True)
 def prepare_database() -> None:
     Base.metadata.drop_all(bind=engine)
+    with engine.begin() as conn:
+        conn.execute(text("DROP TABLE IF EXISTS users"))
     Base.metadata.create_all(bind=engine)
     with engine.connect() as conn:
         tables = {row[0] for row in conn.execute(text("SELECT name FROM sqlite_master WHERE type='table'"))}
-    assert {"users", "event_logs", "messages", "telegram_links"}.issubset(tables)
+        columns = {row[1] for row in conn.execute(text("PRAGMA table_info(users)"))}
+        if 'admin_level' not in columns:
+            conn.execute(text("ALTER TABLE users ADD COLUMN admin_level TEXT DEFAULT 'NONE'"))
+            columns = {row[1] for row in conn.execute(text("PRAGMA table_info(users)"))}
+        conn.execute(text("PRAGMA foreign_keys=ON"))
+    assert {"users", "event_logs", "messages", "telegram_links", "payments", "payouts", "transactions", "system_settings"}.issubset(tables)
+    assert 'admin_level' in columns
+    assert 'admin_level' in User.__table__.columns
     reset_rate_limiter_sync()
     reset_metrics()
     shutdown_scheduler()
@@ -74,7 +84,10 @@ def prepare_database() -> None:
     chat_log = logs_dir / "chat.log"
     notification_log = logs_dir / "notifications.log"
     telegram_log = logs_dir / "telegram.log"
-    for path in (chat_log, notification_log, telegram_log):
+    payments_log = logs_dir / "payments.log"
+    bank_log = logs_dir / "bank_webhooks.log"
+    fees_log = logs_dir / "fees.log"
+    for path in (chat_log, notification_log, telegram_log, payments_log, bank_log, fees_log):
         if path.exists():
             path.write_text("", encoding="utf-8")
         else:

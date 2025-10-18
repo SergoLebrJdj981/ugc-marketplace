@@ -667,10 +667,12 @@ model Campaign {
 ```
 
 ## 4. Система Escrow
-- Все платежи проходят через API Точка Банк.
-- Средства блокируются при создании кампании (`type=hold`).
-- Разблокировка (`release`) происходит после утверждения видео.
-- Все операции логируются и сохраняются в таблице `payments`.
+- Платёжные сценарии отделены от заказов: бренды пополняют баланс через `/api/payments/deposit`, платформа выпускает выплаты `/api/payments/release`, креаторы выводят средства `/api/payouts/withdraw`.
+- Таблицы `payments`, `payouts`, `transactions`, `system_settings` обеспечивают хранение статусов (`hold/reserved/released/paid`) и аудита каждой операции.
+- Комиссия платформы хранится в `system_settings.platform_fee`, удерживается в момент `release`, движение фиксируется транзакцией `fee` и файлом `logs/fees.log`.
+- Для deposit и payout используются отдельные параметры `platform_fee_deposit` и `platform_fee_payout` (fallback → `platform_fee`), управление доступно из `/api/admin/settings`.
+- Админ-панель отображает баланс эскроу, собранные комиссии, даёт доступ к `GET/PATCH /api/admin/settings/platform_fee` (требуется `admin_level_3`).
+- Webhook банка (`/api/webhooks/bank`) обновляет статусы депозитов/выплат и пишет журнал `logs/bank_webhooks.log`.
 
 ## 5. Безопасность и валидация
 - Авторизация через JWT (access + refresh tokens).

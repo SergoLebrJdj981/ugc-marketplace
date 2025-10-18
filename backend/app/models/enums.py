@@ -53,16 +53,25 @@ class VideoStatus(enum.Enum):
 
 
 class PaymentStatus(enum.Enum):
-    PENDING = "pending"
-    COMPLETED = "completed"
-    FAILED = "failed"
+    HOLD = "hold"
+    RESERVED = "reserved"
+    RELEASED = "released"
+    PAID = "paid"
     REFUNDED = "refunded"
 
 
-class PaymentType(enum.Enum):
-    HOLD = "hold"
+class PayoutStatus(enum.Enum):
+    PENDING = "pending"
+    RELEASED = "released"
+    WITHDRAWN = "withdrawn"
+
+
+class TransactionType(enum.Enum):
+    DEPOSIT = "deposit"
+    RESERVE = "reserve"
     RELEASE = "release"
-    PAYOUT = "payout"
+    WITHDRAW = "withdraw"
+    FEE = "fee"
 
 
 class ReportType(enum.Enum):

@@ -1,6 +1,30 @@
 # Changelog
 # Changelog
 
+## [v4.4.1] Context Lock — Dual Platform Fees implemented (2025-10-18)
+**Описание:** Разделены комиссии платформы на депозиты и выплаты, админ-панель получила управление обоими значениями.
+
+### Выполнено
+- Добавлены настройки `platform_fee_deposit` и `platform_fee_payout` в `system_settings`, обновлены сервисы Escrow с fallback на базовую комиссию.
+- Обновлены API `/api/payments/deposit` и `/api/payments/release` для раздельных расчётов и логирования `[ESCROW] fee_deposit / payout_fee`.
+- Расширен `/api/admin/settings` и добавлены PATCH-методы для управления комиссиями, обновлён swagger ответ `/api/admin/finance`.
+- Фронтенд `/brand/finance` и `/admin/finance` отображают и редактируют обе ставки; `DepositCard` показывает фактическую комиссию депозита.
+- Добавлены тесты `backend/tests/test_fees.py` с расчётами 10% и 15%, обновлены существующие сценарии.
+
+**Результат:** Платформа управляет тремя независимыми ставками, логирование и UI синхронизированы, расчёты подтверждены тестами.
+
+## [v4.4] Context Lock — Escrow API Integration verified (2025-10-18)
+**Описание:** Запущен подмодуль 4.4. Бэкенд, фронтенд и логирование поддерживают полный цикл escrow с комиссией платформы.
+
+### Выполнено
+- Добавлены модели `Payment`, `Payout`, `Transaction`, `SystemSetting`, миграция `0006_escrow_integration`, колонка `admin_level` у пользователей с автодобавлением в `init_db`.
+- Реализованы сервис `app/services/escrow.py`, REST API `/api/payments/deposit|release`, `/api/payouts/withdraw`, `/api/webhooks/bank`, управление комиссией `/api/admin/settings/platform_fee` с проверкой `admin_level`.
+- Настроено логирование `logs/payments.log`, `logs/bank_webhooks.log`, `logs/fees.log`; webhook банка обновляет статусы депозитов и выплат.
+- Обновлены витрины: `/brand/finance` (DepositCard, история операций, отображение комиссии), `/creator/balance` (WithdrawButton, статистика удержанной комиссии), `/admin/finance` (изменение комиссии, сводки escrow).
+- Написаны PyTest-сценарии `backend/tests/test_escrow.py` для депозита → релиза → вывода и CRUD комиссии, логика подготовлена для curl-проверок.
+
+**Результат:** Контур escrow работает end-to-end, комиссия управляется из админки, все операции фиксируются в таблицах и логах.
+
 ## [v4.3] Context Lock — Telegram Bot Integration verified (2025-10-18)
 # Changelog
 

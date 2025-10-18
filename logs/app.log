@@ -1,0 +1,1031 @@
+2025-10-18 15:18:02 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:18:02 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/schemas/escrow.py", line 75, in serialize_decimal
+    return f"{value:.4f}"
+TypeError: unsupported format string passed to pydantic_core._pydantic_core.SerializationInfo.__format__
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/middleware/cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/fastapi/routing.py", line 296, in app
+    content = await serialize_response(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/fastapi/routing.py", line 160, in serialize_response
+    return field.serialize(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/fastapi/_compat.py", line 147, in serialize
+    return self._type_adapter.dump_python(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/pydantic/type_adapter.py", line 605, in dump_python
+    return self.serializer.to_python(
+pydantic_core._pydantic_core.PydanticSerializationError: Error calling function `serialize_decimal`: TypeError: unsupported format string passed to pydantic_core._pydantic_core.SerializationInfo.__format__
+2025-10-18 15:19:29 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:19:29 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:19:29 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:19:29 | INFO | [ADMIN] platform_fee updated: 10.00% → 12.00% by fee-admin@test.dev
+2025-10-18 15:19:29 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:19:29 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:19:39 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:19:39 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:19:39 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:19:39 | INFO | [ESCROW] brand=85494d53-5e04-4082-90d1-c3146fedb423 deposit=15000.00 status=HOLD
+2025-10-18 15:19:39 | INFO | [BANK] event=deposit_hold payload={"payment_id": "b3a0122f-24c1-459f-9787-5f185e2e3edd", "amount": "15000.00", "brand_id": "85494d53-5e04-4082-90d1-c3146fedb423"}
+2025-10-18 15:19:39 | INFO | [BANK] event=deposit_confirmed payload={"payment_id": "b3a0122f-24c1-459f-9787-5f185e2e3edd", "amount": "15000.00", "brand_id": "85494d53-5e04-4082-90d1-c3146fedb423"}
+2025-10-18 15:19:39 | INFO | [ESCROW] bank confirmed deposit payment=b3a0122f-24c1-459f-9787-5f185e2e3edd status=RESERVED
+2025-10-18 15:19:39 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:19:39 | INFO | [ESCROW] platform_fee=10.00% → fee=1500.00 payout=13500.00
+2025-10-18 15:19:39 | INFO | [ESCROW] payout to creator=a7329cf0-c70e-4adc-8642-e4af1d10705b amount=13500.00 status=RELEASED
+2025-10-18 15:19:39 | INFO | [BANK] event=payout_released payload={"payment_id": "b3a0122f-24c1-459f-9787-5f185e2e3edd", "payout_id": "8b42f7f3-4791-4f98-96ce-b0abef804e4c", "amount": "13500.00", "fee": "1500.00"}
+2025-10-18 15:19:39 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:08 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:08 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:08 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:08 | INFO | [ESCROW] brand=b38265db-be38-48c2-89bb-2ae61e72d2d2 deposit=15000.00 status=HOLD
+2025-10-18 15:20:08 | INFO | [BANK] event=deposit_hold payload={"payment_id": "c3fa0e5e-d3b2-435e-8c14-a0f60f22a71c", "amount": "15000.00", "brand_id": "b38265db-be38-48c2-89bb-2ae61e72d2d2"}
+2025-10-18 15:20:08 | INFO | [BANK] event=deposit_confirmed payload={"payment_id": "c3fa0e5e-d3b2-435e-8c14-a0f60f22a71c", "amount": "15000.00", "brand_id": "b38265db-be38-48c2-89bb-2ae61e72d2d2"}
+2025-10-18 15:20:08 | INFO | [ESCROW] bank confirmed deposit payment=c3fa0e5e-d3b2-435e-8c14-a0f60f22a71c status=RESERVED
+2025-10-18 15:20:08 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:08 | INFO | [ESCROW] platform_fee=10.00% → fee=1500.00 payout=13500.00
+2025-10-18 15:20:08 | INFO | [ESCROW] payout to creator=d220b42a-c165-4a70-aa34-03b84023c56b amount=13500.00 status=RELEASED
+2025-10-18 15:20:08 | INFO | [BANK] event=payout_released payload={"payment_id": "c3fa0e5e-d3b2-435e-8c14-a0f60f22a71c", "payout_id": "2b2015c4-7469-4d36-a037-ae4eef5365ca", "amount": "13500.00", "fee": "1500.00"}
+2025-10-18 15:20:08 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:08 | INFO | [ESCROW] payout to creator=d220b42a-c165-4a70-aa34-03b84023c56b amount=13500.00 status=WITHDRAWN
+2025-10-18 15:20:08 | INFO | [BANK] event=withdraw_processed payload={"payout_id": "2b2015c4-7469-4d36-a037-ae4eef5365ca", "amount": "13500.00", "creator_id": "d220b42a-c165-4a70-aa34-03b84023c56b"}
+2025-10-18 15:20:08 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:17 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:17 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:17 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:17 | INFO | [ESCROW] brand=08c2884b-2943-4cc2-be15-c00b1e3cc01e deposit=15000.00 status=HOLD
+2025-10-18 15:20:17 | INFO | [BANK] event=deposit_hold payload={"payment_id": "7e56d97f-6c11-4724-80fe-f5b0ffb65fef", "amount": "15000.00", "brand_id": "08c2884b-2943-4cc2-be15-c00b1e3cc01e"}
+2025-10-18 15:20:17 | INFO | [BANK] event=deposit_confirmed payload={"payment_id": "7e56d97f-6c11-4724-80fe-f5b0ffb65fef", "amount": "15000.00", "brand_id": "08c2884b-2943-4cc2-be15-c00b1e3cc01e"}
+2025-10-18 15:20:17 | INFO | [ESCROW] bank confirmed deposit payment=7e56d97f-6c11-4724-80fe-f5b0ffb65fef status=RESERVED
+2025-10-18 15:20:17 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:17 | INFO | [ESCROW] platform_fee=10.00% → fee=1500.00 payout=13500.00
+2025-10-18 15:20:17 | INFO | [ESCROW] payout to creator=89e22709-c1af-4a52-bf89-6048ce2a5897 amount=13500.00 status=RELEASED
+2025-10-18 15:20:17 | INFO | [BANK] event=payout_released payload={"payment_id": "7e56d97f-6c11-4724-80fe-f5b0ffb65fef", "payout_id": "997f28a4-84aa-4253-8f2b-8dbdec8330b3", "amount": "13500.00", "fee": "1500.00"}
+2025-10-18 15:20:17 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:17 | INFO | [ESCROW] payout to creator=89e22709-c1af-4a52-bf89-6048ce2a5897 amount=13500.00 status=WITHDRAWN
+2025-10-18 15:20:17 | INFO | [BANK] event=withdraw_processed payload={"payout_id": "997f28a4-84aa-4253-8f2b-8dbdec8330b3", "amount": "13500.00", "creator_id": "89e22709-c1af-4a52-bf89-6048ce2a5897"}
+2025-10-18 15:20:17 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:19 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:19 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:19 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:20:19 | INFO | [ADMIN] platform_fee updated: 10.00% → 12.00% by fee-admin@test.dev
+2025-10-18 15:20:19 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:20:19 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:28:15 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:15 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:15 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:15 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:15 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:15 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:15 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:15 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:17 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:18 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:18 | INFO | [NOTIFY] [2025-10-18 12:28:18] user=448a1a93-88ab-4e2d-b8cd-81a8fed40808 type=ws title="connect" status=success
+2025-10-18 15:28:18 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: notifications.title
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/notifications.py", line 48, in list_notifications
+    notifications = query.order_by(Notification.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: notifications.title
+[SQL: SELECT notifications.id AS notifications_id, notifications.user_id AS notifications_user_id, notifications.type AS notifications_type, notifications.title AS notifications_title, notifications.content AS notifications_content, notifications.related_id AS notifications_related_id, notifications.is_read AS notifications_is_read, notifications.created_at AS notifications_created_at 
+FROM notifications 
+WHERE notifications.user_id = ? ORDER BY notifications.created_at DESC]
+[parameters: ('448a1a9388ab4e2db8cd81a8fed40808',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 15:28:18 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:18 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:18 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:18 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:24 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:25 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:25 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: payments.brand_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/brand_dashboard.py", line 103, in finance
+    balance_total: Decimal = db.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: payments.brand_id
+[SQL: SELECT coalesce(sum(payments.amount), ?) AS coalesce_1 
+FROM payments 
+WHERE payments.brand_id = ? AND payments.status IN (?, ?, ?)]
+[parameters: (0, '448a1a9388ab4e2db8cd81a8fed40808', 'HOLD', 'RESERVED', 'RELEASED')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 15:28:29 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:29 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: table payments has no column named brand_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/payments.py", line 37, in create_deposit
+    payment = escrow_create_deposit(db, current_user, Decimal(payload.amount))
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/services/escrow.py", line 99, in create_deposit
+    session.flush()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4341, in flush
+    self._flush(objects)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4476, in _flush
+    with util.safe_reraise():
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4437, in _flush
+    flush_context.execute()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table payments has no column named brand_id
+[SQL: INSERT INTO payments (id, brand_id, amount, fee, status) VALUES (?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('788f77e270bb4fb1adb43a2b44594993', '448a1a9388ab4e2db8cd81a8fed40808', 15000.0, 0.0, 'HOLD')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 15:28:32 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: table payments has no column named brand_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/payments.py", line 37, in create_deposit
+    payment = escrow_create_deposit(db, current_user, Decimal(payload.amount))
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/services/escrow.py", line 99, in create_deposit
+    session.flush()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4341, in flush
+    self._flush(objects)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4476, in _flush
+    with util.safe_reraise():
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4437, in _flush
+    flush_context.execute()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table payments has no column named brand_id
+[SQL: INSERT INTO payments (id, brand_id, amount, fee, status) VALUES (?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('b4d49b36a456483ba02d35a5461fb916', '448a1a9388ab4e2db8cd81a8fed40808', 15000.0, 0.0, 'HOLD')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 15:28:37 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: table payments has no column named brand_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/payments.py", line 37, in create_deposit
+    payment = escrow_create_deposit(db, current_user, Decimal(payload.amount))
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/services/escrow.py", line 99, in create_deposit
+    session.flush()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4341, in flush
+    self._flush(objects)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4476, in _flush
+    with util.safe_reraise():
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4437, in _flush
+    flush_context.execute()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table payments has no column named brand_id
+[SQL: INSERT INTO payments (id, brand_id, amount, fee, status) VALUES (?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('89c86a8b063e438c871abe600100b248', '448a1a9388ab4e2db8cd81a8fed40808', 15000.0, 0.0, 'HOLD')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 15:28:42 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:42 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:42 | INFO | [NOTIFY] [2025-10-18 12:28:42] user=448a1a93-88ab-4e2d-b8cd-81a8fed40808 type=ws title="disconnect" status=success
+2025-10-18 15:28:44 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:44 | INFO | [NOTIFY] [2025-10-18 12:28:44] user=ed0e7597-1d7e-4473-8977-59d256f1ab98 type=ws title="connect" status=success
+2025-10-18 15:28:44 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: notifications.title
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/notifications.py", line 48, in list_notifications
+    notifications = query.order_by(Notification.created_at.desc()).all()
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: notifications.title
+[SQL: SELECT notifications.id AS notifications_id, notifications.user_id AS notifications_user_id, notifications.type AS notifications_type, notifications.title AS notifications_title, notifications.content AS notifications_content, notifications.related_id AS notifications_related_id, notifications.is_read AS notifications_is_read, notifications.created_at AS notifications_created_at 
+FROM notifications 
+WHERE notifications.user_id = ? ORDER BY notifications.created_at DESC]
+[parameters: ('ed0e75971d7e4473897759d256f1ab98',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 15:28:44 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:44 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:44 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:44 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:45 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:45 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:28:45 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: payments.fee
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin.py", line 131, in finance_overview
+    fees_collected = db.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: payments.fee
+[SQL: SELECT coalesce(sum(payments.fee), ?) AS coalesce_1 
+FROM payments]
+[parameters: (0,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 15:28:56 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:56 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:28:56 | INFO | [ADMIN] platform_fee updated: 10.00% → 3.00% by admin@example.com
+2025-10-18 15:28:56 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:56 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:28:56 | ERROR | %s %s -> ERROR (%0.2f ms): %s
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: payments.fee
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 30, in dispatch
+    response = await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 189, in __call__
+    with collapse_excgroups():
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/core/middleware.py", line 72, in dispatch
+    return await call_next(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 165, in call_next
+    raise app_exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+    await route.handle(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+    await self.app(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+    response = await func(request)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2485, in run_sync_in_worker_thread
+    return await future
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 976, in run
+    result = context.run(func, *args)
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/app/api/admin.py", line 131, in finance_overview
+    fees_collected = db.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/roksana/Desktop/project/ugc_mp/backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: payments.fee
+[SQL: SELECT coalesce(sum(payments.fee), ?) AS coalesce_1 
+FROM payments]
+[parameters: (0,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-18 15:28:59 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:59 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:28:59 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:28:59 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:29:00 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:29:00 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:29:00 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:29:00 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:29:01 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:29:01 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:29:03 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:29:03 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:29:03 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:29:03 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:29:04 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:29:04 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:46:22 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:22 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:22 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:22 | INFO | [ADMIN] platform_fee_deposit updated: 10.00% → 10.00% by dual-fees-admin@test.dev
+2025-10-18 15:46:22 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:22 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:46:22 | INFO | [ADMIN] platform_fee_payout updated: 10.00% → 15.00% by dual-fees-admin@test.dev
+2025-10-18 15:46:22 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:22 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:46:22 | INFO | [ESCROW] brand=539f4e92-43ec-4997-a6de-e27579114457 deposit=10000.00 fee_deposit=10.00% payout_fee=15.00%
+2025-10-18 15:46:22 | INFO | [BANK] event=deposit_hold payload={"payment_id": "33601dfe-fd99-4f3f-a386-036d861b8db1", "amount": "10000.00", "brand_id": "539f4e92-43ec-4997-a6de-e27579114457", "deposit_fee": "1000.00"}
+2025-10-18 15:46:22 | INFO | [BANK] event=deposit_confirmed payload={"payment_id": "33601dfe-fd99-4f3f-a386-036d861b8db1", "amount": "10000", "brand_id": "539f4e92-43ec-4997-a6de-e27579114457"}
+2025-10-18 15:46:22 | INFO | [ESCROW] bank confirmed deposit payment=33601dfe-fd99-4f3f-a386-036d861b8db1 status=RESERVED
+2025-10-18 15:46:22 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:22 | INFO | [ESCROW] brand=539f4e92-43ec-4997-a6de-e27579114457 deposit=1111.11 fee_deposit=10.00% payout_fee=15.00%
+2025-10-18 15:46:22 | INFO | [BANK] event=deposit_hold payload={"payment_id": "8f7ec581-a952-43b1-8841-7beff60978e7", "amount": "1111.11", "brand_id": "539f4e92-43ec-4997-a6de-e27579114457", "deposit_fee": "111.11"}
+2025-10-18 15:46:22 | INFO | [BANK] event=deposit_confirmed payload={"payment_id": "8f7ec581-a952-43b1-8841-7beff60978e7", "amount": "1111.11", "brand_id": "539f4e92-43ec-4997-a6de-e27579114457"}
+2025-10-18 15:46:22 | INFO | [ESCROW] bank confirmed deposit payment=8f7ec581-a952-43b1-8841-7beff60978e7 status=RESERVED
+2025-10-18 15:46:22 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:22 | INFO | [ESCROW] platform_fee_payout=15.00% → fee=150.00 payout=850.00
+2025-10-18 15:46:22 | INFO | [ESCROW] payout to creator=9258ef71-3ff0-44ef-8338-f993266d3cfd amount=850.00 status=RELEASED
+2025-10-18 15:46:22 | INFO | [BANK] event=payout_released payload={"payment_id": "8f7ec581-a952-43b1-8841-7beff60978e7", "payout_id": "706693ac-9429-41f6-893b-541e9e12effe", "amount": "850.00", "fee": "150.00"}
+2025-10-18 15:46:22 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:44 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:45 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:45 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:45 | INFO | [ADMIN] platform_fee_deposit updated: 10.00% → 10.00% by dual-fees-admin@test.dev
+2025-10-18 15:46:45 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:45 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:46:45 | INFO | [ADMIN] platform_fee_payout updated: 10.00% → 15.00% by dual-fees-admin@test.dev
+2025-10-18 15:46:45 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:45 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:46:45 | INFO | [ESCROW] brand=0211d20e-a3d6-44c6-b156-cfc3e243c1b8 deposit=10000.00 fee_deposit=10.00% payout_fee=15.00%
+2025-10-18 15:46:45 | INFO | [BANK] event=deposit_hold payload={"payment_id": "e01b379e-deec-4a1e-ab20-30bdedce95b4", "amount": "10000.00", "brand_id": "0211d20e-a3d6-44c6-b156-cfc3e243c1b8", "deposit_fee": "1000.00"}
+2025-10-18 15:46:45 | INFO | [BANK] event=deposit_confirmed payload={"payment_id": "e01b379e-deec-4a1e-ab20-30bdedce95b4", "amount": "10000", "brand_id": "0211d20e-a3d6-44c6-b156-cfc3e243c1b8"}
+2025-10-18 15:46:45 | INFO | [ESCROW] bank confirmed deposit payment=e01b379e-deec-4a1e-ab20-30bdedce95b4 status=RESERVED
+2025-10-18 15:46:45 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:45 | INFO | [ESCROW] brand=0211d20e-a3d6-44c6-b156-cfc3e243c1b8 deposit=1111.11 fee_deposit=10.00% payout_fee=15.00%
+2025-10-18 15:46:45 | INFO | [BANK] event=deposit_hold payload={"payment_id": "f5a87e34-1267-4869-b6f7-d2e2cd140e99", "amount": "1111.11", "brand_id": "0211d20e-a3d6-44c6-b156-cfc3e243c1b8", "deposit_fee": "111.11"}
+2025-10-18 15:46:45 | INFO | [BANK] event=deposit_confirmed payload={"payment_id": "f5a87e34-1267-4869-b6f7-d2e2cd140e99", "amount": "1111.11", "brand_id": "0211d20e-a3d6-44c6-b156-cfc3e243c1b8"}
+2025-10-18 15:46:45 | INFO | [ESCROW] bank confirmed deposit payment=f5a87e34-1267-4869-b6f7-d2e2cd140e99 status=RESERVED
+2025-10-18 15:46:45 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:45 | INFO | [ESCROW] platform_fee_payout=15.00% → fee=150.00 payout=850.00
+2025-10-18 15:46:45 | INFO | [ESCROW] payout to creator=50106af8-3579-4b49-ae0a-bd4e087a51af amount=850.00 status=RELEASED
+2025-10-18 15:46:45 | INFO | [BANK] event=payout_released payload={"payment_id": "f5a87e34-1267-4869-b6f7-d2e2cd140e99", "payout_id": "189ef9e1-58e3-432d-b4b1-17a188f4d911", "amount": "850.00", "fee": "150.00"}
+2025-10-18 15:46:45 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:45 | INFO | [ESCROW] payout to creator=50106af8-3579-4b49-ae0a-bd4e087a51af amount=850.00 status=WITHDRAWN
+2025-10-18 15:46:45 | INFO | [BANK] event=withdraw_processed payload={"payout_id": "189ef9e1-58e3-432d-b4b1-17a188f4d911", "amount": "850.00", "creator_id": "50106af8-3579-4b49-ae0a-bd4e087a51af"}
+2025-10-18 15:46:45 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:57 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:57 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:58 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:58 | INFO | [ESCROW] brand=2a7f1f73-0a0e-4307-9144-3a8e9d7ad65d deposit=15000.00 fee_deposit=10.00% payout_fee=10.00%
+2025-10-18 15:46:58 | INFO | [BANK] event=deposit_hold payload={"payment_id": "8eb754db-d085-42ed-a49e-af03f394b17d", "amount": "15000.00", "brand_id": "2a7f1f73-0a0e-4307-9144-3a8e9d7ad65d", "deposit_fee": "1500.00"}
+2025-10-18 15:46:58 | INFO | [BANK] event=deposit_confirmed payload={"payment_id": "8eb754db-d085-42ed-a49e-af03f394b17d", "amount": "15000", "brand_id": "2a7f1f73-0a0e-4307-9144-3a8e9d7ad65d"}
+2025-10-18 15:46:58 | INFO | [ESCROW] bank confirmed deposit payment=8eb754db-d085-42ed-a49e-af03f394b17d status=RESERVED
+2025-10-18 15:46:58 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:58 | INFO | [ESCROW] platform_fee_payout=10.00% → fee=1350.00 payout=12150.00
+2025-10-18 15:46:58 | INFO | [ESCROW] payout to creator=da68a834-26ae-4daf-bd33-cee16ac51b7d amount=12150.00 status=RELEASED
+2025-10-18 15:46:58 | INFO | [BANK] event=payout_released payload={"payment_id": "8eb754db-d085-42ed-a49e-af03f394b17d", "payout_id": "0c3c8f61-ee3a-4f8d-83a0-5d88d2fb349f", "amount": "12150.00", "fee": "1350.00"}
+2025-10-18 15:46:58 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:58 | INFO | [ESCROW] payout to creator=da68a834-26ae-4daf-bd33-cee16ac51b7d amount=12150.00 status=WITHDRAWN
+2025-10-18 15:46:58 | INFO | [BANK] event=withdraw_processed payload={"payout_id": "0c3c8f61-ee3a-4f8d-83a0-5d88d2fb349f", "amount": "12150.00", "creator_id": "da68a834-26ae-4daf-bd33-cee16ac51b7d"}
+2025-10-18 15:46:58 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:59 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:59 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:59 | INFO | admin_action %s %s -> %s (admin_id=%s)
+2025-10-18 15:46:59 | INFO | [ADMIN] platform_fee updated: 10.00% → 12.00% by fee-admin@test.dev
+2025-10-18 15:46:59 | INFO | %s %s -> %s (%0.2f ms)
+2025-10-18 15:46:59 | INFO | admin_action %s %s -> %s (admin_id=%s)

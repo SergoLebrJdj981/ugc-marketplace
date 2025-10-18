@@ -8,14 +8,17 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict
 
-from app.models.enums import OrderStatus, PaymentStatus
+from app.models.enums import OrderStatus
 
 
-class PaymentWebhookPayload(BaseModel):
-    payment_id: UUID
-    status: PaymentStatus
+class BankWebhookPayload(BaseModel):
+    event: str
+    payment_id: UUID | None = None
+    payout_id: UUID | None = None
+    status: str
     signature: str | None = None
     metadata: dict[str, Any] | None = None
+    description: str | None = None
 
 
 class OrderWebhookPayload(BaseModel):

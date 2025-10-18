@@ -1,10 +1,14 @@
 """Webhook endpoints."""
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
 from app.core.events import event_bus
 from app.services.event_logger import log_event
 from app.services.telegram import handle_telegram_update
+from app.api.deps import get_db
+from app.schemas import BankWebhookPayload
+from app.services.escrow import handle_bank_webhook
 
 router = APIRouter(prefix="/webhooks")
 
@@ -16,8 +20,13 @@ def _handle(event_type: str, payload: dict) -> dict[str, str]:
 
 
 @router.post("/bank")
-def bank(payload: dict) -> dict[str, str]:
-    return _handle("bank_webhook", payload)
+def bank(payload: BankWebhookPayload, db: Session = Depends(get_db)) -> dict[str, object]:
+    payload_dict = payload.model_dump()
+    base = _handle("bank_webhook", payload_dict)
+    result = handle_bank_webhook(db, event=payload.event, payload={k: v for k, v in payload_dict.items() if k != "event"})
+    db.commit()
+    base.update(result)
+    return base
 
 
 @router.post("/telegram")

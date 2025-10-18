@@ -12,6 +12,8 @@ from app.api import (
     creator,
     factory,
     notifications,
+    payments,
+    payouts,
     system,
     webhooks,
 )
@@ -26,6 +28,8 @@ api_router.include_router(brand_dashboard.router)
 api_router.include_router(agent.router)
 api_router.include_router(factory.router)
 api_router.include_router(notifications.router, tags=["Notifications"])
+api_router.include_router(payments.router, tags=["Payments"])
+api_router.include_router(payouts.router, tags=["Payouts"])
 api_router.include_router(admin.router, tags=["Admin"])
 api_router.include_router(webhooks.router, tags=["Webhooks"])
 api_router.include_router(system.router, tags=["System"])

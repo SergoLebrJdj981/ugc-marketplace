@@ -17,7 +17,6 @@ from app.models.enums import OrderStatus
 if TYPE_CHECKING:  # pragma: no cover
     from app.models.application import Application
     from app.models.campaign import Campaign
-    from app.models.payment import Payment
     from app.models.user import User
     from app.models.video import Video
 
@@ -45,4 +44,3 @@ class Order(Base):
     creator: Mapped["User"] = relationship("User", back_populates="orders", foreign_keys=[creator_id])
     brand: Mapped["User"] = relationship("User", back_populates="orders_as_brand", foreign_keys=[brand_id])
     videos: Mapped[list["Video"]] = relationship("Video", back_populates="order", cascade="all, delete-orphan")
-    payments: Mapped[list["Payment"]] = relationship("Payment", back_populates="order", cascade="all, delete-orphan")

@@ -1,4 +1,4 @@
-"""Payment records for escrow and payouts."""
+"""Escrow payment model."""
 
 from __future__ import annotations
 
@@ -7,28 +7,41 @@ from datetime import datetime
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Enum, ForeignKey, Numeric, String, func
+from sqlalchemy import Enum, ForeignKey, Numeric, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
-from app.models.enums import PaymentStatus, PaymentType
+from app.models.enums import PaymentStatus
 
 if TYPE_CHECKING:  # pragma: no cover
-    from app.models.order import Order
+    from app.models.transaction import Transaction
+    from app.models.user import User
+    from app.models.payout import Payout
 
 
 class Payment(Base):
     __tablename__ = "payments"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    order_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("orders.id", ondelete="CASCADE"), nullable=False, index=True)
-    payment_type: Mapped[PaymentType] = mapped_column(Enum(PaymentType, name="payment_type"), nullable=False)
-    status: Mapped[PaymentStatus] = mapped_column(Enum(PaymentStatus, name="payment_status"), nullable=False, default=PaymentStatus.PENDING)
+    brand_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     amount: Mapped[Decimal] = mapped_column(Numeric(12, 2), nullable=False)
-    currency: Mapped[str] = mapped_column(String(8), nullable=False, default="RUB")
-    reference: Mapped[str | None] = mapped_column(String(120), unique=True)
-    processed_at: Mapped[datetime | None] = mapped_column()
-    created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
+    deposit_fee: Mapped[Decimal] = mapped_column(Numeric(12, 2), nullable=False, default=Decimal("0.00"))
+    fee: Mapped[Decimal] = mapped_column(Numeric(12, 2), nullable=False, default=Decimal("0.00"))
+    status: Mapped[PaymentStatus] = mapped_column(Enum(PaymentStatus, name="payment_status"), nullable=False, default=PaymentStatus.HOLD)
+    created_at: Mapped[datetime] = mapped_column(nullable=False, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(nullable=False, server_default=func.now(), onupdate=func.now())
 
-    order: Mapped["Order"] = relationship("Order", back_populates="payments")
+    brand: Mapped["User"] = relationship("User", back_populates="payments_made", foreign_keys=[brand_id])
+    payouts: Mapped[list["Payout"]] = relationship("Payout", back_populates="payment", cascade="all, delete-orphan")
+    transactions: Mapped[list["Transaction"]] = relationship(
+        "Transaction",
+        primaryjoin="Payment.id == foreign(Transaction.reference_id)",
+        viewonly=True,
+    )
+
+    def __repr__(self) -> str:  # pragma: no cover - debug helper
+        return (
+            f"<Payment id={self.id} brand_id={self.brand_id} amount={self.amount} "
+            f"deposit_fee={self.deposit_fee} status={self.status}>"
+        )

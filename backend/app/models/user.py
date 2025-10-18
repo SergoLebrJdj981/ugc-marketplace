@@ -6,10 +6,11 @@ import uuid
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, String, func
+from sqlalchemy import Boolean, Enum, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
+from app.models.enums import AdminLevel
 
 if TYPE_CHECKING:  # pragma: no cover
     from app.models.application import Application
@@ -17,6 +18,9 @@ if TYPE_CHECKING:  # pragma: no cover
     from app.models.notification import Notification
     from app.models.order import Order
     from app.models.report import Report
+    from app.models.payment import Payment
+    from app.models.payout import Payout
+    from app.models.transaction import Transaction
 
 class User(Base):
     __tablename__ = "users"
@@ -28,6 +32,11 @@ class User(Base):
     role: Mapped[str] = mapped_column(String(50), default="creator")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1", nullable=False)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
+    admin_level: Mapped[AdminLevel] = mapped_column(
+        Enum(AdminLevel, name="admin_level"),
+        nullable=False,
+        default=AdminLevel.NONE,
+    )
 
     applications: Mapped[list["Application"]] = relationship(
         "Application",
@@ -62,4 +71,22 @@ class User(Base):
         back_populates="author",
         cascade="all, delete-orphan",
         foreign_keys="Report.author_id",
+    )
+    payments_made: Mapped[list["Payment"]] = relationship(
+        "Payment",
+        back_populates="brand",
+        cascade="all, delete-orphan",
+        foreign_keys="Payment.brand_id",
+    )
+    payouts_received: Mapped[list["Payout"]] = relationship(
+        "Payout",
+        back_populates="creator",
+        cascade="all, delete-orphan",
+        foreign_keys="Payout.creator_id",
+    )
+    transactions: Mapped[list["Transaction"]] = relationship(
+        "Transaction",
+        back_populates="user",
+        cascade="all, delete-orphan",
+        foreign_keys="Transaction.user_id",
     )

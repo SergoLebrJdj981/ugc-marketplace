@@ -9,6 +9,9 @@ from app.models.telegram_link import TelegramLink
 from app.models.message import Message
 from app.models.order import Order
 from app.models.payment import Payment
+from app.models.payout import Payout
+from app.models.transaction import Transaction
+from app.models.system_setting import SystemSetting
 from app.models.report import Report
 from app.models.user import User
 from app.models.video import Video
@@ -19,7 +22,8 @@ from app.models.enums import (
     CampaignStatus,
     OrderStatus,
     PaymentStatus,
-    PaymentType,
+    PayoutStatus,
+    TransactionType,
     ReportType,
     UserRole,
     VideoStatus,
@@ -35,6 +39,9 @@ __all__ = [
     "Message",
     "Order",
     "Payment",
+    "Payout",
+    "Transaction",
+    "SystemSetting",
     "Report",
     "User",
     "Video",
@@ -44,7 +51,8 @@ __all__ = [
     "CampaignStatus",
     "OrderStatus",
     "PaymentStatus",
-    "PaymentType",
+    "PayoutStatus",
+    "TransactionType",
     "ReportType",
     "UserRole",
     "VideoStatus",

@@ -3,14 +3,42 @@
 from __future__ import annotations
 
 from datetime import datetime
+from decimal import Decimal
 
-from sqlalchemy import func
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 
+from app.api.deps import get_db, require_admin
 from app.db.session import get_session
-from app.models import Campaign, EventLog, Notification, User
+from app.models import (
+    AdminLevel,
+    Campaign,
+    EventLog,
+    Notification,
+    Payment,
+    PaymentStatus,
+    Payout,
+    PayoutStatus,
+    SystemSetting,
+    Transaction,
+    User,
+)
+from app.schemas import (
+    PlatformFeeResponse,
+    PlatformFeeSettingsItem,
+    PlatformFeeSettingsResponse,
+    PlatformFeeUpdate,
+)
+from app.services.escrow import (
+    get_platform_fee,
+    get_platform_fee_deposit,
+    get_platform_fee_payout,
+    set_platform_fee,
+    set_platform_fee_deposit,
+    set_platform_fee_payout,
+)
 
 router = APIRouter(prefix="/admin")
 
@@ -75,20 +103,64 @@ def campaigns(db: Session = Depends(get_session)):
 
 
 @router.get("/finance")
-def finance_overview(db: Session = Depends(get_session)):
+def finance_overview(
+    db: Session = Depends(get_db),
+    _: User = Depends(require_admin(AdminLevel.ADMIN_LEVEL_2)),
+):
     """Return finance metrics for admin dashboard."""
 
-    total_payouts = db.execute(func.sum(Notification.id)).scalar() or 0  # placeholder aggregate
+    escrow_balance = db.execute(
+        select(func.coalesce(func.sum(Payment.amount), 0)).where(
+            Payment.status.in_([PaymentStatus.HOLD, PaymentStatus.RESERVED, PaymentStatus.RELEASED])
+        )
+    ).scalar_one()
+
+    total_payouts = db.execute(
+        select(func.coalesce(func.sum(Payout.amount), 0)).where(Payout.status == PayoutStatus.WITHDRAWN)
+    ).scalar_one()
+
+    processing = db.execute(
+        select(func.coalesce(func.sum(Payout.amount), 0)).where(Payout.status == PayoutStatus.RELEASED)
+    ).scalar_one()
+
+    recent_transactions = (
+        db.query(Transaction)
+        .order_by(Transaction.created_at.desc())
+        .limit(20)
+        .all()
+    )
+
+    recent_payload = [
+        {
+            "id": str(txn.id),
+            "type": txn.type.value,
+            "amount": float(txn.amount),
+            "status": txn.type.value,
+            "date": txn.created_at.isoformat() if txn.created_at else None,
+        }
+        for txn in recent_transactions
+    ]
+
+    fees_collected = db.execute(
+        select(func.coalesce(func.sum(Payment.fee), 0))
+    ).scalar_one()
+
+    platform_fee = float(get_platform_fee(db))
+    platform_fee_deposit = float(get_platform_fee_deposit(db))
+    platform_fee_payout = float(get_platform_fee_payout(db))
+    db.commit()
+
     return {
         "metrics": {
-            "total_payouts": int(total_payouts) * 1000,
-            "escrow_balance": 520000,
-            "processing": 74000,
+            "total_payouts": float(total_payouts),
+            "escrow_balance": float(escrow_balance),
+            "processing": float(processing),
+            "fees_collected": float(fees_collected),
+            "platform_fee": platform_fee,
+            "platform_fee_deposit": platform_fee_deposit,
+            "platform_fee_payout": platform_fee_payout,
         },
-        "recent": [
-            {"id": "adm-txn-1", "type": "payout", "amount": 42000, "status": "completed", "date": "2025-10-22"},
-            {"id": "adm-txn-2", "type": "escrow", "amount": 18000, "status": "pending", "date": "2025-10-24"},
-        ],
+        "recent": recent_payload,
     }
 
 
@@ -109,3 +181,114 @@ def analytics_overview(db: Session = Depends(get_session)):
             "notifications": {"incidents": 0, "uptime": 0.998},
         },
     }
+@router.get("/settings", response_model=PlatformFeeSettingsResponse)
+def list_platform_fee_settings(
+    db: Session = Depends(get_db),
+    _: User = Depends(require_admin(AdminLevel.ADMIN_LEVEL_2)),
+) -> PlatformFeeSettingsResponse:
+    base_value = get_platform_fee(db)
+    deposit_value = get_platform_fee_deposit(db)
+    payout_value = get_platform_fee_payout(db)
+
+    base_setting = db.query(SystemSetting).filter(SystemSetting.key == "platform_fee").one()
+    deposit_setting = db.query(SystemSetting).filter(SystemSetting.key == "platform_fee_deposit").one()
+    payout_setting = db.query(SystemSetting).filter(SystemSetting.key == "platform_fee_payout").one()
+    db.commit()
+    for setting in (base_setting, deposit_setting, payout_setting):
+        db.refresh(setting)
+
+    return PlatformFeeSettingsResponse(
+        platform_fee=_settings_item(base_setting, base_value),
+        platform_fee_deposit=_settings_item(deposit_setting, deposit_value),
+        platform_fee_payout=_settings_item(payout_setting, payout_value),
+    )
+
+
+@router.get("/settings/platform_fee", response_model=PlatformFeeResponse)
+def platform_fee_settings(
+    db: Session = Depends(get_db),
+    _: User = Depends(require_admin(AdminLevel.ADMIN_LEVEL_2)),
+) -> PlatformFeeResponse:
+    value = get_platform_fee(db)
+    setting = db.query(SystemSetting).filter(SystemSetting.key == "platform_fee").one_or_none()
+    if setting is None:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Настройка комиссии не найдена")
+    db.commit()
+    db.refresh(setting)
+    return _settings_response(setting, value)
+
+
+@router.patch("/settings/platform_fee", response_model=PlatformFeeResponse)
+def update_platform_fee_setting(
+    payload: PlatformFeeUpdate,
+    db: Session = Depends(get_db),
+    admin: User = Depends(require_admin(AdminLevel.ADMIN_LEVEL_3)),
+) -> PlatformFeeResponse:
+    setting = set_platform_fee(db, payload.value, actor=admin)
+    db.commit()
+    db.refresh(setting)
+    return _settings_response(setting, Decimal(setting.value))
+
+
+@router.get("/settings/platform_fee_deposit", response_model=PlatformFeeResponse)
+def platform_fee_deposit_settings(
+    db: Session = Depends(get_db),
+    _: User = Depends(require_admin(AdminLevel.ADMIN_LEVEL_2)),
+) -> PlatformFeeResponse:
+    value = get_platform_fee_deposit(db)
+    setting = db.query(SystemSetting).filter(SystemSetting.key == "platform_fee_deposit").one_or_none()
+    if setting is None:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Настройка комиссии не найдена")
+    db.commit()
+    db.refresh(setting)
+    return _settings_response(setting, value)
+
+
+@router.patch("/settings/platform_fee_deposit", response_model=PlatformFeeResponse)
+def update_platform_fee_deposit_setting(
+    payload: PlatformFeeUpdate,
+    db: Session = Depends(get_db),
+    admin: User = Depends(require_admin(AdminLevel.ADMIN_LEVEL_3)),
+) -> PlatformFeeResponse:
+    setting = set_platform_fee_deposit(db, payload.value, actor=admin)
+    db.commit()
+    db.refresh(setting)
+    return _settings_response(setting, Decimal(setting.value))
+
+
+@router.get("/settings/platform_fee_payout", response_model=PlatformFeeResponse)
+def platform_fee_payout_settings(
+    db: Session = Depends(get_db),
+    _: User = Depends(require_admin(AdminLevel.ADMIN_LEVEL_2)),
+) -> PlatformFeeResponse:
+    value = get_platform_fee_payout(db)
+    setting = db.query(SystemSetting).filter(SystemSetting.key == "platform_fee_payout").one_or_none()
+    if setting is None:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Настройка комиссии не найдена")
+    db.commit()
+    db.refresh(setting)
+    return _settings_response(setting, value)
+
+
+@router.patch("/settings/platform_fee_payout", response_model=PlatformFeeResponse)
+def update_platform_fee_payout_setting(
+    payload: PlatformFeeUpdate,
+    db: Session = Depends(get_db),
+    admin: User = Depends(require_admin(AdminLevel.ADMIN_LEVEL_3)),
+) -> PlatformFeeResponse:
+    setting = set_platform_fee_payout(db, payload.value, actor=admin)
+    db.commit()
+    db.refresh(setting)
+    return _settings_response(setting, Decimal(setting.value))
+
+
+def _settings_item(setting: SystemSetting, value: Decimal) -> PlatformFeeSettingsItem:
+    return PlatformFeeSettingsItem(
+        value=value,
+        description=setting.description,
+        updated_at=setting.updated_at,
+    )
+
+
+def _settings_response(setting: SystemSetting, value: Decimal) -> PlatformFeeResponse:
+    return PlatformFeeResponse(value=value, description=setting.description, updated_at=setting.updated_at)

@@ -4,6 +4,8 @@ import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
 import { LayoutShell } from '@/components/layout/LayoutShell';
 import { Card, EmptyState, Loader, Table } from '@/components/ui';
 import { useDashboardData } from '@/lib/useDashboardData';
+import { WithdrawButton } from '@/components/finance/WithdrawButton';
+import { TransactionsTable } from '@/components/finance/TransactionsTable';
 
 interface CreatorBalanceResponse {
   available: number;
@@ -18,9 +20,22 @@ interface CreatorBalanceResponse {
     id: string;
     type: string;
     amount: number;
-    date: string;
+    date: string | null;
     status: string;
+    description?: string | null;
   }>;
+  payouts: Array<{
+    id: string;
+    amount: number;
+    status: string;
+    created_at: string | null;
+    updated_at: string | null;
+    campaign_id?: string;
+    payment_id?: string | null;
+  }>;
+  withdrawable: string[];
+  retained_fee_total: number;
+  platform_fee: number;
 }
 
 const sidebarLinks = [
@@ -62,6 +77,9 @@ export default function CreatorBalancePage() {
               <p className="mt-2 text-2xl font-semibold text-slate-900">
                 {data.available.toLocaleString('ru-RU')} ₽
               </p>
+              <div className="mt-4">
+                <WithdrawButton payouts={data.payouts} onSuccess={() => mutate()} />
+              </div>
             </Card>
             <Card>
               <p className="text-sm text-slate-500">Ожидает подтверждения</p>
@@ -76,30 +94,64 @@ export default function CreatorBalancePage() {
               </p>
             </Card>
             <Card>
-              <p className="text-sm text-slate-500">Последняя выплата</p>
-              <p className="mt-2 text-slate-900">
-                {data.last_payout.amount.toLocaleString('ru-RU')} ₽ ·{' '}
-                {new Date(data.last_payout.date).toLocaleDateString('ru-RU')}
+              <p className="text-sm text-slate-500">Удержанная комиссия</p>
+              <p className="mt-2 text-2xl font-semibold text-slate-900">
+                {data.retained_fee_total.toLocaleString('ru-RU')} ₽
               </p>
-              <p className="text-xs text-slate-500">Метод: {methodLabel(data.last_payout.method)}</p>
+              <p className="mt-1 text-xs text-slate-500">
+                Текущая комиссия платформы {Math.round(data.platform_fee * 10000) / 100}%.
+              </p>
             </Card>
           </div>
         ) : null}
 
-        {data && data.transactions.length ? (
-          <Table
-            columns={['ID', 'Тип', 'Дата', 'Сумма', 'Статус']}
-            data={data.transactions.map((txn) => [
-              txn.id,
-              transactionTypeLabel(txn.type),
-              new Date(txn.date).toLocaleDateString('ru-RU'),
-              `${txn.amount.toLocaleString('ru-RU')} ₽`,
-              txn.status
-            ])}
-          />
+        {data ? (
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card>
+              <p className="text-sm text-slate-500">Последняя выплата</p>
+              <p className="mt-2 text-slate-900">
+                {data.last_payout.amount.toLocaleString('ru-RU')} ₽ ·{' '}
+                {data.last_payout.date ? new Date(data.last_payout.date).toLocaleDateString('ru-RU') : '—'}
+              </p>
+              <p className="text-xs text-slate-500">Метод: {methodLabel(data.last_payout.method)}</p>
+            </Card>
+            <Card>
+              <p className="text-sm text-slate-500">Доступно к выводу</p>
+              <p className="mt-2 text-slate-900">
+                {data.withdrawable.length ? `${data.withdrawable.length} выплат(ы)` : 'нет доступных выплат'}
+              </p>
+            </Card>
+          </div>
+        ) : null}
+
+        {data ? (
+          <div className="mt-6">
+            <TransactionsTable items={data.transactions} />
+          </div>
         ) : (
           <EmptyState title="Транзакции отсутствуют" description="История выплат появится после поступления средств." />
         )}
+
+        {data && data.payouts.length ? (
+          <Card>
+            <h3 className="text-base font-semibold text-slate-900">Выплаты</h3>
+            <p className="mt-1 text-sm text-slate-500">
+              Список последних выплат и их статусы.
+            </p>
+            <div className="mt-4">
+              <Table
+                columns={['ID', 'Кампания', 'Сумма', 'Статус', 'Создана']}
+                data={data.payouts.map((payout) => [
+                  payout.id,
+                  payout.campaign_id ?? '—',
+                  `${payout.amount.toLocaleString('ru-RU')} ₽`,
+                  payout.status,
+                  payout.created_at ? new Date(payout.created_at).toLocaleDateString('ru-RU') : '—'
+                ])}
+              />
+            </div>
+          </Card>
+        ) : null}
       </LayoutShell>
     </ProtectedRoute>
   );
@@ -137,7 +189,30 @@ const creatorBalanceFallback: CreatorBalanceResponse = {
     method: 'bank_transfer'
   },
   transactions: [
-    { id: 'txn-1', type: 'payout', amount: 34000, date: new Date().toISOString(), status: 'completed' },
-    { id: 'txn-2', type: 'escrow', amount: 21000, date: new Date().toISOString(), status: 'pending' }
-  ]
+    { id: 'txn-1', type: 'withdraw', amount: 34000, date: new Date().toISOString(), status: 'completed', description: null },
+    { id: 'txn-2', type: 'release', amount: 21000, date: new Date().toISOString(), status: 'processed', description: null }
+  ],
+  payouts: [
+    {
+      id: 'payout-1',
+      amount: 34000,
+      status: 'withdrawn',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      campaign_id: 'cmp-demo',
+      payment_id: 'pay-1'
+    },
+    {
+      id: 'payout-2',
+      amount: 21000,
+      status: 'released',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      campaign_id: 'cmp-demo-2',
+      payment_id: 'pay-2'
+    }
+  ],
+  withdrawable: ['payout-2'],
+  retained_fee_total: 12000,
+  platform_fee: 0.1
 };
